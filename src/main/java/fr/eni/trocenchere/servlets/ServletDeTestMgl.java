@@ -26,6 +26,7 @@ public class ServletDeTestMgl extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("J'aime les patates");
+		System.out.println("J'aime les fraises aussi");
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
