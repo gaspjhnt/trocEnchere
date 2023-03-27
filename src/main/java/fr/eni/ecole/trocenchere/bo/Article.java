@@ -4,14 +4,14 @@ import java.time.LocalDate;
 import java.util.List;
 
 public class Article {
-	private int noArticle;
+	private Integer noArticle;
 	private String nomArticle;
 	private String description;
 	private LocalDate dateDebutEnchere;
 	private LocalDate dateFinEnchere;
-	private int prixDepart;
-	private int prixVente; // (Prix qui augmente a chaque enchères)
-	private boolean etatVente; // (Vendu ou non)
+	private Integer prixDepart;
+	private Integer prixVente; // (Prix qui augmente a chaque enchères)
+	private Boolean etatVente; // (Vendu ou non)
 	private Utilisateur utilisateur;
 	private List<Enchere> lstEnchere;
 	private Categorie categorie;
@@ -32,7 +32,7 @@ public class Article {
 	 * INFO : Obligatoire pour créer un article SANS RETRAIT
 	 */
 	public Article(String nomArticle, String description, LocalDate dateDebutEnchere, LocalDate dateFinEnchere,
-			int prixDepart, Categorie categorie) {
+			Integer prixDepart, Categorie categorie) {
 		super();
 		this.nomArticle = nomArticle;
 		this.description = description;
@@ -47,7 +47,7 @@ public class Article {
 	 * INFO : Obligatoire pour créer un article avec RETRAIT
 	 */
 	public Article(String nomArticle, String description, LocalDate dateDebutEnchere, LocalDate dateFinEnchere,
-			int prixDepart, Categorie categorie, Retrait retrait) {
+			Integer prixDepart, Categorie categorie, Retrait retrait) {
 		super();
 		this.nomArticle = nomArticle;
 		this.description = description;
@@ -62,8 +62,8 @@ public class Article {
 	/**
 	 * Constructeur complet
 	 */
-	public Article(int noArticle, String nomArticle, String description, LocalDate dateDebutEnchere,
-			LocalDate dateFinEnchere, int prixDepart, int prixVente, boolean etatVente, Utilisateur utilisateur,
+	public Article(Integer noArticle, String nomArticle, String description, LocalDate dateDebutEnchere,
+			LocalDate dateFinEnchere, Integer prixDepart, Integer prixVente, boolean etatVente, Utilisateur utilisateur,
 			List<Enchere> lstEnchere, Categorie categorie, Retrait retrait) {
 		super();
 		this.noArticle = noArticle;
@@ -80,11 +80,11 @@ public class Article {
 		this.retrait = retrait;
 	}
 
-	public int getNoArticle() {
+	public Integer getNoArticle() {
 		return noArticle;
 	}
 
-	public void setNoArticle(int noArticle) {
+	public void setNoArticle(Integer noArticle) {
 		this.noArticle = noArticle;
 	}
 
@@ -120,27 +120,27 @@ public class Article {
 		this.dateFinEnchere = dateFinEnchere;
 	}
 
-	public int getPrixDepart() {
+	public Integer getPrixDepart() {
 		return prixDepart;
 	}
 
-	public void setPrixDepart(int prixDepart) {
+	public void setPrixDepart(Integer prixDepart) {
 		this.prixDepart = prixDepart;
 	}
 
-	public int getPrixVente() {
+	public Integer getPrixVente() {
 		return prixVente;
 	}
 
-	public void setPrixVente(int prixVente) {
+	public void setPrixVente(Integer prixVente) {
 		this.prixVente = prixVente;
 	}
 
-	public boolean isEtatVente() {
+	public Boolean isEtatVente() {
 		return etatVente;
 	}
 
-	public void setEtatVente(boolean etatVente) {
+	public void setEtatVente(Boolean etatVente) {
 		this.etatVente = etatVente;
 	}
 

@@ -3,7 +3,7 @@ package fr.eni.ecole.trocenchere.bo;
 import java.util.List;
 
 public class Utilisateur {
-	private int noUtilisateur;
+	private Integer noUtilisateur;
 	private String pseudo;
 	private String nom;
 	private String prenom;
@@ -13,8 +13,8 @@ public class Utilisateur {
 	private String codePostale;
 	private String Ville;
 	private String motDePasse;
-	private int credit;
-	private boolean administrateur;
+	private Integer credit;
+	private Boolean administrateur;
 	private List<Enchere> lstEnchere;
 	private List<Article> lstArticle;
 
@@ -49,7 +49,7 @@ public class Utilisateur {
 	 * Obligatoire pour créer un admin
 	 */
 	public Utilisateur(String pseudo, String nom, String prenom, String email, String telephone, String rue,
-			String codePostale, String ville, String motDePasse, boolean administrateur, List<Enchere> lstEnchere,
+			String codePostale, String ville, String motDePasse, Boolean administrateur, List<Enchere> lstEnchere,
 			List<Article> lstArticle) {
 		super();
 		this.pseudo = pseudo;
@@ -70,8 +70,8 @@ public class Utilisateur {
 	/**
 	 * Constructeur entier
 	 */
-	public Utilisateur(int noUtilisateur, String pseudo, String nom, String prenom, String email, String telephone,
-			String rue, String codePostale, String ville, String motDePasse, int credit, boolean administrateur,
+	public Utilisateur(Integer noUtilisateur, String pseudo, String nom, String prenom, String email, String telephone,
+			String rue, String codePostale, String ville, String motDePasse, Integer credit, Boolean administrateur,
 			List<Enchere> lstEnchere, List<Article> lstArticle) {
 		super();
 		this.noUtilisateur = noUtilisateur;
@@ -90,11 +90,11 @@ public class Utilisateur {
 		this.lstArticle = lstArticle;
 	}
 
-	public int getNoUtilisateur() {
+	public Integer getNoUtilisateur() {
 		return noUtilisateur;
 	}
 
-	public void setNoUtilisateur(int noUtilisateur) {
+	public void setNoUtilisateur(Integer noUtilisateur) {
 		this.noUtilisateur = noUtilisateur;
 	}
 
@@ -170,19 +170,19 @@ public class Utilisateur {
 		this.motDePasse = motDePasse;
 	}
 
-	public int getCredit() {
+	public Integer getCredit() {
 		return credit;
 	}
 
-	public void setCredit(int credit) {
+	public void setCredit(Integer credit) {
 		this.credit = credit;
 	}
 
-	public boolean isAdministrateur() {
+	public Boolean isAdministrateur() {
 		return administrateur;
 	}
 
-	public void setAdministrateur(boolean administrateur) {
+	public void setAdministrateur(Boolean administrateur) {
 		this.administrateur = administrateur;
 	}
 
