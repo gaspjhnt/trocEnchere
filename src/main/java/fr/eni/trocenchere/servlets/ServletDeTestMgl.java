@@ -26,7 +26,11 @@ public class ServletDeTestMgl extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("J'aime les patates");
-		System.out.println("T'es un ouf mgl vive les pommes de terre");
+		System.out.println("moi aussi j'adore ça gros");
+		System.out.println("mais nan jure?");
+		System.out.println("comment ça se fait?");
+		System.out.println("bah jsp en vrai c bon");
+		System.out.println("c vrai");
 		System.out.println("J'aime les fraises aussi");
 		System.out.println("J'aime les bananes aussi");
 		response.getWriter().append("Served at: ").append(request.getContextPath());
