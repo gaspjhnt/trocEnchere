@@ -26,6 +26,7 @@ public class TestServlets extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		//oui oui oui
 		response.getWriter().append("Served at non non non: ").append(request.getContextPath());
 	}
 
