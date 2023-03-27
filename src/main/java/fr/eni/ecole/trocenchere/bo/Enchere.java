@@ -12,7 +12,7 @@ public class Enchere {
 	
 	/**
 	 * Constructeur Vide pour initialiser une enchere vide
-	 */
+	 */ 
 	public Enchere() {
 		super();
 	}

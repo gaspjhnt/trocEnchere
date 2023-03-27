@@ -14,7 +14,7 @@ public class Utilisateur {
 	private String Ville;
 	private String motDePasse;
 	private Integer credit;
-	private Boolean administrateur;
+	private Boolean administrateur; 
 	private List<Enchere> lstEnchere;
 	private List<Article> lstArticle;
 

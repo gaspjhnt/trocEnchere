@@ -22,7 +22,7 @@ public class Article {
 	
 	/**
 	 * Constructeur vide pour initialiser un article vide
-	 */
+	 */ 
 	public Article() {
 	}
 
