@@ -29,7 +29,7 @@ public class TestServlets extends HttpServlet {
 		System.out.println("Premier conflit");
 		
 		// TODO Auto-generated method stub
-		//oui oui oui
+		System.out.println("oui oui oui");
 		response.getWriter().append("Served at non non non: ").append(request.getContextPath());
 	}
 
