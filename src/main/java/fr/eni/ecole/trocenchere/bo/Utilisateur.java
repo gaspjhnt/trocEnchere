@@ -10,7 +10,7 @@ public class Utilisateur {
 	private String email;
 	private String telephone;
 	private String rue;
-	private String codePostale;
+	private String codePostal;
 	private String Ville;
 	private String motDePasse;
 	private Integer credit;
@@ -47,7 +47,7 @@ public class Utilisateur {
 		this.email = email;
 		this.telephone = telephone;
 		this.rue = rue;
-		this.codePostale = codePostale;
+		this.codePostal = codePostale;
 		Ville = ville;
 		this.motDePasse = motDePasse;
 		this.credit = 200;
@@ -79,7 +79,7 @@ public class Utilisateur {
 		this.email = email;
 		this.telephone = telephone;
 		this.rue = rue;
-		this.codePostale = codePostale;
+		this.codePostal = codePostale;
 		Ville = ville;
 		this.motDePasse = motDePasse;
 		this.credit = 200;
@@ -116,7 +116,7 @@ public class Utilisateur {
 		this.email = email;
 		this.telephone = telephone;
 		this.rue = rue;
-		this.codePostale = codePostale;
+		this.codePostal = codePostale;
 		Ville = ville;
 		this.motDePasse = motDePasse;
 		this.credit = credit;
@@ -182,11 +182,11 @@ public class Utilisateur {
 	}
 
 	public String getCodePostale() {
-		return codePostale;
+		return codePostal;
 	}
 
 	public void setCodePostale(String codePostale) {
-		this.codePostale = codePostale;
+		this.codePostal = codePostale;
 	}
 
 	public String getVille() {
@@ -242,7 +242,7 @@ public class Utilisateur {
 	public String toString() {
 		return "Utilisateur [noUtilisateur=" + noUtilisateur + ", pseudo=" + pseudo + ", nom=" + nom + ", prenom="
 				+ prenom + ", email=" + email + ", telephone=" + telephone + ", rue=" + rue + ", codePostale="
-				+ codePostale + ", Ville=" + Ville + ", motDePasse=" + motDePasse + ", credit=" + credit
+				+ codePostal + ", Ville=" + Ville + ", motDePasse=" + motDePasse + ", credit=" + credit
 				+ ", administrateur=" + administrateur + ", lstEnchere=" + lstEnchere + ", lstArticle=" + lstArticle
 				+ "]";
 	}
