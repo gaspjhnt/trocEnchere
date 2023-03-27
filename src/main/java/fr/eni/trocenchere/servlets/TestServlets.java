@@ -25,7 +25,10 @@ public class TestServlets extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("Trop relou ce truc");
+		// TODO Auto-generated method stub
+		
+		System.out.println("Premier conflit");
+		System.out.println("ça a full bug");
 		response.getWriter().append("Served at non non non: ").append(request.getContextPath());
 	}
 
