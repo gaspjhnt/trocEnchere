@@ -23,6 +23,7 @@ public class Utilisateur {
 	 */
 	public Utilisateur() {
 		this.credit = 200;
+		this.administrateur = false;
 	}
 
 	/**
@@ -51,6 +52,7 @@ public class Utilisateur {
 		Ville = ville;
 		this.motDePasse = motDePasse;
 		this.credit = 200;
+		this.administrateur = false;
 	}
 
 	/**
