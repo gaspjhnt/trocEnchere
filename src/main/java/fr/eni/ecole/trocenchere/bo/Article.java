@@ -3,7 +3,7 @@ package fr.eni.ecole.trocenchere.bo;
 import java.time.LocalDate;
 import java.util.List;
 
-public class Article {
+public class Article { //(Vente)
 	private Integer noArticle;
 	private String nomArticle;
 	private String description;
@@ -12,7 +12,7 @@ public class Article {
 	private Integer prixDepart;
 	private Integer prixVente; // (Prix qui augmente a chaque enchères)
 	private Boolean etatVente; // (Vendu ou non)
-	private Utilisateur utilisateur;
+	private Utilisateur utilisateur; // (Vendeur)
 	private List<Enchere> lstEnchere;
 	private Categorie categorie;
 	private Retrait retrait; // (peux être null pas obliger de le définir dans le constructeur)
@@ -30,6 +30,12 @@ public class Article {
 	/**
 	 * Constructeur pour initialiser un article sans adresse de retrait
 	 * INFO : Obligatoire pour créer un article SANS RETRAIT
+	 * @param nomArticle
+	 * @param description
+	 * @param dateDebutEnchere
+	 * @param dateFinEnchere
+	 * @param prixDepart
+	 * @param categorie
 	 */
 	public Article(String nomArticle, String description, LocalDate dateDebutEnchere, LocalDate dateFinEnchere,
 			Integer prixDepart, Categorie categorie) {
@@ -45,6 +51,13 @@ public class Article {
 	/**
 	 * Constructeur pour initialiser un article avec adresse de retrait
 	 * INFO : Obligatoire pour créer un article avec RETRAIT
+	 * @param nomArticle
+	 * @param description
+	 * @param dateDebutEnchere
+	 * @param dateFinEnchere
+	 * @param prixDepart
+	 * @param categorie
+	 * @param retrait
 	 */
 	public Article(String nomArticle, String description, LocalDate dateDebutEnchere, LocalDate dateFinEnchere,
 			Integer prixDepart, Categorie categorie, Retrait retrait) {
@@ -61,6 +74,18 @@ public class Article {
 
 	/**
 	 * Constructeur complet
+	 * @param noArticle
+	 * @param nomArticle
+	 * @param description
+	 * @param dateDebutEnchere
+	 * @param dateFinEnchere
+	 * @param prixDepart
+	 * @param prixVente
+	 * @param etatVente
+	 * @param utilisateur
+	 * @param lstEnchere
+	 * @param categorie
+	 * @param retrait
 	 */
 	public Article(Integer noArticle, String nomArticle, String description, LocalDate dateDebutEnchere,
 			LocalDate dateFinEnchere, Integer prixDepart, Integer prixVente, boolean etatVente, Utilisateur utilisateur,

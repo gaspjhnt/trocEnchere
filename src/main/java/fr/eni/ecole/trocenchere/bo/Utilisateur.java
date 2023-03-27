@@ -28,6 +28,15 @@ public class Utilisateur {
 	/**
 	 * Constructeur pour initialiser un utilisateur sans listes sans crédit sans
 	 * admin et sans id INFO : obligatoire a la création d'un utilisateur
+	 * @param pseudo
+	 * @param nom
+	 * @param prenom
+	 * @param email
+	 * @param telephone
+	 * @param rue
+	 * @param codePostale
+	 * @param ville
+	 * @param motDePasse
 	 */
 	public Utilisateur(String pseudo, String nom, String prenom, String email, String telephone, String rue,
 			String codePostale, String ville, String motDePasse) {
@@ -47,6 +56,18 @@ public class Utilisateur {
 	/**
 	 * Constructeur pour initialiser un utilisateur sans sans ID sans crédit INFO :
 	 * Obligatoire pour créer un admin
+	 * @param pseudo
+	 * @param nom
+	 * @param prenom
+	 * @param email
+	 * @param telephone
+	 * @param rue
+	 * @param codePostale
+	 * @param ville
+	 * @param motDePasse
+	 * @param administrateur
+	 * @param lstEnchere
+	 * @param lstArticle
 	 */
 	public Utilisateur(String pseudo, String nom, String prenom, String email, String telephone, String rue,
 			String codePostale, String ville, String motDePasse, Boolean administrateur, List<Enchere> lstEnchere,
@@ -69,6 +90,20 @@ public class Utilisateur {
 
 	/**
 	 * Constructeur entier
+	 * @param noUtilisateur
+	 * @param pseudo
+	 * @param nom
+	 * @param prenom
+	 * @param email
+	 * @param telephone
+	 * @param rue
+	 * @param codePostale
+	 * @param ville
+	 * @param motDePasse
+	 * @param credit
+	 * @param administrateur
+	 * @param lstEnchere
+	 * @param lstArticle
 	 */
 	public Utilisateur(Integer noUtilisateur, String pseudo, String nom, String prenom, String email, String telephone,
 			String rue, String codePostale, String ville, String motDePasse, Integer credit, Boolean administrateur,

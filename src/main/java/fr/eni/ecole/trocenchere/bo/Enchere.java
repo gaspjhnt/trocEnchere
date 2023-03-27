@@ -2,11 +2,11 @@ package fr.eni.ecole.trocenchere.bo;
 
 import java.time.LocalDate;
 
-public class Enchere {
+public class Enchere { //(Achat)
 	private Integer noEnchere;
 	private LocalDate dateEnchere;
 	private Integer montant_enchere;
-	private Utilisateur utilisateur;
+	private Utilisateur utilisateur; // (Acheteur)
 	private Article article;
 	
 	
@@ -21,6 +21,11 @@ public class Enchere {
 	
 	/**
 	 * Constructeur Complet
+	 * @param noEnchere
+	 * @param dateEnchere
+	 * @param montant_enchere
+	 * @param utilisateur
+	 * @param article
 	 */
 	public Enchere(Integer noEnchere, LocalDate dateEnchere, Integer montant_enchere, Utilisateur utilisateur,
 			Article article) {
