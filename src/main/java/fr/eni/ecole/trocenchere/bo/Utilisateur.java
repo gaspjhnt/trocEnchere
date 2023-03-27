@@ -2,7 +2,7 @@ package fr.eni.ecole.trocenchere.bo;
 
 import java.util.List;
 
-public class Utilisateur {
+public class Utilisateur { 
 	private Integer noUtilisateur;
 	private String pseudo;
 	private String nom;

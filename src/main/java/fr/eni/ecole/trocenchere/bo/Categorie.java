@@ -1,7 +1,7 @@
 package fr.eni.ecole.trocenchere.bo;
 
 import java.util.List;
-
+ 
 public class Categorie {
 	private Integer noCategorie;
 	private String libelle;

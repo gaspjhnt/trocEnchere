@@ -20,7 +20,7 @@ public class Article { //(Vente)
 	
 
 	
-	/**
+	/** 
 	 * Constructeur vide pour initialiser un article vide
 	 */ 
 	public Article() {

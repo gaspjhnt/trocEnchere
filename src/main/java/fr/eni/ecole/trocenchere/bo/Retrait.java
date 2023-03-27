@@ -1,6 +1,6 @@
 package fr.eni.ecole.trocenchere.bo;
 
-public class Retrait {
+public class Retrait { 
 	private Integer noRetrait;
 	private String rue;
 	private String codePostal;

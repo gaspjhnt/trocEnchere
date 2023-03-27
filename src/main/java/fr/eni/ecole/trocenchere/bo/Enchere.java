@@ -2,7 +2,7 @@ package fr.eni.ecole.trocenchere.bo;
 
 import java.time.LocalDate;
 
-public class Enchere { //(Achat)
+public class Enchere { //(Achat) 
 	private Integer noEnchere;
 	private LocalDate dateEnchere;
 	private Integer montant_enchere;
