@@ -33,7 +33,13 @@ public class Retrait {
 	}
 
 
-
+	public Retrait(String rue, String codePostal, String ville, Article article) {
+		super();
+		this.rue = rue;
+		this.codePostal = codePostal;
+		this.ville = ville;
+		this.article = article;
+	}
 	/**
 	 * Constructeur complet
 	 * @param noRetrait

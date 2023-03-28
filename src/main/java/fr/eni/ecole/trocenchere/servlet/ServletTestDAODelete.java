@@ -31,25 +31,13 @@ public class ServletTestDAODelete extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		TrocEnchereDAOImplDelete testDelete = new TrocEnchereDAOImplDelete();
-		TrocEnchereDAOInsertImpl testInsert = new TrocEnchereDAOInsertImpl();
 		
 		try {
-			testInsert.insertArticle(null, null, null);
-			testInsert.insertCategorie(null);
-			testInsert.insertEnchere(null, null, null);
-			testInsert.insertRetrait(null, null);
-			testInsert.insertUtilisateur(null);
-		} catch (TrocEnchereException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		try {
-			testDelete.deleteArticle(null);
-			testDelete.deleteUtilisateur(null);
-			testDelete.deleteCategorie(null);
-			testDelete.deleteEnchere(null);
-			testDelete.deleteRetrait(null);
+			testDelete.deleteArticle(6);
+			testDelete.deleteUtilisateur(19);
+			testDelete.deleteCategorie(14);
+			testDelete.deleteEnchere(3);
+			testDelete.deleteRetrait(4);
 		} catch (TrocEnchereException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

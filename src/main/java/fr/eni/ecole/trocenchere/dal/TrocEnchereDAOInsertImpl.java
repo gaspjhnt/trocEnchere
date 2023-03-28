@@ -53,7 +53,7 @@ public class TrocEnchereDAOInsertImpl implements TrocEnchereDAOInsert {
 		
 	}
 	@Override
-	public void insertArticle(Article article, Utilisateur utilisateur, Categorie categorie) throws TrocEnchereException {
+	public void insertArticle(Article article) throws TrocEnchereException {
 		
 		try(Connection cnx = ConnectionProvider.getConnection()){
 			
@@ -64,8 +64,8 @@ public class TrocEnchereDAOInsertImpl implements TrocEnchereDAOInsert {
 			pstmt.setDate(4, Date.valueOf(article.getDateFinEnchere()));
 			pstmt.setInt(5, article.getPrixDepart());
 			pstmt.setInt(6, 0);
-			pstmt.setInt(7, utilisateur.getNoUtilisateur());
-			pstmt.setInt(8, categorie.getNoCategorie());
+			pstmt.setInt(7, article.getUtilisateur().getNoUtilisateur());
+			pstmt.setInt(8, article.getCategorie().getNoCategorie());
 			pstmt.executeUpdate();
 			ResultSet rs = pstmt.getGeneratedKeys();
 			if(rs.next()) {
@@ -78,15 +78,15 @@ public class TrocEnchereDAOInsertImpl implements TrocEnchereDAOInsert {
 		
 	}
 	@Override
-	public void insertEnchere(Enchere enchere, Utilisateur utilisateur, Article article) throws TrocEnchereException {
+	public void insertEnchere(Enchere enchere) throws TrocEnchereException {
 		
 		try(Connection cnx = ConnectionProvider.getConnection()){
 			
 			PreparedStatement pstmt = cnx.prepareStatement(INSERT_ENCHERE, PreparedStatement.RETURN_GENERATED_KEYS);
 			pstmt.setDate(1, Date.valueOf(enchere.getDateEnchere()));
 			pstmt.setInt(2, enchere.getMontant_enchere());
-			pstmt.setInt(3, utilisateur.getNoUtilisateur());
-			pstmt.setInt(4, article.getNoArticle());
+			pstmt.setInt(3, enchere.getUtilisateur().getNoUtilisateur());
+			pstmt.setInt(4, enchere.getArticle().getNoArticle());
 			pstmt.executeUpdate();
 			ResultSet rs = pstmt.getGeneratedKeys();
 			if(rs.next()) {
@@ -119,7 +119,7 @@ public class TrocEnchereDAOInsertImpl implements TrocEnchereDAOInsert {
 	}
 	
 	@Override
-	public void insertRetrait(Retrait retrait, Article article) throws TrocEnchereException {
+	public void insertRetrait(Retrait retrait) throws TrocEnchereException {
 		
 		try(Connection cnx = ConnectionProvider.getConnection()){
 			
@@ -128,7 +128,7 @@ public class TrocEnchereDAOInsertImpl implements TrocEnchereDAOInsert {
 			pstmt.setString(1, retrait.getRue());
 			pstmt.setString(2, retrait.getCodePostal());
 			pstmt.setString(3, retrait.getVille());
-			pstmt.setInt(4, article.getNoArticle());
+			pstmt.setInt(4, retrait.getArticle().getNoArticle());
 			pstmt.executeUpdate();
 			ResultSet rs = pstmt.getGeneratedKeys();
 			if(rs.next()) {
