@@ -1,9 +1,6 @@
 package fr.eni.ecole.trocenchere.bo;
 
-import java.time.Month;
 import java.util.List;
-
-import org.apache.tomcat.jni.Local;
 
 public class Utilisateur { 
 	private Integer noUtilisateur;
