@@ -56,7 +56,6 @@ public class TrocEnchereDAOInsertImpl implements TrocEnchereDAOInsert {
 	public void insertArticle(Article article, Utilisateur utilisateur, Categorie categorie) throws TrocEnchereException {
 		
 		try(Connection cnx = ConnectionProvider.getConnection()){
-			
 			PreparedStatement pstmt = cnx.prepareStatement(INSERT_ARTICLE, PreparedStatement.RETURN_GENERATED_KEYS);
 			pstmt.setString(1, article.getNomArticle());
 			pstmt.setString(2, article.getDescription());
