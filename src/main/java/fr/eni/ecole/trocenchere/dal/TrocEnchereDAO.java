@@ -7,8 +7,19 @@ import fr.eni.ecole.trocenchere.bo.Categorie;
 import fr.eni.ecole.trocenchere.bo.Enchere;
 import fr.eni.ecole.trocenchere.bo.Utilisateur;
 
+/**
+ * @author gjohanet2023
+ *
+ */
 public interface TrocEnchereDAO {
 	
+	
+	
+	/**
+	 * Select un utilisateur par son id.
+	 * @param id
+	 * @return
+	 */
 	public Utilisateur SelectUserById(int id);
 	
 	

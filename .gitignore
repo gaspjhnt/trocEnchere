@@ -12,4 +12,6 @@ local.properties
 .settings/
 .loadpath
 .recommenders
+/WEB-INF/lib
+.jar
 MANIFEST.MF
