@@ -4,11 +4,11 @@ package fr.eni.ecole.trocenchere;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TrocEnchereExcepetion extends Exception{
+public class TrocEnchereException extends Exception{
 	private static final long serialVersionUID = 1L;
 	private List<String> listeErreur;
 	
-	public TrocEnchereExcepetion() {
+	public TrocEnchereException() {
 		super();
 		this.listeErreur=new ArrayList<>();
 	}
