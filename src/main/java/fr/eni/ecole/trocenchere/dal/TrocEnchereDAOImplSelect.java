@@ -1,13 +1,14 @@
 package fr.eni.ecole.trocenchere.dal;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import fr.eni.ecole.trocenchere.bo.Article;
 import fr.eni.ecole.trocenchere.bo.Categorie;
 import fr.eni.ecole.trocenchere.bo.Enchere;
 import fr.eni.ecole.trocenchere.bo.Utilisateur;
 
-public class TrocEnchereDAOImpl implements TrocEnchereDAO{
+public class TrocEnchereDAOImplSelect implements TrocEnchereDAOSelect{
 
 	@Override
 	public Utilisateur SelectUserById(int id) {
@@ -17,13 +18,13 @@ public class TrocEnchereDAOImpl implements TrocEnchereDAO{
 
 
 	@Override
-	public Article selectArticleByUser(Utilisateur utilisateur) {
+	public List<Article> selectArticleByUser(Utilisateur utilisateur) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Article selectArticleByCate(Categorie categorie) {
+	public List<Article> selectArticleByCate(Categorie categorie) {
 		// TODO Auto-generated method stub
 		return null;
 	}
