@@ -2,6 +2,10 @@ package fr.eni.ecole.trocenchere.bo;
 
 import java.time.LocalDate;
 
+/**
+ * @author crobin2023
+ *
+ */
 public class Enchere { //(Achat) 
 	private Integer noEnchere;
 	private LocalDate dateEnchere;
@@ -17,8 +21,6 @@ public class Enchere { //(Achat)
 		super();
 	}
 	
-	
-	
 	/**
 	 * Constructeur Complet
 	 * @param noEnchere
@@ -31,6 +33,23 @@ public class Enchere { //(Achat)
 			Article article) {
 		super();
 		this.noEnchere = noEnchere;
+		this.dateEnchere = dateEnchere;
+		this.montant_enchere = montant_enchere;
+		this.utilisateur = utilisateur;
+		this.article = article;
+	}
+	
+	
+	/**
+	 * Constructeur sans noEnchere
+	 * @param dateEnchere
+	 * @param montant_enchere
+	 * @param utilisateur
+	 * @param article
+	 */
+	public Enchere(LocalDate dateEnchere, Integer montant_enchere, Utilisateur utilisateur,
+			Article article) {
+		super();
 		this.dateEnchere = dateEnchere;
 		this.montant_enchere = montant_enchere;
 		this.utilisateur = utilisateur;
