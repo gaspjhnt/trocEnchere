@@ -10,18 +10,7 @@ import fr.eni.ecole.trocenchere.bo.Enchere;
 import fr.eni.ecole.trocenchere.bo.Retrait;
 import fr.eni.ecole.trocenchere.bo.Utilisateur;
 
-/**
- * @author gjohanet2023
- *
- */
-/**
- * @author gjohanet2023
- *
- */
-/**
- * @author gjohanet2023
- *
- */
+
 /**
  * @author gjohanet2023
  *
@@ -43,16 +32,18 @@ public interface TrocEnchereDAOSelect {
 	 * Selectionner les articles par son utilisateur (donc par son vendeur)
 	 * @param utilisateur
 	 * @return
+	 * @throws TrocEnchereException 
 	 */
-	public List<Article> selectArticleByUser(Utilisateur utilisateur);
+	public List<Article> selectArticleByUser(Utilisateur utilisateur) throws TrocEnchereException;
 	
 	
 	/**
 	 * Selectionner les articles 
 	 * @param categorie
 	 * @return
+	 * @throws TrocEnchereException 
 	 */
-	public List<Article> selectArticleByCate(Categorie categorie);
+	public List<Article> selectArticleByCate(Categorie categorie) throws TrocEnchereException;
 	
 	
 	

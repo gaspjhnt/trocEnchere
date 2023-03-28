@@ -203,10 +203,9 @@ public class Article { //(Vente)
 
 	@Override
 	public String toString() {
-		return "Article [noArticle=" + noArticle + ", nomArticle=" + nomArticle + ", description=" + description
+		return "\nArticle [noArticle=" + noArticle + ", nomArticle=" + nomArticle + ", description=" + description
 				+ ", dateDebutEnchere=" + dateDebutEnchere + ", dateFinEnchere=" + dateFinEnchere + ", prixDepart="
-				+ prixDepart + ", prixVente=" + prixVente + ", etatVente=" + etatVente + ", utilisateur=" + utilisateur
-				+ ", lstEnchere=" + lstEnchere + ", categorie=" + categorie + ", retrait=" + retrait + "]";
+				+ prixDepart + ", prixVente=" + prixVente + ", etatVente=" + etatVente + "\n";
 	}
 
 }

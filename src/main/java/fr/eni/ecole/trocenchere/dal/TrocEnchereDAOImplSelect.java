@@ -8,6 +8,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.event.MouseInputListener;
 
 import fr.eni.ecole.trocenchere.TrocEnchereException;
 import fr.eni.ecole.trocenchere.bo.Article;
@@ -39,7 +40,7 @@ public class TrocEnchereDAOImplSelect implements TrocEnchereDAOSelect{
 			+ "date_fin_enchere, prix_depart, prix_vente, "
 			+ "etat_vente, Utilisateur_noUtilisateur, Categorie_noCategorie "
 			+ "FROM article "
-			+ "WHERE Categorie_noCategorie = ?";
+			+ "WHERE date_debut_enchere > ? AND date_fin_enchere < ?";
 	
 	private static final String SELECT_ENCHERE_BY_ARTICLE = "SELECT noEnchere, date_enchere, montant_enchere,"
 			+ " Utilisateur_noUtilisateur, Article_noArticle"
@@ -70,10 +71,24 @@ public class TrocEnchereDAOImplSelect implements TrocEnchereDAOSelect{
 		Utilisateur user = new Utilisateur();
 		try(Connection con = ConnectionProvider.getConnection()){
 			PreparedStatement stmt = con.prepareStatement(SELECT_USER_BY_ID);
-			PreparedStatement stmtArticle = con.prepareStatement(SELECT_ARTICLE_BY_USER);
-			PreparedStatement stmtEnchere = con.prepareStatement(SELECT_USER_BY_ID);
 			stmt.setInt(1, id);
 			ResultSet rs = stmt.executeQuery();
+			
+			PreparedStatement stmtArticle = con.prepareStatement(SELECT_ARTICLE_BY_USER);
+			stmtArticle.setInt(1, id);
+			ResultSet rsArt = stmtArticle.executeQuery();
+			List<Article> lstArticle = new  ArrayList<>();
+			
+			PreparedStatement stmtEnchere = con.prepareStatement(SELECT_ENCHERE_BY_USER);
+			stmtEnchere.setInt(1, id);
+			ResultSet rsEnchere = stmtEnchere.executeQuery();
+			List<Enchere> lstEnchere = new  ArrayList<>();
+			
+
+			
+			PreparedStatement stmtCate = con.prepareStatement(SELECT_CATEGORIE_BY_ID );
+			
+			
 			if (rs.next()) {
 				user.setNoUtilisateur(rs.getInt("noUtilisateur"));
 				user.setNom(rs.getString("nom"));
@@ -91,13 +106,50 @@ public class TrocEnchereDAOImplSelect implements TrocEnchereDAOSelect{
 				} else {
 					user.setAdministrateur(false);
 				}
+				while (rsArt.next()) {
+					Article art = new Article();
+					art.setNoArticle(rsArt.getInt("noArticle"));
+					art.setNomArticle(rsArt.getString("nom"));
+					art.setDescription(rsArt.getString("description"));
+					art.setDateDebutEnchere(rsArt.getDate("date_debut_enchere").toLocalDate()); 
+					art.setDateFinEnchere(rsArt.getDate("date_fin_enchere").toLocalDate()); 
+					art.setPrixDepart(rsArt.getInt("prix_depart"));
+					art.setPrixVente(rsArt.getInt("prix_vente"));
+					if (rsArt.getInt("etat_vente") == 1) {
+						art.setEtatVente(true);
+					} else {
+						art.setEtatVente(false);
+					}
+					stmtCate.setInt(1, rsArt.getInt("Categorie_noCategorie"));
+					ResultSet rsCate = stmtCate.executeQuery();
+					Categorie cate = new Categorie();
+					if (rsCate.next()) {
+						cate.setLibelle(rsCate.getString("libelle"));
+						cate.setNoCategorie(rsCate.getInt("noCategorie"));
+					}
+					art.setCategorie(cate);
+					
+					art.setUtilisateur(user);
+					lstArticle.add(art);
+				}
+				
+				while (rsEnchere.next()) {
+					Enchere enchere = new Enchere();
+					enchere.setNoEnchere(rsEnchere.getInt("noEnchere"));
+					enchere.setDateEnchere(rsEnchere.getDate("date_enchere").toLocalDate());
+					enchere.setMontantEnchere(rsEnchere.getInt("montant_enchere"));
+					enchere.setUtilisateur(user);
+					lstEnchere.add(enchere);
+				}
+				user.setLstArticle(lstArticle);
+				user.setLstEnchere(lstEnchere);
 			}
 			
 			
 			
 		}catch (SQLException e){
 			e.printStackTrace();
-			tee.ajouterErreur("Problème à la selection des données (SelectArticles)");
+			tee.ajouterErreur("Problème à la selection des données (SelectUserById)");
 			throw tee;
 		}
 		return user;
@@ -105,22 +157,129 @@ public class TrocEnchereDAOImplSelect implements TrocEnchereDAOSelect{
 
 
 	@Override
-	public List<Article> selectArticleByUser(Utilisateur utilisateur) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Article> selectArticleByUser(Utilisateur utilisateur) throws TrocEnchereException {
+		TrocEnchereException tee = new TrocEnchereException();
+		List<Article> lstArticle = new  ArrayList<>();
+		try(Connection con = ConnectionProvider.getConnection()){
+		
+		PreparedStatement stmtArticle = con.prepareStatement(SELECT_ARTICLE_BY_USER);
+		stmtArticle.setInt(1, utilisateur.getNoUtilisateur());
+		ResultSet rsArt = stmtArticle.executeQuery();
+		
+
+		PreparedStatement stmtCate = con.prepareStatement(SELECT_CATEGORIE_BY_ID );
+		
+		
+		while (rsArt.next()) {
+			Article art = new Article();
+			art.setNoArticle(rsArt.getInt("noArticle"));
+			art.setNomArticle(rsArt.getString("nom"));
+			art.setDescription(rsArt.getString("description"));
+			art.setDateDebutEnchere(rsArt.getDate("date_debut_enchere").toLocalDate()); 
+			art.setDateFinEnchere(rsArt.getDate("date_fin_enchere").toLocalDate()); 
+			art.setPrixDepart(rsArt.getInt("prix_depart"));
+			art.setPrixVente(rsArt.getInt("prix_vente"));
+			if (rsArt.getInt("etat_vente") == 1) {
+				art.setEtatVente(true);
+			} else {
+				art.setEtatVente(false);
+			}
+			stmtCate.setInt(1, rsArt.getInt("Categorie_noCategorie"));
+			ResultSet rsCate = stmtCate.executeQuery();
+			Categorie cate = new Categorie();
+			if (rsCate.next()) {
+				cate.setLibelle(rsCate.getString("libelle"));
+				cate.setNoCategorie(rsCate.getInt("noCategorie"));
+			}
+			art.setCategorie(cate);
+			
+			art.setUtilisateur(utilisateur);
+			lstArticle.add(art);
+		}
+	}catch (SQLException e){
+		e.printStackTrace();
+		tee.ajouterErreur("Problème à la selection des données (SelectArticleByUser)");
+		throw tee;
 	}
+	return lstArticle;
+}
 
 	@Override
-	public List<Article> selectArticleByCate(Categorie categorie) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Article> selectArticleByCate(Categorie categorie) throws TrocEnchereException {
+		TrocEnchereException tee = new TrocEnchereException();
+		List<Article> lstArticle = new  ArrayList<>();
+		try(Connection con = ConnectionProvider.getConnection()){
+		
+		PreparedStatement stmtArticle = con.prepareStatement(SELECT_ARTICLE_BY_CATE);
+		stmtArticle.setInt(1, categorie.getNoCategorie());
+		ResultSet rsArt = stmtArticle.executeQuery();
+		
+		
+		
+		while (rsArt.next()) {
+			Article art = new Article();
+			art.setNoArticle(rsArt.getInt("noArticle"));
+			art.setNomArticle(rsArt.getString("nom"));
+			art.setDescription(rsArt.getString("description"));
+			art.setDateDebutEnchere(rsArt.getDate("date_debut_enchere").toLocalDate()); 
+			art.setDateFinEnchere(rsArt.getDate("date_fin_enchere").toLocalDate()); 
+			art.setPrixDepart(rsArt.getInt("prix_depart"));
+			art.setPrixVente(rsArt.getInt("prix_vente"));
+			if (rsArt.getInt("etat_vente") == 1) {
+				art.setEtatVente(true);
+			} else {
+				art.setEtatVente(false);
+			}
+			art.setCategorie(categorie);
+			
+			lstArticle.add(art);
+		}
+	}catch (SQLException e){
+		e.printStackTrace();
+		tee.ajouterErreur("Problème à la selection des données (SelectArticleByUser)");
+		throw tee;
 	}
+	return lstArticle;
+}
 
 	@Override
 	public List<Article> selectArticleByDateFin(LocalDate date) {
-		// TODO Auto-generated method stub
 		return null;
-	}
+//		TrocEnchereException tee = new TrocEnchereException();
+//		List<Article> lstArticle = new  ArrayList<>();
+//		try(Connection con = ConnectionProvider.getConnection()){
+//		
+//		PreparedStatement stmtArticle = con.prepareStatement(SELECT_ARTICLE_BY_CATE);
+//		stmtArticle.setInt(1, categorie.getNoCategorie());
+//		ResultSet rsArt = stmtArticle.executeQuery();
+//		
+//		
+//		
+//		while (rsArt.next()) {
+//			Article art = new Article();
+//			art.setNoArticle(rsArt.getInt("noArticle"));
+//			art.setNomArticle(rsArt.getString("nom"));
+//			art.setDescription(rsArt.getString("description"));
+//			art.setDateDebutEnchere(rsArt.getDate("date_debut_enchere").toLocalDate()); 
+//			art.setDateFinEnchere(rsArt.getDate("date_fin_enchere").toLocalDate()); 
+//			art.setPrixDepart(rsArt.getInt("prix_depart"));
+//			art.setPrixVente(rsArt.getInt("prix_vente"));
+//			if (rsArt.getInt("etat_vente") == 1) {
+//				art.setEtatVente(true);
+//			} else {
+//				art.setEtatVente(false);
+//			}
+//			art.setCategorie(categorie);
+//			
+//			lstArticle.add(art);
+//		}
+//	}catch (SQLException e){
+//		e.printStackTrace();
+//		tee.ajouterErreur("Problème à la selection des données (SelectArticleByUser)");
+//		throw tee;
+//	}
+//	return lstArticle;
+}
 
 
 	@Override

@@ -1,6 +1,7 @@
 package fr.eni.ecole.trocenchere.servlet;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -8,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import fr.eni.ecole.trocenchere.TrocEnchereException;
+import fr.eni.ecole.trocenchere.bo.Categorie;
 import fr.eni.ecole.trocenchere.dal.TrocEnchereDAOImplSelect;
 
 /**
@@ -31,7 +33,10 @@ public class ServletTestDAOSelect extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		TrocEnchereDAOImplSelect dao = new TrocEnchereDAOImplSelect();
 		try {
-			System.out.println(dao.SelectUserById(1));
+			Categorie cat = new Categorie();
+			cat.setNoCategorie(1);
+			cat.setLibelle("Test");
+			System.out.println(dao.selectArticleByCate(cat));
 		} catch (TrocEnchereException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

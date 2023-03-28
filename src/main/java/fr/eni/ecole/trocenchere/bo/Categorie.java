@@ -83,7 +83,7 @@ public class Categorie {
 
 	@Override
 	public String toString() {
-		return "Categorie [noCategorie=" + noCategorie + ", libelle=" + libelle + ", lstArticle=" + lstArticle + "]";
+		return "Categorie [noCategorie=" + noCategorie + ", libelle=" + libelle + "]\n";
 	}
 
 }

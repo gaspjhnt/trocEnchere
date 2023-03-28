@@ -9,7 +9,7 @@ import java.time.LocalDate;
 public class Enchere { //(Achat) 
 	private Integer noEnchere;
 	private LocalDate dateEnchere;
-	private Integer montant_enchere;
+	private Integer montantEnchere;
 	private Utilisateur utilisateur; // (Acheteur)
 	private Article article;
 	
@@ -34,7 +34,7 @@ public class Enchere { //(Achat)
 		super();
 		this.noEnchere = noEnchere;
 		this.dateEnchere = dateEnchere;
-		this.montant_enchere = montant_enchere;
+		this.montantEnchere = montant_enchere;
 		this.utilisateur = utilisateur;
 		this.article = article;
 	}
@@ -51,7 +51,7 @@ public class Enchere { //(Achat)
 			Article article) {
 		super();
 		this.dateEnchere = dateEnchere;
-		this.montant_enchere = montant_enchere;
+		this.montantEnchere = montant_enchere;
 		this.utilisateur = utilisateur;
 		this.article = article;
 	}
@@ -73,11 +73,11 @@ public class Enchere { //(Achat)
 	}
 
 	public Integer getMontant_enchere() {
-		return montant_enchere;
+		return montantEnchere;
 	}
 
-	public void setMontant_enchere(Integer montant_enchere) {
-		this.montant_enchere = montant_enchere;
+	public void setMontantEnchere(Integer montant_enchere) {
+		this.montantEnchere = montant_enchere;
 	}
 
 	public Utilisateur getUtilisateur() {
@@ -99,7 +99,7 @@ public class Enchere { //(Achat)
 	@Override
 	public String toString() {
 		return "Enchere [noEnchere=" + noEnchere + ", dateEnchere=" + dateEnchere + ", montant_enchere="
-				+ montant_enchere + ", utilisateur=" + utilisateur + ", article=" + article + "]";
+				+ montantEnchere + "]\n";
 	}
 	
 	
