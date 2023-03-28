@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 
 import fr.eni.ecole.trocenchere.TrocEnchereExcepetion;
+import fr.eni.ecole.trocenchere.TrocEnchereException;
 import fr.eni.ecole.trocenchere.bo.Article;
 import fr.eni.ecole.trocenchere.bo.Categorie;
 import fr.eni.ecole.trocenchere.bo.Enchere;
@@ -18,7 +19,7 @@ public class TrocEnchereDAOInsertImpl implements TrocEnchereDAOInsert {
 	public static final String INSERT_CATEGORIE ="INSERT INTO categorie(libelle) VALUES(?)";
 	public static final String INSERT_RETRAIT ="INSERT INTO retrait(rue,code_postal,ville,Article_NoArticle) VALUES(?,?,?,?)";
 	@Override
-	public void insertUtilisateur(Utilisateur utilisateur) throws TrocEnchereExcepetion {
+	public void insertUtilisateur(Utilisateur utilisateur) throws TrocEnchereException {
 		
 		try(Connection cnx = ConnectionProvider.getConnection()){
 			PreparedStatement pstmt = cnx.prepareStatement(INSERT_ARTICLE, PreparedStatement.RETURN_GENERATED_KEYS);
