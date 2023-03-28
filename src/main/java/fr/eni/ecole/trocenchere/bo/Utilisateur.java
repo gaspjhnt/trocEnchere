@@ -184,11 +184,11 @@ public class Utilisateur {
 		this.rue = rue;
 	}
 
-	public String getCodePostale() {
+	public String getCodePostal() {
 		return codePostal;
 	}
 
-	public void setCodePostale(String codePostale) {
+	public void setCodePostal(String codePostale) {
 		this.codePostal = codePostale;
 	}
 

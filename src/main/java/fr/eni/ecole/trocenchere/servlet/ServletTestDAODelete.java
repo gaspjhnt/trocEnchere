@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import fr.eni.ecole.trocenchere.TrocEnchereException;
+import fr.eni.ecole.trocenchere.bo.Utilisateur;
 import fr.eni.ecole.trocenchere.dal.TrocEnchereDAOImplDelete;
 import fr.eni.ecole.trocenchere.dal.TrocEnchereDAOInsertImpl;
 
@@ -19,7 +20,7 @@ import fr.eni.ecole.trocenchere.dal.TrocEnchereDAOInsertImpl;
 public class ServletTestDAODelete extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    /**
+    /** 
      * @see HttpServlet#HttpServlet()
      */
     public ServletTestDAODelete() {
@@ -31,25 +32,9 @@ public class ServletTestDAODelete extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		TrocEnchereDAOImplDelete testDelete = new TrocEnchereDAOImplDelete();
-		TrocEnchereDAOInsertImpl testInsert = new TrocEnchereDAOInsertImpl();
-		
 		try {
-			testInsert.insertArticle(null, null, null);
-			testInsert.insertCategorie(null);
-			testInsert.insertEnchere(null, null, null);
-			testInsert.insertRetrait(null, null);
-			testInsert.insertUtilisateur(null);
-		} catch (TrocEnchereException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		try {
-			testDelete.deleteArticle(null);
-			testDelete.deleteUtilisateur(null);
-			testDelete.deleteCategorie(null);
-			testDelete.deleteEnchere(null);
-			testDelete.deleteRetrait(null);
+			testDelete.deleteUtilisateur(new Utilisateur(1,"Haste", "Desnoes", "Jérémie", "bloblogmail.com", "0695067182", "Rue du moulin",
+					"35170", "Rennes","Kilokoko30", null, null, null, null));
 		} catch (TrocEnchereException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

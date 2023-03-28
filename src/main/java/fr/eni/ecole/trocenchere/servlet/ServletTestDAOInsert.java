@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import fr.eni.ecole.trocenchere.TrocEnchereException;
 import fr.eni.ecole.trocenchere.bo.Utilisateur;
 import fr.eni.ecole.trocenchere.dal.TrocEnchereDAOInsertImpl;
 
@@ -30,6 +31,7 @@ public class ServletTestDAOInsert extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		Utilisateur u1 = new Utilisateur("Haste", "Desnoes", "Jérémie", "bloblogmail.com", "0695067182", "Rue du moulin",
 				"35170", "Rennes","Kilokoko30");
 		TrocEnchereDAOInsertImpl dao = new TrocEnchereDAOInsertImpl();
@@ -38,6 +40,23 @@ public class ServletTestDAOInsert extends HttpServlet {
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
+		try {
+			dao.insertArticle(null, null, null);
+			dao.insertCategorie(null);
+			dao.insertEnchere(null, null, null);
+			dao.insertRetrait(null, null);
+			dao.insertUtilisateur(null);
+		} catch (TrocEnchereException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		
+		
+		
+		
+		
 		response.getWriter().append("Coucou ").append(u1.getNoUtilisateur() + "");
 	}
 
