@@ -15,7 +15,7 @@ import fr.eni.ecole.trocenchere.bo.Utilisateur;
 public class TrocEnchereDAOInsertImpl implements TrocEnchereDAOInsert {
 	
 	public static final String INSERT_UTILISATEUR = "INSERT INTO utilisateur(pseudo,nom,prenom,email,telephone,rue,code_postal,ville,mot_de_passe,credit,administrateur) VALUES(?,?,?,?,?,?,?,?,?,?,?)";
-	public static final String INSERT_ARTICLE ="INSERT INTO article(nom,description,date_debut_enchere,date_fin_enchere,prix_depart,prix_vente,etat_vente,Utilisateur_noUtilisateur,Categorie_noCategorie) VALUES(?,?,?,?,?,?,?,?,?)";
+	public static final String INSERT_ARTICLE ="INSERT INTO article(nom,description,date_debut_enchere,date_fin_enchere,prix_depart,etat_vente,Utilisateur_noUtilisateur,Categorie_noCategorie) VALUES(?,?,?,?,?,?,?,?)";
 	public static final String INSERT_ENCHERE ="INSERT INTO enchere(date_enchere,montant_enchere,Utilisateur_noUtilisateur,Article_noArticle) VALUES(?,?,?,?)";
 	public static final String INSERT_CATEGORIE ="INSERT INTO categorie(libelle) VALUES(?)";
 	public static final String INSERT_RETRAIT ="INSERT INTO retrait(rue,code_postal,ville,Article_NoArticle) VALUES(?,?,?,?)";
@@ -63,15 +63,9 @@ public class TrocEnchereDAOInsertImpl implements TrocEnchereDAOInsert {
 			pstmt.setDate(3, Date.valueOf(article.getDateDebutEnchere()));
 			pstmt.setDate(4, Date.valueOf(article.getDateFinEnchere()));
 			pstmt.setInt(5, article.getPrixDepart());
-			pstmt.setInt(6, article.getPrixVente());
-			if(article.isEtatVente()) {
-				pstmt.setInt(7, 1);
-			}
-			else {
-				pstmt.setInt(7, 0);
-			}
-			pstmt.setInt(8, utilisateur.getNoUtilisateur());
-			pstmt.setInt(9, categorie.getNoCategorie());
+			pstmt.setInt(6, 0);
+			pstmt.setInt(7, utilisateur.getNoUtilisateur());
+			pstmt.setInt(8, categorie.getNoCategorie());
 			pstmt.executeUpdate();
 			ResultSet rs = pstmt.getGeneratedKeys();
 			if(rs.next()) {
