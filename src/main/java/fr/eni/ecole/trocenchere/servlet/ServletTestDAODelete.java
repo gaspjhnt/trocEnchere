@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import fr.eni.ecole.trocenchere.TrocEnchereException;
+import fr.eni.ecole.trocenchere.bo.Utilisateur;
 import fr.eni.ecole.trocenchere.dal.TrocEnchereDAOImplDelete;
 import fr.eni.ecole.trocenchere.dal.TrocEnchereDAOInsertImpl;
 
@@ -19,7 +20,7 @@ import fr.eni.ecole.trocenchere.dal.TrocEnchereDAOInsertImpl;
 public class ServletTestDAODelete extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    /**
+    /** 
      * @see HttpServlet#HttpServlet()
      */
     public ServletTestDAODelete() {
@@ -31,7 +32,6 @@ public class ServletTestDAODelete extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		TrocEnchereDAOImplDelete testDelete = new TrocEnchereDAOImplDelete();
-		
 		try {
 			testDelete.deleteArticle(6);
 			testDelete.deleteUtilisateur(19);
