@@ -25,6 +25,7 @@ public class Article { //(Vente)
 	 */ 
 	public Article() {
 		this.etatVente = false;
+		this.prixVente = 0;
 	}
 	
 	
@@ -41,6 +42,7 @@ public class Article { //(Vente)
 		this.utilisateur = utilisateur;
 		this.categorie = categorie;
 		this.etatVente = false;
+		this.prixVente = 0;
 	}
 
 
@@ -66,6 +68,7 @@ public class Article { //(Vente)
 		this.prixDepart = prixDepart;
 		this.categorie = categorie;
 		this.etatVente = false;
+		this.prixVente = 0;
 	}
 
 	/**
@@ -90,6 +93,7 @@ public class Article { //(Vente)
 		this.categorie = categorie;
 		this.retrait = retrait;
 		this.etatVente = false;
+		this.prixVente = 0;
 	}
 
 
