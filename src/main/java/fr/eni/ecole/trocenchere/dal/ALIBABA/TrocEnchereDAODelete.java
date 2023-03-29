@@ -1,4 +1,4 @@
-package fr.eni.ecole.trocenchere.dal;
+package fr.eni.ecole.trocenchere.dal.ALIBABA;
 
 import fr.eni.ecole.trocenchere.TrocEnchereException;
 import fr.eni.ecole.trocenchere.bo.Article;

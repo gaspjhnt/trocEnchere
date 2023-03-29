@@ -1,4 +1,4 @@
-package fr.eni.ecole.trocenchere.servlet;
+package fr.eni.ecole.trocenchere.servlet.alibaba;
 
 import java.io.IOException;
 import java.time.LocalDate;
@@ -14,7 +14,7 @@ import fr.eni.ecole.trocenchere.bo.Categorie;
 import fr.eni.ecole.trocenchere.bo.Enchere;
 import fr.eni.ecole.trocenchere.bo.Retrait;
 import fr.eni.ecole.trocenchere.bo.Utilisateur;
-import fr.eni.ecole.trocenchere.dal.TrocEnchereDAOInsertImpl;
+import fr.eni.ecole.trocenchere.dal.ALIBABA.TrocEnchereDAOInsertImpl;
 
 /**
  * Servlet implementation class ServletTestDAOInsert

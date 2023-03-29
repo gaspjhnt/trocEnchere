@@ -1,4 +1,4 @@
-package fr.eni.ecole.trocenchere.servlet;
+package fr.eni.ecole.trocenchere.servlet.alibaba;
 
 import java.io.IOException;
 
@@ -10,8 +10,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import fr.eni.ecole.trocenchere.TrocEnchereException;
 import fr.eni.ecole.trocenchere.bo.Utilisateur;
-import fr.eni.ecole.trocenchere.dal.TrocEnchereDAOImplDelete;
-import fr.eni.ecole.trocenchere.dal.TrocEnchereDAOInsertImpl;
+import fr.eni.ecole.trocenchere.dal.ALIBABA.TrocEnchereDAOImplDelete;
+import fr.eni.ecole.trocenchere.dal.ALIBABA.TrocEnchereDAOInsertImpl;
 
 /**
  * Servlet implementation class ServletTestDAODelete

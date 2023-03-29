@@ -1,5 +1,5 @@
 
-package fr.eni.ecole.trocenchere.dal;
+package fr.eni.ecole.trocenchere.dal.ALIBABA;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
