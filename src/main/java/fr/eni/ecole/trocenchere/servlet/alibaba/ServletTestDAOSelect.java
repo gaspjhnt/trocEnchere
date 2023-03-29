@@ -37,23 +37,24 @@ public class ServletTestDAOSelect extends HttpServlet {
 		TrocEnchereDAOImplSelect dao = new TrocEnchereDAOImplSelect();
 		try {
 			Utilisateur test = dao.SelectUserById(4);
-			System.out.println(test + "\n\n\n\n");
-			System.out.println(dao.selectArticleByUser(test) + "\n\n\n\n");
-			
-			Categorie categorie = dao.selectCategorieById(3);			
-			System.out.println(dao.selectArticleByCate(categorie) + "\n\n\n\n");
-			
-			Article article = dao.selectArticleByCate(categorie).get(1);
-			
-			System.out.println(dao.selectArticleByDateDebut(LocalDate.of(2023, 3, 1)) + "\n\n\n\n");
-			
-			System.out.println(dao.selectEnchereByArticle(article) + "\n\n\n\n\n");
-			System.out.println(dao.selectEnchereByUser(test) + "\n\n\n\n\n");
-			
-			System.out.println(dao.selectAllCategorie());
-			
-			
-			System.out.println(dao.selectRetraitByArticle(article));
+			System.out.println(test);
+//			System.out.println(test + "\n\n\n\n");
+//			System.out.println(dao.selectArticleByUser(test) + "\n\n\n\n");
+//			
+//			Categorie categorie = dao.selectCategorieById(3);			
+//			System.out.println(dao.selectArticleByCate(categorie) + "\n\n\n\n");
+//			
+//			Article article = dao.selectArticleByCate(categorie).get(1);
+//			
+//			System.out.println(dao.selectArticleByDateDebut(LocalDate.of(2023, 3, 1)) + "\n\n\n\n");
+//			
+//			System.out.println(dao.selectEnchereByArticle(article) + "\n\n\n\n\n");
+//			System.out.println(dao.selectEnchereByUser(test) + "\n\n\n\n\n");
+//			
+//			System.out.println(dao.selectAllCategorie());
+//			
+//			
+//			System.out.println(dao.selectRetraitByArticle(article));
 		} catch (TrocEnchereException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -35,12 +35,7 @@ public class TrocEnchereDAOInsertImpl implements TrocEnchereDAOInsert {
 			pstmt.setString(8, utilisateur.getVille());
 			pstmt.setString(9, utilisateur.getMotDePasse());
 			pstmt.setInt(10, utilisateur.getCredit());
-			if(utilisateur.isAdministrateur()) {
-				pstmt.setInt(11, 1);
-			}
-			else {
-				pstmt.setInt(11, 0);
-			}
+			pstmt.setBoolean(11, utilisateur.isAdministrateur());
 			pstmt.executeUpdate();
 			ResultSet rs = pstmt.getGeneratedKeys();
 			if(rs.next()) {
@@ -62,7 +57,7 @@ public class TrocEnchereDAOInsertImpl implements TrocEnchereDAOInsert {
 			pstmt.setDate(3, Date.valueOf(article.getDateDebutEnchere()));
 			pstmt.setDate(4, Date.valueOf(article.getDateFinEnchere()));
 			pstmt.setInt(5, article.getPrixDepart());
-			pstmt.setInt(6, 0);
+			pstmt.setBoolean(6, article.isEtatVente());
 			pstmt.setInt(7, article.getUtilisateur().getNoUtilisateur());
 			pstmt.setInt(8, article.getCategorie().getNoCategorie());
 			pstmt.executeUpdate();

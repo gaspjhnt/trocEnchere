@@ -24,6 +24,7 @@ public class Article { //(Vente)
 	 * Constructeur vide pour initialiser un article vide
 	 */ 
 	public Article() {
+		this.etatVente = false;
 	}
 	
 	
@@ -39,6 +40,7 @@ public class Article { //(Vente)
 		this.prixDepart = prixDepart;
 		this.utilisateur = utilisateur;
 		this.categorie = categorie;
+		this.etatVente = false;
 	}
 
 
@@ -63,6 +65,7 @@ public class Article { //(Vente)
 		this.dateFinEnchere = dateFinEnchere;
 		this.prixDepart = prixDepart;
 		this.categorie = categorie;
+		this.etatVente = false;
 	}
 
 	/**
@@ -86,6 +89,7 @@ public class Article { //(Vente)
 		this.prixDepart = prixDepart;
 		this.categorie = categorie;
 		this.retrait = retrait;
+		this.etatVente = false;
 	}
 
 

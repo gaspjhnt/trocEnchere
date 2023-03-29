@@ -113,11 +113,7 @@ public class TrocEnchereDAOImplSelect implements TrocEnchereDAOSelect{
 				user.setVille(rs.getString("ville"));
 				user.setMotDePasse(rs.getString("mot_de_passe"));
 				user.setCredit(rs.getInt("credit"));
-				if (rs.getInt("administrateur") == 1) {
-					user.setAdministrateur(true);
-				} else {
-					user.setAdministrateur(false);
-				}
+				user.setAdministrateur(rs.getBoolean("administrateur"));
 				while (rsArt.next()) {
 					Article art = new Article();
 					art.setNoArticle(rsArt.getInt("noArticle"));
@@ -127,11 +123,7 @@ public class TrocEnchereDAOImplSelect implements TrocEnchereDAOSelect{
 					art.setDateFinEnchere(rsArt.getDate("date_fin_enchere").toLocalDate()); 
 					art.setPrixDepart(rsArt.getInt("prix_depart"));
 					art.setPrixVente(rsArt.getInt("prix_vente"));
-					if (rsArt.getInt("etat_vente") == 1) {
-						art.setEtatVente(true);
-					} else {
-						art.setEtatVente(false);
-					}
+					art.setEtatVente(rsArt.getBoolean("etat_vente"));
 					stmtCate.setInt(1, rsArt.getInt("Categorie_noCategorie"));
 					ResultSet rsCate = stmtCate.executeQuery();
 					Categorie cate = new Categorie();
@@ -191,11 +183,7 @@ public class TrocEnchereDAOImplSelect implements TrocEnchereDAOSelect{
 			art.setDateFinEnchere(rsArt.getDate("date_fin_enchere").toLocalDate()); 
 			art.setPrixDepart(rsArt.getInt("prix_depart"));
 			art.setPrixVente(rsArt.getInt("prix_vente"));
-			if (rsArt.getInt("etat_vente") == 1) {
-				art.setEtatVente(true);
-			} else {
-				art.setEtatVente(false);
-			}
+			art.setEtatVente(rsArt.getBoolean("etat_vente"));
 			stmtCate.setInt(1, rsArt.getInt("Categorie_noCategorie"));
 			ResultSet rsCate = stmtCate.executeQuery();
 			Categorie cate = new Categorie();
@@ -238,11 +226,7 @@ public class TrocEnchereDAOImplSelect implements TrocEnchereDAOSelect{
 			art.setDateFinEnchere(rsArt.getDate("date_fin_enchere").toLocalDate()); 
 			art.setPrixDepart(rsArt.getInt("prix_depart"));
 			art.setPrixVente(rsArt.getInt("prix_vente"));
-			if (rsArt.getInt("etat_vente") == 1) {
-				art.setEtatVente(true);
-			} else {
-				art.setEtatVente(false);
-			}
+			art.setEtatVente(rsArt.getBoolean("etat_vente"));
 			art.setCategorie(categorie);
 			
 
@@ -261,12 +245,7 @@ public class TrocEnchereDAOImplSelect implements TrocEnchereDAOSelect{
 				user.setVille(rs.getString("ville"));
 				user.setMotDePasse(rs.getString("mot_de_passe"));
 				user.setCredit(rs.getInt("credit"));
-				if (rs.getInt("administrateur") == 1) {
-					user.setAdministrateur(true);
-				} else {
-					user.setAdministrateur(false);
-				
-			}
+				user.setAdministrateur(rs.getBoolean("administrateur"));
 			}
 
 			art.setUtilisateur(user);
@@ -305,11 +284,7 @@ public class TrocEnchereDAOImplSelect implements TrocEnchereDAOSelect{
 			art.setDateFinEnchere(rsArt.getDate("date_fin_enchere").toLocalDate()); 
 			art.setPrixDepart(rsArt.getInt("prix_depart"));
 			art.setPrixVente(rsArt.getInt("prix_vente"));
-			if (rsArt.getInt("etat_vente") == 1) {
-				art.setEtatVente(true);
-			} else {
-				art.setEtatVente(false);
-			}
+			art.setEtatVente(rsArt.getBoolean("etat_vente"));
 			stmtCate.setInt(1, rsArt.getInt("Categorie_noCategorie"));
 			ResultSet rsCate = stmtCate.executeQuery();
 			Categorie cate = new Categorie();
@@ -335,13 +310,8 @@ public class TrocEnchereDAOImplSelect implements TrocEnchereDAOSelect{
 				user.setVille(rs.getString("ville"));
 				user.setMotDePasse(rs.getString("mot_de_passe"));
 				user.setCredit(rs.getInt("credit"));
-				if (rs.getInt("administrateur") == 1) {
-					user.setAdministrateur(true);
-				} else {
-					user.setAdministrateur(false);
-				
-			}
-			}
+				user.setAdministrateur(rs.getBoolean("administrateur"));	
+				}
 
 			art.setUtilisateur(user);
 			
@@ -382,11 +352,7 @@ public class TrocEnchereDAOImplSelect implements TrocEnchereDAOSelect{
 			art.setDateFinEnchere(rsArt.getDate("date_fin_enchere").toLocalDate()); 
 			art.setPrixDepart(rsArt.getInt("prix_depart"));
 			art.setPrixVente(rsArt.getInt("prix_vente"));
-			if (rsArt.getInt("etat_vente") == 1) {
-				art.setEtatVente(true);
-			} else {
-				art.setEtatVente(false);
-			}
+			art.setEtatVente(rsArt.getBoolean("etat_vente"));
 			stmtCate.setInt(1, rsArt.getInt("Categorie_noCategorie"));
 			ResultSet rsCate = stmtCate.executeQuery();
 			Categorie cate = new Categorie();
@@ -412,12 +378,7 @@ public class TrocEnchereDAOImplSelect implements TrocEnchereDAOSelect{
 				user.setVille(rs.getString("ville"));
 				user.setMotDePasse(rs.getString("mot_de_passe"));
 				user.setCredit(rs.getInt("credit"));
-				if (rs.getInt("administrateur") == 1) {
-					user.setAdministrateur(true);
-				} else {
-					user.setAdministrateur(false);
-				
-			}
+				user.setAdministrateur(rs.getBoolean("administrateur"));
 			}
 
 			art.setUtilisateur(user);
@@ -468,12 +429,7 @@ public class TrocEnchereDAOImplSelect implements TrocEnchereDAOSelect{
 				user.setVille(rsUser.getString("ville"));
 				user.setMotDePasse(rsUser.getString("mot_de_passe"));
 				user.setCredit(rsUser.getInt("credit"));
-				if (rsUser.getInt("administrateur") == 1) {
-					user.setAdministrateur(true);
-				} else {
-					user.setAdministrateur(false);
-				
-			}
+				user.setAdministrateur(rs.getBoolean("administrateur"));
 			}
 			enchere.setUtilisateur(user);
 			lstEnchere.add(enchere);
@@ -521,11 +477,7 @@ public class TrocEnchereDAOImplSelect implements TrocEnchereDAOSelect{
 				art.setDateFinEnchere(rsArt.getDate("date_fin_enchere").toLocalDate()); 
 				art.setPrixDepart(rsArt.getInt("prix_depart"));
 				art.setPrixVente(rsArt.getInt("prix_vente"));
-				if (rsArt.getInt("etat_vente") == 1) {
-					art.setEtatVente(true);
-				} else {
-					art.setEtatVente(false);
-				}
+				art.setEtatVente(rsArt.getBoolean("etat_vente"));
 				stmtCate.setInt(1, rsArt.getInt("Categorie_noCategorie"));
 				ResultSet rsCate = stmtCate.executeQuery();
 				Categorie cate = new Categorie();
