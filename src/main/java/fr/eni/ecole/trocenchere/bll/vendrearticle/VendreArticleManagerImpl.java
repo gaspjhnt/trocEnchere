@@ -1,6 +1,7 @@
 package fr.eni.ecole.trocenchere.bll.vendrearticle;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import fr.eni.ecole.trocenchere.TrocEnchereException;
 import fr.eni.ecole.trocenchere.bo.Article;
@@ -8,7 +9,7 @@ import fr.eni.ecole.trocenchere.bo.Categorie;
 import fr.eni.ecole.trocenchere.dal.ventearticle.DAOVendreArticleFact;
 import fr.eni.ecole.trocenchere.dal.ventearticle.TrocEnchereDAOVendreArticle;
 
-public class VendreArticleManagerImpl implements VendreArticleManager{
+class VendreArticleManagerImpl implements VendreArticleManager{
 
 	TrocEnchereDAOVendreArticle dao = DAOVendreArticleFact.getVendreArticleDAO();
 	
@@ -38,7 +39,7 @@ public class VendreArticleManagerImpl implements VendreArticleManager{
 	}
 	
 	@Override
-	public void selectAllCategorie(Categorie categorie) throws TrocEnchereException {
+	public List<Categorie> selectAllCategorie() throws TrocEnchereException {
 		TrocEnchereException tee = new TrocEnchereException();
 		
 		if (dao.selectAllCategorie().size() < 0) {
@@ -46,7 +47,7 @@ public class VendreArticleManagerImpl implements VendreArticleManager{
 		}
 		
 		if (!tee.hasErreurs()) {
-			dao.selectAllCategorie();
+			return dao.selectAllCategorie();
 		} else {
 			throw tee;
 		}
@@ -54,7 +55,7 @@ public class VendreArticleManagerImpl implements VendreArticleManager{
 	}
 
 	@Override
-	public void selectCategorieById(int id) throws TrocEnchereException {
+	public Categorie selectCategorieById(int id) throws TrocEnchereException {
 		TrocEnchereException tee = new TrocEnchereException();
 		boolean dispo = false;
 		
@@ -69,7 +70,7 @@ public class VendreArticleManagerImpl implements VendreArticleManager{
 		}
 		
 		if (!tee.hasErreurs()) {
-			dao.selectCategorieById(id);
+			return dao.selectCategorieById(id);
 		} else {
 			throw tee;
 		}

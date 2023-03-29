@@ -1,5 +1,7 @@
 package fr.eni.ecole.trocenchere.bll.vendrearticle;
 
+import java.util.List;
+
 import fr.eni.ecole.trocenchere.TrocEnchereException;
 import fr.eni.ecole.trocenchere.bo.Article;
 import fr.eni.ecole.trocenchere.bo.Categorie;
@@ -33,12 +35,12 @@ public interface VendreArticleManager {
 	 * @param categorie
 	 * @throws TrocEnchereException 
 	 */
-	public void selectAllCategorie(Categorie categorie) throws TrocEnchereException;
+	public List<Categorie> selectAllCategorie() throws TrocEnchereException;
 	
 	/**
 	 * Permet de selectionner une catégorie par son ID
 	 * @param id
 	 * @throws TrocEnchereException 
 	 */
-	public void selectCategorieById(int id) throws TrocEnchereException;
+	public Categorie selectCategorieById(int id) throws TrocEnchereException;
 }
