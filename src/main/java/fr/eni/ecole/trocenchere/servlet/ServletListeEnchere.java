@@ -7,6 +7,7 @@ import java.time.Month;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -56,8 +57,26 @@ public class ServletListeEnchere extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		
+		Cookie unCookie = new Cookie("ChoixCookie", request.getParameter("categorie"));
+		System.out.println(request.getParameter("categorie"));
+		unCookie.setMaxAge(3600);
+		response.addCookie(unCookie);
+		
+		request.setAttribute("ChoixCookie", unCookie);
+		
+
+		lstEnchereManager dao = LstEnchereManagerSing.getInstance();
+		
+		try {
+			System.out.println(dao.getAllArticlesByDate(LocalDate.now()));
+			request.setAttribute("article", dao.getAllArticlesByDate(LocalDate.now()));
+		} catch (TrocEnchereException e) {
+			e.printStackTrace();
+		}
+		
+		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/JspListeEnchereChoix.jsp");
+		rd.forward(request, response);
 	}
 
 }
