@@ -3,7 +3,6 @@
 <%@page import="java.util.ArrayList"%>
 <%@page import="fr.eni.ecole.trocenchere.bo.Article"%>
 <%@page import="java.util.List"%>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,9 +10,14 @@
 <title>Insert title here</title>
 </head>
 <body>
-
-	<h1>ça marche bien</h1>
-
+<%
+	Cookie cookie= (Cookie) request.getAttribute("ChoixCookie");
+	String choix= cookie.getValue();
+	%>
+	<%
+	
+	List<Article> article = (List<Article>) request.getAttribute("article");
+	%>
 	<label for="name">Filtres :</label>
 
 	<input type="search" id="name" name="name" style="width:200px" placeholder="le nom de l'article contient" required minlength="4"
@@ -31,13 +35,8 @@
 	</select>
 <input type="submit" value="Envoyer">
 </form>
-
 	<%
-	List<Article> article = (List<Article>) request.getAttribute("article");
-	%>
-
-	<%
-	for (Article current : article) {
+	for (Article current : article) {if (current.getCategorie().getLibelle().equals(choix)){
 	%><p><%=current.getNomArticle() + " pour " + current.getDescription() + " "%></p>
 	<p><%="Prix: " + current.getPrixDepart() + " " + "points"%></p>
 	<p><%="Fin de l'enchere: " + current.getDateFinEnchere()%></p>
@@ -45,9 +44,8 @@
 	</p>
 	<br>
 	<%
-	}
+	}}
 	%>
-
-
+	
 </body>
 </html>
