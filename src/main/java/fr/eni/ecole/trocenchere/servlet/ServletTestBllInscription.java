@@ -33,8 +33,8 @@ public class ServletTestBllInscription extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		InscriptionManagerImpl incriptionManager = new InscriptionManagerImpl();
 		try {
-			incriptionManager.ajouter("Haste", "Desnoesafgiagoagjoaigjaigjaoiga", "J", "bloublou@gmail.com", "abougaga", "Rue du moulin",
-					"3517", "Bruz", "zouloulou44");
+			incriptionManager.ajouter("Haste", "dESNOES", "Jérémie", "bloublou@gmail.com", "0695089324", "Rue du moulin",
+					"35170", "Bruz", "CzfzF*dz09");
 		} catch (TrocEnchereException e) {
 			if(e.hasErreurs()) {
 				System.out.println(e.getListeCodesErreur());

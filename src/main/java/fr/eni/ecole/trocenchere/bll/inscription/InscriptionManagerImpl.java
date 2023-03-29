@@ -76,11 +76,13 @@ public class InscriptionManagerImpl implements InscriptionManager {
 			//Si le nom de l'utilisateur a une taille de caractères inférieur à 2, exception.
 		if (utilisateur.getNom().length()<2) {
 			exception.ajouterErreur("Nom trop court ! Plus de 2 caractères svp !");
-		}
-		
+		}	
 			//Si le nom de l'utilisateur a une taille de caractères supérieur à 25, exception.
 		if (utilisateur.getNom().length()>25) {
 			exception.ajouterErreur("Nom trop long ! Moins de 25 caractères svp");
+		}
+		if(isDigit(utilisateur.getNom())) {
+			exception.ajouterErreur("Pas de chiffres dans votre nom stop troll svp");
 		}
 	}
 	
