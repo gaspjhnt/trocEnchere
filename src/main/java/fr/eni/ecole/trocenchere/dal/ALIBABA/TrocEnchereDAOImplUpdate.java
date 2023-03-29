@@ -13,7 +13,7 @@ import fr.eni.ecole.trocenchere.bo.Utilisateur;
 public class TrocEnchereDAOImplUpdate implements TrocEnchereDAOUpdate {
 	 private static final String UPDATE_UTILISATEUR = "UPDATE Utilisateur SET pseudo=?, nom=?, prenom=?, email=?, telephone=?,  rue=?, code_postal=?, ville=? , mot_de_passe=?, credit=?, administrateur=? WHERE noUtilisateur=?";
 	 private static final String UPDATE_ARTICLE = "UPDATE Article SET pseudo=?, nom=?, prenom=?, email=?, telephone=?,  rue=?, code_postal=?, ville=? , mot_de_passe=?, credit=?, administrateur=? WHERE noUtilisateur=?";
-	 private static final String UPDATE_RETRAIT = "UPDATE Retrait SET pseudo=?, nom=?, prenom=?, email=?, telephone=?,  rue=?, code_postal=?, ville=? , mot_de_passe=?, credit=?, administrateur=? WHERE noUtilisateur=?";
+	 private static final String UPDATE_RETRAIT = "UPDATE Retrait SET nom=?, description=?, date_debut_enchere=?, date_fin_enchere=?, telephone=?,  rue=?, code_postal=?, ville=? , mot_de_passe=?, credit=?, administrateur=? WHERE noUtilisateur=?";
 	 private static final String UPDATE_CATEGORIE = "UPDATE Categorie SET pseudo=?, nom=?, prenom=?, email=?, telephone=?,  rue=?, code_postal=?, ville=? , mot_de_passe=?, credit=?, administrateur=? WHERE noUtilisateur=?";
 	 private static final String UPDATE_ENCHERE = "UPDATE Enchere SET pseudo=?, nom=?, prenom=?, email=?, telephone=?,  rue=?, code_postal=?, ville=? , mot_de_passe=?, credit=?, administrateur=? WHERE noUtilisateur=?";
 	@Override
