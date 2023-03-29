@@ -20,6 +20,8 @@ public class TrocEnchereDAOInsertImpl implements TrocEnchereDAOInsert {
 	public static final String INSERT_CATEGORIE ="INSERT INTO categorie(libelle) VALUES(?)";
 	public static final String INSERT_RETRAIT ="INSERT INTO retrait(rue,code_postal,ville,Article_NoArticle) VALUES(?,?,?,?)";
 	
+	//Méthode pour insérer un utilisateur 
+	
 	@Override
 	public void insertUtilisateur(Utilisateur utilisateur) throws TrocEnchereException {
 		
@@ -52,6 +54,9 @@ public class TrocEnchereDAOInsertImpl implements TrocEnchereDAOInsert {
 		}
 		
 	}
+	
+	//Méthode pour insérer un article 
+	
 	@Override
 	public void insertArticle(Article article) throws TrocEnchereException {
 		
@@ -76,6 +81,9 @@ public class TrocEnchereDAOInsertImpl implements TrocEnchereDAOInsert {
 		}
 		
 	}
+	
+	//Méthode pour insérer une enchère
+	
 	@Override
 	public void insertEnchere(Enchere enchere) throws TrocEnchereException {
 		
@@ -98,6 +106,7 @@ public class TrocEnchereDAOInsertImpl implements TrocEnchereDAOInsert {
 		
 	}
 	
+	//Méthode pour insérer une catégorie 
 	@Override
 	public void insertCategorie(Categorie categorie) throws TrocEnchereException {
 		
@@ -116,7 +125,7 @@ public class TrocEnchereDAOInsertImpl implements TrocEnchereDAOInsert {
 			e.printStackTrace();
 		}
 	}
-	
+	//Méthode pour insérer un retrait
 	@Override
 	public void insertRetrait(Retrait retrait) throws TrocEnchereException {
 		
