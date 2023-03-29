@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import fr.eni.ecole.trocenchere.TrocEnchereException;
 import fr.eni.ecole.trocenchere.bo.Utilisateur;
@@ -11,9 +13,12 @@ import fr.eni.ecole.trocenchere.bo.Utilisateur;
 public class InscriptionDAOImpl implements InscriptionDAO {
 
 	public static final String INSERT_UTILISATEUR = "INSERT INTO utilisateur(pseudo,nom,prenom,email,telephone,rue,code_postal,ville,mot_de_passe,credit,administrateur) VALUES(?,?,?,?,?,?,?,?,?,?,?)";
+	public static final String SELECT_PSEUDO ="SELECT pseudo FROM utilisateur";
 	
 	@Override
 	public void insertUtilisateur(Utilisateur utilisateur) throws TrocEnchereException {
+		
+		TrocEnchereException tee = new TrocEnchereException();
 		
 		try(Connection cnx = ConnectionProvider.getConnection()){
 			PreparedStatement pstmt = cnx.prepareStatement(INSERT_UTILISATEUR, PreparedStatement.RETURN_GENERATED_KEYS);
@@ -36,10 +41,31 @@ public class InscriptionDAOImpl implements InscriptionDAO {
 		}
 		catch(SQLException e) {
 			e.printStackTrace();
-			TrocEnchereException tee = new TrocEnchereException();
 			tee.ajouterErreur("Probleme à l'ajout d'un utilisateur dans la base de données");
 			throw tee;
 		}
+	}
+
+	@Override
+	public List<String> getAllPseudo() throws TrocEnchereException {
+		
+		TrocEnchereException tee = new TrocEnchereException();
+		List<String> lstPseudo = new ArrayList<>();
+		
+		try(Connection con = ConnectionProvider.getConnection()){
+			PreparedStatement stmt = con.prepareStatement(SELECT_PSEUDO);
+			ResultSet rs = stmt.executeQuery();
+			
+		while(rs.next()) {
+			lstPseudo.add(rs.getString("pseudo"));
+			}
+		}
+		catch(SQLException e) {
+			e.printStackTrace();
+			tee.ajouterErreur("Problème au niveau du GetAllPseudo de la base de données");
+		}
+		return lstPseudo;
+		
 	}
 
 }
