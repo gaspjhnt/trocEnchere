@@ -191,11 +191,12 @@ public class InscriptionManagerImpl implements InscriptionManager {
 		//On vérifie que le mot de passe n'est pas null
 		if(utilisateur.getMotDePasse()==null) {
 			exception.ajouterErreur("Le mot de passe doit être renseigné !");
-			
+		}
+
 		if(!isValidMdp(utilisateur.getMotDePasse())) {
 			exception.ajouterErreur("Le mot de passe doit correspondre aux critères ! Une majuscule, une minuscule,"
 					+ " un caractère spécial et au moins 8 caractères !");
-		}
+		
 		}
 	}
 
