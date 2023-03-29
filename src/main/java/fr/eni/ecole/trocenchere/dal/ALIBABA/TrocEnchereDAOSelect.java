@@ -1,4 +1,4 @@
-package fr.eni.ecole.trocenchere.dal;
+package fr.eni.ecole.trocenchere.dal.ALIBABA;
 
 import java.time.LocalDate;
 import java.util.List;

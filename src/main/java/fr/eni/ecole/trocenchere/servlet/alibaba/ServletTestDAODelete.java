@@ -1,4 +1,4 @@
-package fr.eni.ecole.trocenchere.servlet;
+package fr.eni.ecole.trocenchere.servlet.alibaba;
 
 import java.io.IOException;
 
@@ -10,8 +10,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import fr.eni.ecole.trocenchere.TrocEnchereException;
 import fr.eni.ecole.trocenchere.bo.Utilisateur;
-import fr.eni.ecole.trocenchere.dal.TrocEnchereDAOImplDelete;
-import fr.eni.ecole.trocenchere.dal.TrocEnchereDAOInsertImpl;
+import fr.eni.ecole.trocenchere.dal.ALIBABA.TrocEnchereDAOImplDelete;
+import fr.eni.ecole.trocenchere.dal.ALIBABA.TrocEnchereDAOInsertImpl;
 
 /**
  * Servlet implementation class ServletTestDAODelete
@@ -33,11 +33,11 @@ public class ServletTestDAODelete extends HttpServlet {
 
 		TrocEnchereDAOImplDelete testDelete = new TrocEnchereDAOImplDelete();
 		try {
-			//testDelete.deleteArticle(3);
-			testDelete.deleteUtilisateur(3);
-			//testDelete.deleteCategorie(3);
-			//testDelete.deleteEnchere(3);
-			//testDelete.deleteRetrait(4);
+			testDelete.deleteArticle(6);
+			testDelete.deleteUtilisateur(19);
+			testDelete.deleteCategorie(14);
+			testDelete.deleteEnchere(3);
+			testDelete.deleteRetrait(4);
 		} catch (TrocEnchereException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
