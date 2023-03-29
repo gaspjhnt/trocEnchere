@@ -53,8 +53,9 @@ public interface TrocEnchereDAOSelect {
 	 * Selectionner tous les articles en fonction d'une date (peut être les deux fin et début d'enchère)
 	 * @param date
 	 * @return
+	 * @throws TrocEnchereException 
 	 */
-	public List<Article> selectArticleByDateDebut(LocalDate date);
+	public List<Article> selectArticleByDateDebut(LocalDate date) throws TrocEnchereException;
 	
 	
 	
@@ -62,8 +63,9 @@ public interface TrocEnchereDAOSelect {
 	 * Selectionner tous les articles en fonction d'une date (peut être les deux fin et début d'enchère)
 	 * @param date
 	 * @return
+	 * @throws TrocEnchereException 
 	 */
-	public List<Article> selectArticleByDateFin(LocalDate date);
+	public List<Article> selectArticleByDateFin(LocalDate date) throws TrocEnchereException;
 	
 	
 	
@@ -71,38 +73,43 @@ public interface TrocEnchereDAOSelect {
 	 * Selectionner toutes les enchères d'un article
 	 * @param article
 	 * @return
+	 * @throws TrocEnchereException 
 	 */
-	public List<Enchere> selectEnchereByArticle(Article article);
+	public List<Enchere> selectEnchereByArticle(Article article) throws TrocEnchereException;
 	
 	
 	/**
 	 * Selectionner toutes les enchères d'un utilisateur (acheteur)
 	 * @param utilisateur
 	 * @return
+	 * @throws TrocEnchereException 
 	 */
-	public List<Enchere> selectEnchereByUser(Utilisateur utilisateur);
+	public List<Enchere> selectEnchereByUser(Utilisateur utilisateur) throws TrocEnchereException;
 	
 	
 	/**
 	 * Selectionner une catégorie par son ID
 	 * @param id
 	 * @return
+	 * @throws TrocEnchereException 
 	 */
-	public Categorie selectCategorieById(int id);
+	public Categorie selectCategorieById(int id) throws TrocEnchereException;
 	
 	
 	/**
 	 * Selectionner toutes les catégories
 	 * @return
+	 * @throws TrocEnchereException 
 	 */
-	public List<Categorie> selectAllCategorie();
+	public List<Categorie> selectAllCategorie() throws TrocEnchereException;
 	
 	
 	/**
 	 * Selectionner le retrait d'un article
 	 * @param article
 	 * @return
+	 * @throws TrocEnchereException 
 	 */
-	public Retrait selectRetraitByArticle(Article article);
+	public Retrait selectRetraitByArticle(Article article) throws TrocEnchereException;
 
 }
