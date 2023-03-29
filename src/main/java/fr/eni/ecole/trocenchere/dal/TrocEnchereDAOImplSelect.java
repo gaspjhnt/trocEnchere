@@ -242,6 +242,8 @@ public class TrocEnchereDAOImplSelect implements TrocEnchereDAOSelect{
 	return lstArticle;
 }
 
+	// renvoie tous les articles avec une date de fin d'enchère > a la date DATE (donc les articles avec une fin
+	// d'enchères après la date donnée
 	@Override
 	public List<Article> selectArticleByDateFin(LocalDate date) {
 		return null;
@@ -281,7 +283,10 @@ public class TrocEnchereDAOImplSelect implements TrocEnchereDAOSelect{
 //	return lstArticle;
 }
 
-
+	
+	
+	// renvoie tous les articles avec une date de début d'enchère < a la date DATE (donc les articles avec une début
+	// d'enchères avant la date donnée
 	@Override
 	public List<Article> selectArticleByDateDebut(LocalDate date) {
 		// TODO Auto-generated method stub

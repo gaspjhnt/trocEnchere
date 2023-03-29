@@ -14,15 +14,15 @@ public class TrocEnchereDAOImplDelete implements TrocEnchereDAODelete {
 
 	public static final String DELETE_ARTICLE = "DELETE FROM Article where noArticle=?";
 	public static final String DELETE_UTILISATEUR = "DELETE FROM Utilisateur where noUtilisateur=?";
-	public static final String DELETE_CATEGORIE = "DELETE FROM Cattegorie where noCategorie=?";
+	public static final String DELETE_CATEGORIE = "DELETE FROM Categorie where noCategorie=?";
 	public static final String DELETE_ENCHERE = "DELETE FROM Enchere where noEnchere=?";
 	public static final String DELETE_RETRAIT = "DELETE FROM Retrait where noRetrait=?";
 
 	@Override
-	public void deleteArticle(Article article) throws TrocEnchereException {
+	public void deleteArticle(int idArticle) throws TrocEnchereException {
 		try (Connection cnx = ConnectionProvider.getConnection()) {
 			PreparedStatement pstmt = cnx.prepareStatement(DELETE_ARTICLE);
-			pstmt.setInt(1, article.getNoArticle());
+			pstmt.setInt(1, idArticle);
 			pstmt.executeUpdate();
 		} catch (Exception e) {
 
@@ -30,10 +30,10 @@ public class TrocEnchereDAOImplDelete implements TrocEnchereDAODelete {
 	}
 
 	@Override
-	public void deleteUtilisateur(Utilisateur utilisateur) throws TrocEnchereException  {
+	public void deleteUtilisateur(int idUtilisateur) throws TrocEnchereException  {
 		try (Connection cnx = ConnectionProvider.getConnection()) {
 			PreparedStatement pstmt = cnx.prepareStatement(DELETE_UTILISATEUR);
-			pstmt.setInt(1, utilisateur.getNoUtilisateur());
+			pstmt.setInt(1, idUtilisateur);
 			pstmt.executeUpdate();
 		} catch (Exception e) {
 
@@ -42,10 +42,10 @@ public class TrocEnchereDAOImplDelete implements TrocEnchereDAODelete {
 	}
 
 	@Override
-	public void deleteCategorie(Categorie categorie)  throws TrocEnchereException {
+	public void deleteCategorie(int idCategorie)  throws TrocEnchereException {
 		try (Connection cnx = ConnectionProvider.getConnection()) {
 			PreparedStatement pstmt = cnx.prepareStatement(DELETE_CATEGORIE);
-			pstmt.setInt(1, categorie.getNoCategorie());
+			pstmt.setInt(1, idCategorie);
 			pstmt.executeUpdate();
 		} catch (Exception e) {
 
@@ -54,10 +54,10 @@ public class TrocEnchereDAOImplDelete implements TrocEnchereDAODelete {
 	}
 
 	@Override
-	public void deleteEnchere(Enchere enchere) throws TrocEnchereException  {
+	public void deleteEnchere(int idEnchere) throws TrocEnchereException  {
 		try (Connection cnx = ConnectionProvider.getConnection()) {
 			PreparedStatement pstmt = cnx.prepareStatement(DELETE_ENCHERE);
-			pstmt.setInt(1, enchere.getNoEnchere());
+			pstmt.setInt(1, idEnchere);
 			pstmt.executeUpdate();
 		} catch (Exception e) {
 
@@ -65,10 +65,10 @@ public class TrocEnchereDAOImplDelete implements TrocEnchereDAODelete {
 	}
 
 	@Override
-	public void deleteRetrait(Retrait retrait) throws TrocEnchereException  {
+	public void deleteRetrait(int idRetrait) throws TrocEnchereException  {
 		try (Connection cnx = ConnectionProvider.getConnection()) {
 			PreparedStatement pstmt = cnx.prepareStatement(DELETE_RETRAIT);
-			pstmt.setInt(1, retrait.getNoRetrait());
+			pstmt.setInt(1, idRetrait);
 			pstmt.executeUpdate();
 		} catch (Exception e) {
 

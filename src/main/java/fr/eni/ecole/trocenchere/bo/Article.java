@@ -25,8 +25,25 @@ public class Article { //(Vente)
 	 */ 
 	public Article() {
 	}
+	
+	
 
 	
+	public Article(String nomArticle, String description, LocalDate dateDebutEnchere, LocalDate dateFinEnchere,
+			Integer prixDepart, Utilisateur utilisateur, Categorie categorie) {
+		super();
+		this.nomArticle = nomArticle;
+		this.description = description;
+		this.dateDebutEnchere = dateDebutEnchere;
+		this.dateFinEnchere = dateFinEnchere;
+		this.prixDepart = prixDepart;
+		this.utilisateur = utilisateur;
+		this.categorie = categorie;
+	}
+
+
+
+
 	/**
 	 * Constructeur pour initialiser un article sans adresse de retrait
 	 * INFO : Obligatoire pour créer un article SANS RETRAIT

@@ -33,8 +33,11 @@ public class ServletTestDAODelete extends HttpServlet {
 
 		TrocEnchereDAOImplDelete testDelete = new TrocEnchereDAOImplDelete();
 		try {
-			testDelete.deleteUtilisateur(new Utilisateur(1,"Haste", "Desnoes", "Jérémie", "bloblogmail.com", "0695067182", "Rue du moulin",
-					"35170", "Rennes","Kilokoko30", null, null, null, null));
+			testDelete.deleteArticle(6);
+			testDelete.deleteUtilisateur(19);
+			testDelete.deleteCategorie(14);
+			testDelete.deleteEnchere(3);
+			testDelete.deleteRetrait(4);
 		} catch (TrocEnchereException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

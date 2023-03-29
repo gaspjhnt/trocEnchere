@@ -14,33 +14,33 @@ public interface TrocEnchereDAODelete {
  * @param article
  * @throws TrocEnchereException 
  */
-public void deleteArticle(Article article) throws TrocEnchereException;
+public void deleteArticle(int idArticle) throws TrocEnchereException;
 
 /**
  * Permet de delete un utilisateur
  * @param utilisateur
  * @throws TrocEnchereException 
  */
-public void deleteUtilisateur(Utilisateur utilisateur) throws TrocEnchereException;
+public void deleteUtilisateur(int idUtilisateur) throws TrocEnchereException;
 
 /**
  * Permet de delete une catégorie
  * @param categorie
  * @throws TrocEnchereException 
  */
-public void deleteCategorie(Categorie categorie) throws TrocEnchereException;
+public void deleteCategorie(int idCategorie) throws TrocEnchereException;
 
 /**
  * Permet de delete une enchère
  * @param enchere
  * @throws TrocEnchereException 
  */
-public void deleteEnchere(Enchere enchere) throws TrocEnchereException;
+public void deleteEnchere(int idEnchere) throws TrocEnchereException;
 
 /**
  * Permet de delete un retrait
  * @param retrait
  * @throws TrocEnchereException 
  */
-public void deleteRetrait(Retrait retrait) throws TrocEnchereException;
+public void deleteRetrait(int idRetrait) throws TrocEnchereException;
 }
