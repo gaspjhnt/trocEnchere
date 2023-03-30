@@ -1,4 +1,3 @@
-
 package fr.eni.ecole.trocenchere.dal.connexion;
 
 import fr.eni.ecole.trocenchere.TrocEnchereException;
