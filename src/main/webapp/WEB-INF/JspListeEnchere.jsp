@@ -34,18 +34,24 @@
 	List<Article> article = (List<Article>) request.getAttribute("article");
 	%>
 
+
+
+	<form method="post" action="./ServletDetailArticle">
 	<%
 	for (Article current : article) {if (current.isEtatVente()==false){
-	%><p><%=current.getNomArticle() + " pour " + current.getDescription() + " "%></p>
-	<p><%="Prix: " + current.getPrixDepart() + " " + "points"%></p>
-	<p><%="Fin de l'enchere: " + current.getDateFinEnchere()%></p>
-	<p><%="Vendeur: " + current.getUtilisateur().getPseudo()%>
-	</p>
+	%>
+	<button type="submit">
+			<%=current.getNomArticle()%>
+	</button><input type="hidden" id="input_article" name="idArticle" value=<%=current.getNoArticle()%>>
+
+	<p>	<%="Prix: " + current.getPrixDepart() + " " + "points"%> </p>
+	<p>	<%="Fin de l'enchere: " + current.getDateFinEnchere()%> </p>
+	<p>	<%="Vendeur: " + current.getUtilisateur().getPseudo()%> </p>
 	<br>
 	<%
 	}}
 	%>
-
+	</form>
 
 </body>
 </html>

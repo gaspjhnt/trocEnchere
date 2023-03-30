@@ -89,14 +89,20 @@ public class ServletVendreArticle extends HttpServlet {
 
 		//Ajout du retrait dans l'article
 		article.setRetrait(retrait);
-		
+
 		
 		// *** TEMPORAIRE *** Création d'un utilisateur pour le mettre en tant que vendeur
 		Utilisateur u1 = new Utilisateur("Haste", "Desnoes", "Jérémie", "bloblogmail.com", "0695067182",
 				"Rue du moulin", "35170", "Rennes", "Kilokoko30");// A supprimer quand on pourras avoir l'utilisateur courant
-		
+
 		try {
-			dao.insertUtilisateur(u1); // A supprimer quand on pourras avoir l'utilisateur courant
+			dao.insertUtilisateur(u1);
+			article.setUtilisateur(u1);
+		} catch (TrocEnchereException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		try { // A supprimer quand on pourras avoir l'utilisateur courant
 			dao.insertArticle(article);
 			dao.insertRetrait(retrait);
 			

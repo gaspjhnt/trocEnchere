@@ -38,29 +38,42 @@
 		</select>
 	</form>
 	
-	<% if(choix.equals("Toutes")){
-		for (Article current : article) {if ((current.isEtatVente()==false) && current.getNomArticle().toLowerCase().contains(deuxiemeChoix.toLowerCase())){
-			%><p><%=current.getNomArticle() + " pour " + current.getDescription() + " "%></p>
-			<p><%="Prix: " + current.getPrixDepart() + " " + "points"%></p>
-			<p><%="Fin de l'enchere: " + current.getDateFinEnchere()%></p>
-			<p><%="Vendeur: " + current.getUtilisateur().getPseudo()%></p>
-			<%imprimeChacal=true;%>
+	<% if(choix.equals("Toutes")){%>
+		<form method="post" action="./ServletDetailArticle">
+		<%for (Article current : article) {if ((current.isEtatVente()==false) && current.getNomArticle().toLowerCase().contains(deuxiemeChoix.toLowerCase())){
+			%>
+			<button type="submit">
+					<%=current.getNomArticle()%>
+			</button><input type="hidden" id="input_article" name="idArticle" value=<%=current.getNoArticle()%>>
+		
+			<p>	<%="Prix: " + current.getPrixDepart() + " " + "points"%> </p>
+			<p>	<%="Fin de l'enchere: " + current.getDateFinEnchere()%> </p>
+			<p>	<%="Vendeur: " + current.getUtilisateur().getPseudo()%> </p>
 			<br>
 		<%
+		imprimeChacal=true;
 		}}
 	%>
+		</form>
 <% 
 	} else {
-		for (Article current : article) {
-			if (current.getCategorie().getLibelle().equals(choix)&&(current.isEtatVente()==false)&& current.getNomArticle().contains(deuxiemeChoix)){
-				%><p><%=current.getNomArticle() + " pour " + current.getDescription() + " "%></p>
-				<p><%="Prix: " + current.getPrixDepart() + " " + "points"%></p>
-				<p><%="Fin de l'enchere: " + current.getDateFinEnchere()%></p>
-				<p><%="Vendeur: " + current.getUtilisateur().getPseudo()%></p>
-				<%imprimeChacal=true;%>
+		for (Article current : article) {%>
+		<form method="post" action="./ServletDetailArticle">
+		<%if (current.getCategorie().getLibelle().equals(choix)&&(current.isEtatVente()==false)&& current.getNomArticle().contains(deuxiemeChoix)){
+				%>
+				<button type="submit">
+						<%=current.getNomArticle()%>
+				</button><input type="hidden" id="input_article" name="idArticle" value=<%=current.getNoArticle()%>>
+			
+				<p>	<%="Prix: " + current.getPrixDepart() + " " + "points"%> </p>
+				<p>	<%="Fin de l'enchere: " + current.getDateFinEnchere()%> </p>
+				<p>	<%="Vendeur: " + current.getUtilisateur().getPseudo()%> </p>
 				<br>
-			<%}
-		}
+			<%
+			imprimeChacal=true;
+			}
+		}%>
+		</form> <%
 	}%>
 	
 	<%if(imprimeChacal==false) {%>
