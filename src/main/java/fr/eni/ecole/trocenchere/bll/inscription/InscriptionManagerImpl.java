@@ -62,11 +62,8 @@ public class InscriptionManagerImpl implements InscriptionManager {
 				} catch (TrocEnchereException e) {
 					e.printStackTrace();
 				}
-				
-			{
-				
-			}
 	}
+	
 	//Méthode pour valider le nom (on ajoute des conditions pour valider le nom)
 	private void validerNom(Utilisateur utilisateur, TrocEnchereException exception) {
 			//Si le nom utilisateur est null, exception.
