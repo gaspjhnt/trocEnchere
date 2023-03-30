@@ -13,7 +13,8 @@
 <body>
 
 	<h1>ça marche bien</h1>
-
+	
+<!-- 	Création du champ de recherche et de la liste déroulante de catégorie -->
 <form method="post" action="./ServletListeEnchere">
 	<label for="name">Filtres :</label>
 
@@ -30,13 +31,15 @@
 	</select>
 </form>
 
+
 	<%
+	//Initialisation d'une Liste d'article qui prend en valeur la clé "article" qui contient notre méthode getAllByDate
 	List<Article> article = (List<Article>) request.getAttribute("article");
 	%>
 
 
-
-	<form method="get" action="./ServletDetailArticle">
+<!-- Boucle foreach de la Liste article qui va imprimer tous les articles dont la date de fin d'enchere est après la date du jour présents dans la base de donnée -->
+	<form method="post" action="./ServletDetailArticle">
 	<%
 	for (Article current : article) {if (current.isEtatVente()==false){
 	%>
