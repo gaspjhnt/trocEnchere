@@ -47,6 +47,9 @@
 								}
 					%>
 				</select>
+				
+				<p>Mise à prix :</p>
+				<label for="input_article"></label><input id="input_article" type="number" name="nomArticle" maxlength="4" size="4" required/> 
 			<input type="submit" value="Valider"> 
 		</form>
 	</div>
