@@ -6,13 +6,22 @@ import java.util.List;
 import fr.eni.ecole.trocenchere.TrocEnchereException;
 import fr.eni.ecole.trocenchere.bo.Article;
 import fr.eni.ecole.trocenchere.bo.Categorie;
+import fr.eni.ecole.trocenchere.bo.Retrait;
+import fr.eni.ecole.trocenchere.bo.Utilisateur;
 import fr.eni.ecole.trocenchere.dal.ventearticle.DAOVendreArticleFact;
 import fr.eni.ecole.trocenchere.dal.ventearticle.TrocEnchereDAOVendreArticle;
 
 class VendreArticleManagerImpl implements VendreArticleManager{
 
+	// recupération de la Factory DAO
 	TrocEnchereDAOVendreArticle dao = DAOVendreArticleFact.getVendreArticleDAO();
 	
+	
+	
+	/**
+	 * Methode permettant de faire les verifications necessaires (voir dans Interface) 
+	 * avant d'inserer en base de donnée une catégorie
+	 */
 	@Override
 	public void insertCategorie(Categorie categorie) throws TrocEnchereException {
 		TrocEnchereException tee = new TrocEnchereException();
@@ -25,6 +34,11 @@ class VendreArticleManagerImpl implements VendreArticleManager{
 		}
 	}
 
+	
+	/**
+	 * Methode permettant de faire les verifications necessaires (voir dans Interface) 
+	 * avant d'inserer en base de donnée un article
+	 */
 	@Override
 	public void insertArticle(Article article) throws TrocEnchereException {
 		TrocEnchereException tee = new TrocEnchereException();
@@ -38,6 +52,41 @@ class VendreArticleManagerImpl implements VendreArticleManager{
 		}
 	}
 	
+
+	/**
+	 * Methode permettant de faire les verifications necessaires (voir dans Interface) 
+	 * avant d'inserer en base de donnée un utilisateur
+	 */
+	@Override
+	public void insertUtilisateur(Utilisateur utilisateur) throws TrocEnchereException {
+		
+		dao.insertUtilisateur(utilisateur);
+	}
+
+	
+	/**
+	 * Methode permettant de faire les verifications necessaires (voir dans Interface) 
+	 * avant d'inserer en base de donnée un retrait
+	 */
+	@Override
+	public void insertRetrait(Retrait retrait) throws TrocEnchereException{
+		TrocEnchereException tee = new TrocEnchereException();
+		
+		verifRetrait(retrait, tee);
+		
+		
+		if (!tee.hasErreurs()) {
+			dao.insertRetrait(retrait);
+		} else {
+			throw tee;
+		}
+	}
+
+	
+	/**
+	 * Methode permettant de faire les verifications necessaires (voir dans Interface) 
+	 * avant de selectionner toutes les catégories dans la BDD.
+	 */
 	@Override
 	public List<Categorie> selectAllCategorie() throws TrocEnchereException {
 		TrocEnchereException tee = new TrocEnchereException();
@@ -54,6 +103,11 @@ class VendreArticleManagerImpl implements VendreArticleManager{
 		
 	}
 
+	
+	/**
+	 * Methode permettant de faire les verifications necessaires (voir dans Interface) 
+	 * avant de selectionner une catégorie via son ID en BDD.
+	 */
 	@Override
 	public Categorie selectCategorieById(int id) throws TrocEnchereException {
 		TrocEnchereException tee = new TrocEnchereException();
@@ -77,13 +131,19 @@ class VendreArticleManagerImpl implements VendreArticleManager{
 	}
 	
 	
+
 	
 	
 	
 	// VERIFICATIONS 
 		
 
-
+	/**
+	 * Permet de réaliser les verifications nécessaire pour inserer une catégorie en BDD.
+	 * @param categorie
+	 * @param tee
+	 * @throws TrocEnchereException
+	 */
 	private void verifInsertCategorie(Categorie categorie, TrocEnchereException tee) throws TrocEnchereException {
 		if (categorie.getLibelle().length()> 45) {
 			tee.ajouterErreur("Libelle trop grand. (45 caractères maximum)");
@@ -100,11 +160,12 @@ class VendreArticleManagerImpl implements VendreArticleManager{
 		}
 	}
 	
-	
-	
-	
 
-
+	/**
+	 * Permet de réaliser les verifications nécessaire pour inserer un article en BDD.
+	 * @param article
+	 * @param tee
+	 */
 	private void verifInsertArticle(Article article, TrocEnchereException tee) {
 		if (article.getNomArticle() == null) {
 			tee.ajouterErreur("Nom d'article non renseigné.");
@@ -155,5 +216,53 @@ class VendreArticleManagerImpl implements VendreArticleManager{
 		}
 	}
 
+	
+	/**
+	 * Permet de réaliser les verifications nécessaire pour inserer un retrait en BDD.
+	 * @param retrait
+	 * @param tee
+	 */
+	private void verifRetrait(Retrait retrait, TrocEnchereException tee) {
+		if (retrait.getRue() == null) {
+			tee.ajouterErreur("Adresse non valide.");
+		}
+		
+		if (retrait.getCodePostal() == null) {
+			tee.ajouterErreur("Adresse non valide.");
+		}
+		
+		if (retrait.getCodePostal().length()>5) {
+			tee.ajouterErreur("Adresse non valide.");
+		}
+		
+		if (!isDigit(retrait.getCodePostal())) {
+			tee.ajouterErreur("Adresse non valide.");
+		}
+		
+		if (retrait.getVille() == null) {
+			tee.ajouterErreur("Adresse non valide.");
+		}
+	}
 
+	
+	
+	
+	
+	//METHODES EXTERNES
+	
+	
+	/**
+	 * Permet de return true si un str est 100% de digit si non false
+	 * @param str
+	 * @return
+	 */
+	private boolean isDigit(String str) {
+		try {
+			Integer.parseInt(str);
+			return true;
+		}
+		catch(Exception e) {
+			return false;
+		}
+	}
 }

@@ -1,6 +1,7 @@
 package fr.eni.ecole.trocenchere.servlet;
 
 import java.io.IOException;
+import java.time.LocalDate;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -12,6 +13,9 @@ import javax.servlet.http.HttpServletResponse;
 import fr.eni.ecole.trocenchere.TrocEnchereException;
 import fr.eni.ecole.trocenchere.bll.vendrearticle.VendreArticleManager;
 import fr.eni.ecole.trocenchere.bll.vendrearticle.VendreArticleManagerSing;
+import fr.eni.ecole.trocenchere.bo.Article;
+import fr.eni.ecole.trocenchere.bo.Retrait;
+import fr.eni.ecole.trocenchere.bo.Utilisateur;
 
 /**
  * Servlet implementation class ServletVendreArticle
@@ -32,31 +36,18 @@ public class ServletVendreArticle extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
 		VendreArticleManager dao = VendreArticleManagerSing.getInstance();
 		
-		
 		try {
+			//Envoie à la JSP la liste de toutes les catégories.
 			request.setAttribute("lstCategorie", dao.selectAllCategorie());
 		} catch (TrocEnchereException e) {
+			
+			//Envoie à la JSP la liste des erreurs.
 			request.setAttribute("lstErreur", e.getListeCodesErreur());
 		}
-		
-//		Categorie informatique = new Categorie("Informatique");
-//		Categorie ameublement = new Categorie("Ameublement");
-//		Categorie vetement = new Categorie("Vêtement");
-//		Categorie sportEtLoisirs = new Categorie("Sport & Loisirs");
-//		
-//		try {
-//			dao.insertCategorie(informatique);
-//			dao.insertCategorie(ameublement);
-//			dao.insertCategorie(vetement);
-//			dao.insertCategorie(sportEtLoisirs);
-//		} catch (TrocEnchereException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
 			
+		//Lance la jsp vendre un article.
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/VendreArticle/VendreArticle.jsp");
 		rd.forward(request, response);
 	}
@@ -65,7 +56,58 @@ public class ServletVendreArticle extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+
+		VendreArticleManager dao = VendreArticleManagerSing.getInstance();
+		
+		//Création de l'article
+		Article article = new Article();
+		
+		article.setNomArticle(request.getParameter("nomArticle"));
+		article.setDescription(request.getParameter("description"));
+		
+		//Set la catégorie grâce a la value renvoyer
+		try {
+			article.setCategorie(dao.selectCategorieById(Integer.parseInt(request.getParameter("categorie"))));
+		} catch (NumberFormatException e1) {
+			e1.printStackTrace();
+		} catch (TrocEnchereException e1) {
+			
+			//Envoie à la JSP la liste des erreurs.
+			request.setAttribute("lstErreur", e1.getListeCodesErreur());
+		}
+		
+		article.setPrixDepart(Integer.parseInt(request.getParameter("prixArticle")));
+		article.setDateDebutEnchere(LocalDate.parse(request.getParameter("dateDebutEnchere")));
+		article.setDateFinEnchere(LocalDate.parse(request.getParameter("dateFinEnchere")));
+		
+		//Création du retrait avec soit l'adresse saisie par le user soit son adresse a lui (valeur par defaut)
+		Retrait retrait = new Retrait();
+		retrait.setArticle(article);
+		retrait.setRue(request.getParameter("rueRetrait"));
+		retrait.setCodePostal(request.getParameter("codePostalRetrait"));
+		retrait.setVille(request.getParameter("villeRetrait"));
+
+		//Ajout du retrait dans l'article
+		article.setRetrait(retrait);
+		
+		
+		// *** TEMPORAIRE *** Création d'un utilisateur pour le mettre en tant que vendeur
+		Utilisateur u1 = new Utilisateur("Haste", "Desnoes", "Jérémie", "bloblogmail.com", "0695067182",
+				"Rue du moulin", "35170", "Rennes", "Kilokoko30");// A supprimer quand on pourras avoir l'utilisateur courant
+		
+		try {
+			dao.insertUtilisateur(u1); // A supprimer quand on pourras avoir l'utilisateur courant
+			dao.insertArticle(article);
+			dao.insertRetrait(retrait);
+			
+			//Envoie à la JSP un message de succès a retirer quand ça va rediriger vers une autre servlet
+			request.setAttribute("valide", "Article créé !");
+		} catch (TrocEnchereException e) {
+			
+			//Envoie à la JSP la liste des erreurs.
+			request.setAttribute("lstErreur", e.getListeCodesErreur());
+		}
+		
 		doGet(request, response);
 	}
 
