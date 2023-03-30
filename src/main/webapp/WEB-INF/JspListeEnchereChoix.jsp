@@ -29,7 +29,7 @@
 	List<Article> article = (List<Article>) request.getAttribute("article");
 	%>
 <!-- 	Création du champ de recherche et de la liste déroulante de catégorie -->
-	<form method="post" action="./ServletListeEnchere">
+	<form method="get" action="./ServletListeEnchere">
 		<label for="name">Filtres :</label> <input type="search" id="name"
 			name="recherche" style="width: 200px"
 			placeholder="le nom de l'article contient"><input
@@ -48,7 +48,7 @@
 <!-- La foreach va imprimer un article si l'état de l'article est en vente et si l'article contient la valeur dans le champ de recherche de l'utilisateur -->
 
 	<% if(choix.equals("Toutes")){%>
-		<form method="post" action="./ServletDetailArticle">
+		<form method="get" action="./ServletDetailArticle">
 		<%for (Article current : article) {if ((current.isEtatVente()==false) && current.getNomArticle().toLowerCase().contains(deuxiemeChoix.toLowerCase())){
 			%>
 			<button type="submit">

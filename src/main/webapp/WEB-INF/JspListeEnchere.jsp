@@ -39,7 +39,7 @@
 
 
 <!-- Boucle foreach de la Liste article qui va imprimer tous les articles dont la date de fin d'enchere est après la date du jour présents dans la base de donnée -->
-	<form method="post" action="./ServletDetailArticle">
+	<form method="get" action="./ServletDetailArticle">
 	<%
 	for (Article current : article) {if (current.isEtatVente()==false){
 	%>
