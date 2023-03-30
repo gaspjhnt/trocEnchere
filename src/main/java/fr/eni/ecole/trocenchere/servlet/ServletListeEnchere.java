@@ -30,7 +30,6 @@ public class ServletListeEnchere extends HttpServlet {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
@@ -63,7 +62,14 @@ public class ServletListeEnchere extends HttpServlet {
 		unCookie.setMaxAge(3600);
 		response.addCookie(unCookie);
 		
+		Cookie deuxCookie = new Cookie("RechercheCookie", request.getParameter("recherche"));
+		System.out.println(request.getParameter("recherche"));
+		unCookie.setMaxAge(3600);
+		response.addCookie(deuxCookie);
+		
+		
 		request.setAttribute("ChoixCookie", unCookie);
+		request.setAttribute("RechercheCookie", deuxCookie);
 		
 
 		lstEnchereManager dao = LstEnchereManagerSing.getInstance();

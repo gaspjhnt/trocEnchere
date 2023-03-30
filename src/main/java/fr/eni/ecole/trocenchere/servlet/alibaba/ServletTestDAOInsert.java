@@ -57,10 +57,10 @@ public class ServletTestDAOInsert extends HttpServlet {
 			// Maintenant que l'utilisateur a été inséré, on peut créer et insérer le velo
 
 			Article a1 = new Article("Velo", "Mon vélo vert", LocalDate.now(), LocalDate.of(2023,Month.MARCH,27),150, u1, c1);
-			Article a2 = new Article("Velo", "Mon vélo bleu", LocalDate.now(),LocalDate.of(2023,Month.MARCH,30), 150, u1, c1);
-			Article a3 = new Article("Pull", "laine bleu", LocalDate.now(),LocalDate.of(2023,Month.MARCH,30), 150, u1, c4);
-			Article a4 = new Article("Pc", "pour gros gamer", LocalDate.now(),LocalDate.of(2023,Month.MARCH,30), 150, u1, c3);
-			Article a5 = new Article("Table", "pour bien manger", LocalDate.now(),LocalDate.of(2023,Month.MARCH,30), 150, u1, c2);
+			Article a2 = new Article("Velo", "Mon vélo bleu", LocalDate.now(),LocalDate.of(2023,Month.APRIL,30), 150, u1, c1);
+			Article a3 = new Article("Pull", "laine bleu", LocalDate.now(),LocalDate.of(2023,Month.APRIL,30), 150, u1, c4);
+			Article a4 = new Article("Pc", "pour gros gamer", LocalDate.now(),LocalDate.of(2023,Month.APRIL,30), 150, u1, c3);
+			Article a5 = new Article("Table", "pour bien manger", LocalDate.now(),LocalDate.of(2023,Month.APRIL,30), 150, u1, c2);
 			dao.insertArticle(a1);
 			dao.insertArticle(a2);
 			dao.insertArticle(a3);
