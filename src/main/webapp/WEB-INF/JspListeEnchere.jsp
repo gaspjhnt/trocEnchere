@@ -36,7 +36,7 @@
 
 
 
-	<form method="post" action="./ServletDetailArticle">
+	<form method="get" action="./ServletDetailArticle">
 	<%
 	for (Article current : article) {if (current.isEtatVente()==false){
 	%>

@@ -48,7 +48,7 @@ public class ServletVendreArticle extends HttpServlet {
 		}
 			
 		//Lance la jsp vendre un article.
-		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/VendreArticle/VendreArticle.jsp");
+		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/Article/VendreArticle.jsp");
 		rd.forward(request, response);
 	}
 

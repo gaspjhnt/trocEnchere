@@ -39,7 +39,7 @@
 	</form>
 	
 	<% if(choix.equals("Toutes")){%>
-		<form method="post" action="./ServletDetailArticle">
+		<form method="get" action="./ServletDetailArticle">
 		<%for (Article current : article) {if ((current.isEtatVente()==false) && current.getNomArticle().toLowerCase().contains(deuxiemeChoix.toLowerCase())){
 			%>
 			<button type="submit">
@@ -58,7 +58,7 @@
 <% 
 	} else {
 		for (Article current : article) {%>
-		<form method="post" action="./ServletDetailArticle">
+		<form method="get" action="./ServletDetailArticle">
 		<%if (current.getCategorie().getLibelle().equals(choix)&&(current.isEtatVente()==false)&& current.getNomArticle().contains(deuxiemeChoix)){
 				%>
 				<button type="submit">
