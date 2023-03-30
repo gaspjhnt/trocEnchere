@@ -9,5 +9,6 @@ public interface InscriptionDAO {
 	
 	public void insertUtilisateur(Utilisateur utilisateur) throws TrocEnchereException;
 	public List<String> getAllPseudo() throws TrocEnchereException;
+	public List<String> getAllEmail() throws TrocEnchereException;
 	
 }

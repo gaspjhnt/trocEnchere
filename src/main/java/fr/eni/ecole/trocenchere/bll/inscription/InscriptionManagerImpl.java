@@ -122,6 +122,15 @@ public class InscriptionManagerImpl implements InscriptionManager {
 		if(utilisateur.getEmail().length()>75) {
 			exception.ajouterErreur("Condition bll non respectée dans l'insertion de l'email !");
 		}
+		try {
+			for(String mesEmail : inscriptionDAO.getAllEmail()) {
+				if(utilisateur.getEmail().equals(mesEmail)) {
+					exception.ajouterErreur("Le mail existe déjà !");
+				}
+			}
+			} catch (TrocEnchereException e) {
+				e.printStackTrace();
+			}
 	}
 	
 	//Méthode pour vérifier si il a bien uniquement des numéros dans un String.

@@ -14,6 +14,7 @@ public class InscriptionDAOImpl implements InscriptionDAO {
 
 	public static final String INSERT_UTILISATEUR = "INSERT INTO utilisateur(pseudo,nom,prenom,email,telephone,rue,code_postal,ville,mot_de_passe,credit,administrateur) VALUES(?,?,?,?,?,?,?,?,?,?,?)";
 	public static final String SELECT_PSEUDO ="SELECT pseudo FROM utilisateur";
+	public static final String SELECT_EMAIL ="SELECT email FROM utilisateur";
 	
 	@Override
 	public void insertUtilisateur(Utilisateur utilisateur) throws TrocEnchereException {
@@ -66,6 +67,27 @@ public class InscriptionDAOImpl implements InscriptionDAO {
 		}
 		return lstPseudo;
 		
+	}
+
+	@Override
+	public List<String> getAllEmail() throws TrocEnchereException {
+		
+		TrocEnchereException tee = new TrocEnchereException();
+		List<String> lstEmail = new ArrayList<>();
+		
+		try(Connection con = ConnectionProvider.getConnection()){
+			PreparedStatement stmt = con.prepareStatement(SELECT_EMAIL);
+			ResultSet rs = stmt.executeQuery();
+			
+		while(rs.next()) {
+			lstEmail.add(rs.getString("email"));
+			}
+		}
+		catch(SQLException e) {
+			e.printStackTrace();
+			tee.ajouterErreur("Problème au niveau du GetAllEmail de la base de données");
+		}
+		return lstEmail;
 	}
 
 }
