@@ -10,14 +10,24 @@ public class ConnexionManagerImpl implements ConnexionManager {
 	private ConnexionDAO connexionDAO = ConnexionDAOFactory.getConnexionDAO();
 
 	@Override
-	public void selectPseudoAndMdp(String pseudo, String mdp) throws TrocEnchereException {
-		this.connexionDAO.selectMdpAndPseudo(pseudo, mdp);
+	public boolean selectPseudoAndMdp(String pseudo, String mdp) throws TrocEnchereException {
+		
+		if(!(this.connexionDAO.selectMdpAndPseudo(pseudo, mdp)==null)) {
+			return true;
+		}
+		else {
+		return false;
+		}
 	}
 
 	@Override
-	public void selectEmailAndMdp(String email, String mdp) throws TrocEnchereException {
-		this.connexionDAO.selectMdpAndEmail(email, mdp);
+	public boolean selectEmailAndMdp(String email, String mdp) throws TrocEnchereException {
+		if(!(this.connexionDAO.selectMdpAndEmail(email, mdp)==null)) {
+			return true;
+		}
+		else {
+			return false;
+		}
 	}
 	
-
 }
