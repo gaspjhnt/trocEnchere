@@ -23,8 +23,6 @@ import fr.eni.ecole.trocenchere.dal.ALIBABA.TrocEnchereDAOImplSelect;
 @WebServlet("/ServletConnexion")
 public class ServletConnexion extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-    private final String username = "admin";
-	private final String password = "password";
 	
     /**
      * @see HttpServlet#HttpServlet()
