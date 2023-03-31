@@ -8,9 +8,9 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link rel="stylesheet" type="text/css" href="CSS/StyleNav.css">
 <meta charset="UTF-8">
 <title>Insert title here</title>
-  <link rel="stylesheet" type="text/css" href="Style.css">
 </head>
 <body>
 <%
@@ -36,7 +36,7 @@
 	List<Article> article = (List<Article>)request.getAttribute("article");
 	List<Categorie> lstCategorie = (List<Categorie>) request.getAttribute("lstCategorie");
 	%>
-	
+
 <%if(session.getAttribute("Utilisateur")==null){
 	 %>
 	<jsp:include page="NavBarDeconnecte.html"></jsp:include>
