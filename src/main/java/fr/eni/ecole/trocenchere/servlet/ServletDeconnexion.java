@@ -34,7 +34,7 @@ public class ServletDeconnexion extends HttpServlet {
             session.invalidate();
         }
 
-        response.sendRedirect(request.getContextPath()+ "/ServletConnexion");
+        response.sendRedirect(request.getContextPath()+ "/ServletListeEnchere");
     }
 
 }

@@ -14,13 +14,12 @@
 
 	<h1>ça marche bien</h1>
 <%if(session.getAttribute("Utilisateur")==null){
-	 %><form action="ServletConnexion" method="post">
-    <input type="submit" value="S'inscrire - Connexion">
-	</form>
-<% }%>
-<form action="./ServletDeconnexion" method="post">
-        <input type="submit" value="Logout" >
-    </form>
+	 %>
+	<jsp:include page="NavBarDeconnecte.html"></jsp:include>
+<% } else {%>
+	<jsp:include page="NavBarConnecte.html"></jsp:include>
+	<%} %>
+
 <br>
 <!-- 	Création du champ de recherche et de la liste déroulante de catégorie -->
 <form method="post" action="./ServletListeEnchere">

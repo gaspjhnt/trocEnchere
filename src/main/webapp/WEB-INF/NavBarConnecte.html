@@ -12,8 +12,12 @@
 <div>
 <a href="./ServletListeEnchere">Enchères</a>
 <a href="./ServletVendreArticle">Vendre un article</a>
-<a href="./JspProfil.jsp">Mon profil</a>
-<a href="./ServletListeEnchere">Deconnexion</a>
+<form action="./ServletSession" method="get">
+<input type="submit" value="Profil">
+</form>
+<form action="./ServletDeconnexion" method="post">
+<input type="submit" value="deconnexion">
+</form>
 </div>
 </nav>
 </body>
