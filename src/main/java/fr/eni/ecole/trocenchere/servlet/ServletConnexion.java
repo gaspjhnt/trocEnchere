@@ -54,15 +54,13 @@ public class ServletConnexion extends HttpServlet {
 				    }
 
 				    response.sendRedirect("http://localhost:8080/trocEnchere/ServletListeEnchere");
-
 				}
 					
 				
 			} catch (TrocEnchereException e) {
+				System.out.println("Erreur " + e.getListeCodesErreur() );
 				request.setAttribute("lstErreur", e.getListeCodesErreur());
-				System.out.println("Erreur " + e.getListeCodesErreur());
-			    RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/JspConnexion.jsp");
-			    rd.include(request, response);
+				response.sendRedirect("http://localhost:8080/trocEnchere/ServletConnexion");
 			}		
 	           
 	    }
