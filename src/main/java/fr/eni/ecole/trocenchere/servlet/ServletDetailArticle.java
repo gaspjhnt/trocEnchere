@@ -35,18 +35,29 @@ public class ServletDetailArticle extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		DetailsArticleManager dao = DetailsArticleManagerSing.getInstance();
+		
+		//On récupère l'id article donné par la value du select
 		Integer idArticle = Integer.parseInt(request.getParameter("idArticle"));
 		try {
+			//On envoie l'article
 			request.setAttribute("article", dao.selectArticleById(idArticle));
 			List<Enchere> encheres = dao.selectEnchereByArticle(dao.selectArticleById(idArticle));
+			
+			//On verifie si il y a des enchères ou pas
 			if (encheres == null || encheres.isEmpty()) {
+				//Si non on envoie "pas d'enchère"
 				request.setAttribute("Enchere", "Aucune enchères");
+				//et on met la proposition la plus basse au prix de base
 				request.setAttribute("Proposition", dao.selectArticleById(idArticle).getPrixDepart());
 			} else {
+				//Si non on récupère la dernière enchère
 				Enchere enchere = encheres.get(encheres.size() - 1);
+				//On envoie le prix de l'enchère + le nom de l'acheteur
 				request.setAttribute("Enchere", enchere.getMontant_enchere() + " pts par " + enchere.getUtilisateur().getPseudo());
+				//Et on set la proposition au prix de l'enchère
 				request.setAttribute("Proposition", enchere.getMontant_enchere());
 			}
+			//On va récuperer le retrait de l'article en BDD
 			request.setAttribute("Retrait", dao.selectRetraitByArticle(dao.selectArticleById(idArticle)));
 		} catch (TrocEnchereException e) {
 			if (e.hasErreurs()) {

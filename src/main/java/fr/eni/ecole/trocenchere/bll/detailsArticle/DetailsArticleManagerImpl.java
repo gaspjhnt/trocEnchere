@@ -33,9 +33,6 @@ public class DetailsArticleManagerImpl implements DetailsArticleManager{
 		}
 	}
 	
-	
-
-
 	@Override
 	public List<Enchere> selectEnchereByArticle(Article article) throws TrocEnchereException {
 		try {
@@ -58,9 +55,6 @@ public class DetailsArticleManagerImpl implements DetailsArticleManager{
 			throw tee;
 		}
 	}
-
-	
-	
 
 	
 	
@@ -95,7 +89,6 @@ public class DetailsArticleManagerImpl implements DetailsArticleManager{
 		}
 	}
 
-	
 	
 	
 	

@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import fr.eni.ecole.trocenchere.bo.Utilisateur;
+
 /**
  * Servlet implementation class ServletSession
  */
@@ -30,17 +32,6 @@ public class ServletSession extends HttpServlet {
 	 */
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		
-		HttpSession session = request.getSession();
-		
-		session.setAttribute("pseudo", "zboubi");
-		session.setAttribute("nom", "le zboub");
-		session.setAttribute("prenom", "zboubax");
-		session.setAttribute("email", "zboubi@outlook.fr");
-		session.setAttribute("telephone", "0294585858");
-		session.setAttribute("rue", "rue de la goutte");
-		session.setAttribute("codepostal", "35000");
-		session.setAttribute("ville", "Rennes");
 		
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/JspProfil.jsp");
 
