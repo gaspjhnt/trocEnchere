@@ -35,5 +35,6 @@ if (lstErreur != null) {
     <br><br>
     <input type="submit" value="Connexion">
 </form>
+<a href="./ServletInscription">Inscription</a>
 </body>
 </html>	

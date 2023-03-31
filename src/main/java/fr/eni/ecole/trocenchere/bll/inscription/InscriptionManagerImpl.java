@@ -1,5 +1,7 @@
 package fr.eni.ecole.trocenchere.bll.inscription;
 
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
 import java.util.regex.Pattern;
 
 import fr.eni.ecole.trocenchere.TrocEnchereException;
@@ -207,5 +209,6 @@ public class InscriptionManagerImpl implements InscriptionManager {
 		
 		}
 	}
+	
 
 }
