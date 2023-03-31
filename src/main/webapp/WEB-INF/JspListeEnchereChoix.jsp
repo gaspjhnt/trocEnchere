@@ -49,7 +49,8 @@
 
 	<% if(choix.equals("Toutes")){%>
 		<form method="get" action="./ServletDetailArticle">
-		<%for (Article current : article) {if ((current.isEtatVente()==false) && current.getNomArticle().toLowerCase().contains(deuxiemeChoix.toLowerCase())){
+		<%for (Article current : article) {
+			if ((current.isEtatVente()==false) && current.getNomArticle().toLowerCase().contains(deuxiemeChoix.toLowerCase())){
 			%>
 			<button type="submit">
 					<%=current.getNomArticle()%>

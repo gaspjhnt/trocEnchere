@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import fr.eni.ecole.trocenchere.TrocEnchereException;
 import fr.eni.ecole.trocenchere.bll.vendrearticle.VendreArticleManager;
@@ -86,35 +87,35 @@ public class ServletVendreArticle extends HttpServlet {
 		retrait.setRue(request.getParameter("rueRetrait"));
 		retrait.setCodePostal(request.getParameter("codePostalRetrait"));
 		retrait.setVille(request.getParameter("villeRetrait"));
-
+		
 		//Ajout du retrait dans l'article
 		article.setRetrait(retrait);
 
 		
 		// *** TEMPORAIRE *** Création d'un utilisateur pour le mettre en tant que vendeur
-		Utilisateur u1 = new Utilisateur("Haste", "Desnoes", "Jérémie", "bloblogmail.com", "0695067182",
-				"Rue du moulin", "35170", "Rennes", "Kilokoko30");// A supprimer quand on pourras avoir l'utilisateur courant
+//		Utilisateur u1 = new Utilisateur("Haste", "Desnoes", "Jérémie", "bloblogmail.com", "0695067182",
+//				"Rue du moulin", "35170", "Rennes", "Kilokoko30");// A supprimer quand on pourras avoir l'utilisateur courant
 
-		try {
-			dao.insertUtilisateur(u1);
-			article.setUtilisateur(u1);
-		} catch (TrocEnchereException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
+		
+		//Récuperation de l'utilisateur de session
+		HttpSession session = request.getSession();
+		Utilisateur userCourant = (Utilisateur) session.getAttribute("Utilisateur");
+
+		article.setUtilisateur(userCourant);
+
 		try { // A supprimer quand on pourras avoir l'utilisateur courant
 			dao.insertArticle(article);
+			retrait.setArticle(article);
 			dao.insertRetrait(retrait);
-			
+			System.out.println("insert fati");
 			//Envoie à la JSP un message de succès a retirer quand ça va rediriger vers une autre servlet
-			request.setAttribute("valide", "Article créé !");
+			response.sendRedirect("http://localhost:8080/trocEnchere/ServletListeEnchere");
 		} catch (TrocEnchereException e) {
 			
 			//Envoie à la JSP la liste des erreurs.
 			request.setAttribute("lstErreur", e.getListeCodesErreur());
 		}
 		
-		doGet(request, response);
 	}
 
 }

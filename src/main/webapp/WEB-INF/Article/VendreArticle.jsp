@@ -40,11 +40,7 @@
 		  
 	   }
 	   %>
-	   <%if (user !=null) {%>
-	   <p><%=user.toString() %></p>
-	<%}else {
-		%> <p>erreur</p><%
-	} %>
+
 	
 	<div class="CardVente">
 		 <h3>Nouvelle vente</h3>

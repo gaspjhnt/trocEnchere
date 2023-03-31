@@ -53,6 +53,8 @@ public class ServletConnexion extends HttpServlet {
 					//Si oui on créer une session
 					HttpSession session = request.getSession();	            
 					if (session != null) {
+						// on set l'interval d'innactivié a 30min
+						session.setMaxInactiveInterval(1800);
 						//On ajoute l'utilisateur a la session
 				    	session.setAttribute("Utilisateur", dao.login(username, password));
 				    }

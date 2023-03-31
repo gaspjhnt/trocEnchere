@@ -42,7 +42,6 @@ public class ServletListeEnchere extends HttpServlet {
 		
 		try {
 			// On get les articles par rapport à la date d'aujourd'hui
-			System.out.println(dao.getAllArticlesByDate(LocalDate.now()));
 			//Je set une clé "article" avec la Liste d'article dont la date de fin d'enchère est supérieure à la date d'aujourd'hui
 			request.setAttribute("article", dao.getAllArticlesByDate(LocalDate.now()));
 		} catch (TrocEnchereException e) {
@@ -61,13 +60,11 @@ public class ServletListeEnchere extends HttpServlet {
 			throws ServletException, IOException {
 		//Création d'un cookie "Choix cookie" qui permet de stocker la catégorie choisi par l'utilisateur
 		Cookie unCookie = new Cookie("ChoixCookie", request.getParameter("categorie"));
-		System.out.println(request.getParameter("categorie"));
 		unCookie.setMaxAge(3600);
 		response.addCookie(unCookie);
 		
 		//Création d'un deuxième cookie pour stocker la valeur entré par l'utilisateur
 		Cookie deuxCookie = new Cookie("RechercheCookie", request.getParameter("recherche"));
-		System.out.println(request.getParameter("recherche"));
 		unCookie.setMaxAge(3600);
 		response.addCookie(deuxCookie);
 		
@@ -79,7 +76,6 @@ public class ServletListeEnchere extends HttpServlet {
 		lstEnchereManager dao = LstEnchereManagerSing.getInstance();
 		
 		try {
-			System.out.println(dao.getAllArticlesByDate(LocalDate.now()));
 			request.setAttribute("article", dao.getAllArticlesByDate(LocalDate.now()));
 		} catch (TrocEnchereException e) {
 			e.printStackTrace();
