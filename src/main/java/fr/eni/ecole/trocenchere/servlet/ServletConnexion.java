@@ -52,9 +52,9 @@ public class ServletConnexion extends HttpServlet {
 				        Cookie message = new Cookie("message", "Bienvenue");
 				        response.addCookie(message);
 				    }
-					
-				    RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/JspConnexionSucces.jsp");
-				    rd.include(request, response);
+
+				    response.sendRedirect("http://localhost:8080/trocEnchere/ServletListeEnchere");
+
 				}
 					
 				
