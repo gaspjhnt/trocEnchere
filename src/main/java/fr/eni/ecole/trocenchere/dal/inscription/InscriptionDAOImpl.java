@@ -1,5 +1,7 @@
 package fr.eni.ecole.trocenchere.dal.inscription;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -31,7 +33,7 @@ public class InscriptionDAOImpl implements InscriptionDAO {
 			pstmt.setString(6, utilisateur.getRue());
 			pstmt.setString(7, utilisateur.getCodePostal());
 			pstmt.setString(8, utilisateur.getVille());
-			pstmt.setString(9, utilisateur.getMotDePasse());
+			pstmt.setString(9, sha256(utilisateur.getMotDePasse()));
 			pstmt.setInt(10, utilisateur.getCredit());
 			pstmt.setBoolean(11, utilisateur.isAdministrateur());
 			pstmt.executeUpdate();
@@ -89,5 +91,21 @@ public class InscriptionDAOImpl implements InscriptionDAO {
 		}
 		return lstEmail;
 	}
+	
+	 private static String sha256(String password) {
+	        try {
+	            MessageDigest digest = MessageDigest.getInstance("SHA-256");
+	            byte[] hash = digest.digest(password.getBytes());
+	            StringBuilder hexString = new StringBuilder();
+	            for (byte b : hash) {
+	                String hex = Integer.toHexString(0xff & b);
+	                if (hex.length() == 1) hexString.append('0');
+	                hexString.append(hex);
+	            }
+	            return hexString.toString();
+	        } catch (NoSuchAlgorithmException e) {
+	            throw new RuntimeException(e);
+	        }
+	    }
 
 }
