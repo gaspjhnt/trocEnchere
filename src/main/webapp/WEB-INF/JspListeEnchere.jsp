@@ -1,3 +1,4 @@
+<%@page import="fr.eni.ecole.trocenchere.bo.Categorie" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@page import="java.util.ArrayList"%>
@@ -32,6 +33,7 @@
 	<%
 	//Initialisation d'une Liste d'article qui prend en valeur la clé "article" qui contient notre méthode getAllByDate
 	List<Article> article = (List<Article>)request.getAttribute("article");
+	List<Categorie> lstCategorie = (List<Categorie>) request.getAttribute("lstCategorie");
 	%>
 	
 	<h1>ça marche bien</h1>

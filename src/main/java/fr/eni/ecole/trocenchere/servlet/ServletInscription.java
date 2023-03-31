@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import fr.eni.ecole.trocenchere.TrocEnchereException;
 import fr.eni.ecole.trocenchere.bll.inscription.InscriptionManagerImpl;
@@ -73,14 +74,22 @@ public class ServletInscription extends HttpServlet {
 		Utilisateur utilisateur = imp.ajouter(pseudo, nom, prenom, email, telephone, rue, codePostal, ville, mdp);
 		request.setAttribute("user", utilisateur);
 		
+		HttpSession session = request.getSession();	            
+		if (session != null) {
+			// on set l'interval d'innactivié a 30min
+			session.setMaxInactiveInterval(1800);
+			//On ajoute l'utilisateur a la session
+	    	session.setAttribute("Utilisateur", utilisateur);
+	    }
+		
 		} catch(TrocEnchereException e) {
 			request.setAttribute("lstErreurs", e.getListeCodesErreur());
 			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/Inscription.jsp");
 			rd.forward(request, response);
 		}
 		
-		RequestDispatcher rd = request.getRequestDispatcher("/ServletListeEnchere");
-		rd.forward(request, response);
+
+		response.sendRedirect("http://localhost:8080/trocEnchere/ServletListeEnchere");
 	}
 	
 	private boolean isEgalMdp(String mdp, String mdp1) {
