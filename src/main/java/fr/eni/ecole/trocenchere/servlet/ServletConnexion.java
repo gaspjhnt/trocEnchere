@@ -52,16 +52,17 @@ public class ServletConnexion extends HttpServlet {
 				        Cookie message = new Cookie("message", "Bienvenue");
 				        response.addCookie(message);
 				    }
-
+					
 				    RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/JspConnexionSucces.jsp");
 				    rd.include(request, response);
 				}
 					
 				
 			} catch (TrocEnchereException e) {
-				System.out.println("Erreur " + e.getListeCodesErreur() );
 				request.setAttribute("lstErreur", e.getListeCodesErreur());
-				response.sendRedirect("http://localhost:8080/trocEnchere/ServletConnexion");
+				System.out.println("Erreur " + e.getListeCodesErreur());
+			    RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/JspConnexion.jsp");
+			    rd.include(request, response);
 			}		
 	           
 	    }

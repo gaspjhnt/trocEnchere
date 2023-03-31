@@ -13,7 +13,7 @@
 <body>
 
     <h1>Connecte toi</h1>
-<% List<String> lstErreur = (List<String>) request.getAttribute("LstErreur"); 
+<% List<String> lstErreur = (List<String>) request.getAttribute("lstErreur"); 
 // Verification si il y a des erreurs
 if (lstErreur != null) {
 		if (lstErreur.size()> 0){
@@ -27,9 +27,7 @@ if (lstErreur != null) {
 	}
 %>
 
-
-
-<form action="ServletConnexion" method="post">
+<form action="./ServletConnexion" method="post">
 
     Nom d'utilisateur: <input type="text" name="name">
     <br>
