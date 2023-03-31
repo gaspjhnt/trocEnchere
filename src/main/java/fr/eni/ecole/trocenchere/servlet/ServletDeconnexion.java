@@ -33,9 +33,8 @@ public class ServletDeconnexion extends HttpServlet {
         if(session != null){
             session.invalidate();
         }
-		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/JspListeEnchereChoix.jsp");
 
-        response.sendRedirect(request.getContextPath()+ "/JspConnexion.jsp");
+        response.sendRedirect(request.getContextPath()+ "/ServletConnexion");
     }
 
 }

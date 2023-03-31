@@ -10,10 +10,21 @@ public class ConnexionManagerImpl implements ConnexionManager {
 	private ConnexionDAO connexionDAO = ConnexionDAOFactory.getConnexionDAO();
 
 	@Override
-	public Utilisateur login(String pseudoOuEmail, String mdp) throws TrocEnchereException {
+	public Utilisateur login(String pseudoOuEmail, String mdp) throws TrocEnchereException{
+		TrocEnchereException tee = new TrocEnchereException();
 		
-		Utilisateur user = connexionDAO.selectMdpAndPseudo(pseudoOuEmail, mdp);
-		return user;
+		Utilisateur user;
+		try {
+			user = connexionDAO.selectMdpAndPseudo(pseudoOuEmail, mdp);
+			if (user.getNom() == null) {
+				tee.ajouterErreur("Pseudo ou mot de passe incorrect");
+				throw tee;
+			}
+			return user;
+		} catch (TrocEnchereException e) {
+			tee.ajouterErreur("Pseudo ou mot de passe incorrect");
+			throw tee;
+		}
 	}
 
 	

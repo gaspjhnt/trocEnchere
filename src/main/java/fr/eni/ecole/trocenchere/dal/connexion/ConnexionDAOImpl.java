@@ -30,6 +30,9 @@ public class ConnexionDAOImpl implements ConnexionDAO {
 			
 			
 		while(rs.next()) {
+			user.setNoUtilisateur(rs.getInt("noUtilisateur"));
+			user.setNom(rs.getString("Nom"));
+			user.setPrenom(rs.getString("Prenom"));
 			user.setPseudo(rs.getString("pseudo"));
 			user.setEmail(rs.getString("email"));
 			user.setMotDePasse(rs.getString("mot_de_passe"));

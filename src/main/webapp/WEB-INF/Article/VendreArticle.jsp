@@ -1,5 +1,6 @@
 <%@page import="java.util.List"%>
 <%@page import="fr.eni.ecole.trocenchere.bo.Categorie" %>
+<%@page import="fr.eni.ecole.trocenchere.bo.Utilisateur" %>
 <%@page import="java.util.ArrayList" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -18,6 +19,7 @@
 	<% List<String> lstErreur = (List<String>) request.getAttribute("lstErreur"); 
 	   List<Categorie> lstCategorie = (List<Categorie>) request.getAttribute("lstCategorie");
 	   String valide = (String) request.getAttribute("valide");
+	   Utilisateur user = (Utilisateur) session.getAttribute("Utilisateur");
 	   
 	   // Verification si il y a des erreurs
 	   if (lstErreur != null) {
@@ -38,8 +40,11 @@
 		  
 	   }
 	   %>
-	   
-	
+	   <%if (user !=null) {%>
+	   <p><%=user.toString() %></p>
+	<%}else {
+		%> <p>erreur</p><%
+	} %>
 	
 	<div class="CardVente">
 		 <h3>Nouvelle vente</h3>
