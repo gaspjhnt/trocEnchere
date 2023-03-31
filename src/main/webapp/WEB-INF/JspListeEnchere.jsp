@@ -8,6 +8,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link rel="stylesheet" type="text/css" href="CSS/StyleNav.css">
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
@@ -35,8 +36,6 @@
 	List<Article> article = (List<Article>)request.getAttribute("article");
 	List<Categorie> lstCategorie = (List<Categorie>) request.getAttribute("lstCategorie");
 	%>
-	
-	<h1>ça marche bien</h1>
 
 <%if(session.getAttribute("Utilisateur")==null){
 	 %>
