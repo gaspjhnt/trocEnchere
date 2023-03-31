@@ -7,7 +7,6 @@ import java.security.NoSuchAlgorithmException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -16,8 +15,6 @@ import javax.servlet.http.HttpSession;
 import fr.eni.ecole.trocenchere.TrocEnchereException;
 import fr.eni.ecole.trocenchere.bll.connexion.ConnexionManager;
 import fr.eni.ecole.trocenchere.bll.connexion.ConnexionManagerSing;
-import fr.eni.ecole.trocenchere.bo.Utilisateur;
-import fr.eni.ecole.trocenchere.dal.ALIBABA.TrocEnchereDAOImplSelect;
 
 /**
  * Servlet implementation class ServletConnexion
