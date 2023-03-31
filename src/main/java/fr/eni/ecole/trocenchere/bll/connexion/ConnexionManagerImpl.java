@@ -11,6 +11,7 @@ public class ConnexionManagerImpl implements ConnexionManager {
 
 	@Override
 	public Utilisateur login(String pseudoOuEmail, String mdp) throws TrocEnchereException{
+		
 		TrocEnchereException tee = new TrocEnchereException();
 		
 		Utilisateur user;
