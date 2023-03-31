@@ -1,11 +1,12 @@
 package fr.eni.ecole.trocenchere.servlet;
 
 import java.io.IOException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -14,8 +15,6 @@ import javax.servlet.http.HttpSession;
 import fr.eni.ecole.trocenchere.TrocEnchereException;
 import fr.eni.ecole.trocenchere.bll.connexion.ConnexionManager;
 import fr.eni.ecole.trocenchere.bll.connexion.ConnexionManagerSing;
-import fr.eni.ecole.trocenchere.bo.Utilisateur;
-import fr.eni.ecole.trocenchere.dal.ALIBABA.TrocEnchereDAOImplSelect;
 
 /**
  * Servlet implementation class ServletConnexion
@@ -41,7 +40,7 @@ public class ServletConnexion extends HttpServlet {
 	    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	    	// Initialisation des variables de connexion
 	    	String username = request.getParameter("name");
-	        String password = request.getParameter("password");
+	        String password = sha256(request.getParameter("password"));
 	        
 	        ConnexionManager dao = ConnexionManagerSing.getInstance();
 
@@ -72,6 +71,22 @@ public class ServletConnexion extends HttpServlet {
 			    rd.include(request, response);
 			}		
 	           
+	    }
+	    
+	    private static String sha256(String password) {
+	        try {
+	            MessageDigest digest = MessageDigest.getInstance("SHA-256");
+	            byte[] hash = digest.digest(password.getBytes());
+	            StringBuilder hexString = new StringBuilder();
+	            for (byte b : hash) {
+	                String hex = Integer.toHexString(0xff & b);
+	                if (hex.length() == 1) hexString.append('0');
+	                hexString.append(hex);
+	            }
+	            return hexString.toString();
+	        } catch (NoSuchAlgorithmException e) {
+	            throw new RuntimeException(e);
+	        }
 	    }
 	    
 }
