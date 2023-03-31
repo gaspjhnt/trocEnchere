@@ -12,7 +12,10 @@
 <title>Insert title here</title>
 </head>
 <body>	
-<% List<String> lstErreur = (List<String>) request.getAttribute("lstErreur"); 
+
+<%
+//Récuperartion de la liste d'erreru et de l'article
+List<String> lstErreur = (List<String>) request.getAttribute("lstErreur"); 
 Article article = (Article) request.getAttribute("article");
    
    // Verification si il y a des erreurs

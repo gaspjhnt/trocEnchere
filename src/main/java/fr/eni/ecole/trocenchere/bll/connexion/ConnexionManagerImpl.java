@@ -13,17 +13,21 @@ public class ConnexionManagerImpl implements ConnexionManager {
 	public Utilisateur login(String pseudoOuEmail, String mdp) throws TrocEnchereException{
 		
 		TrocEnchereException tee = new TrocEnchereException();
-		
 		Utilisateur user;
 		try {
+			
+			//On récupère l'utilisateur a l'aide de son pseudo ou email et MDP
 			user = connexionDAO.selectMdpAndPseudo(pseudoOuEmail, mdp);
+			//Si il a pas de nom, pas vrai compte donc mauvais ID
 			if (user.getNom() == null) {
-				tee.ajouterErreur("Pseudo ou mot de passe incorrect");
+				tee.ajouterErreur("Identifiant ou mot de passe incorrect");
 				throw tee;
 			}
 			return user;
+			//Si on arrive pas a récuperer le user, donc innexistant dans la BDD
+			//Donc on ajoute une erreur
 		} catch (TrocEnchereException e) {
-			tee.ajouterErreur("Pseudo ou mot de passe incorrect");
+			tee.ajouterErreur("Identifiant ou mot de passe incorrect");
 			throw tee;
 		}
 	}
