@@ -12,6 +12,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import fr.eni.ecole.trocenchere.TrocEnchereException;
+import fr.eni.ecole.trocenchere.bo.Utilisateur;
+import fr.eni.ecole.trocenchere.dal.ALIBABA.TrocEnchereDAOImplSelect;
+
 /**
  * Servlet implementation class ServletConnexion
  */
@@ -40,29 +44,39 @@ public class ServletConnexion extends HttpServlet {
 	        System.out.println("%%%%%");
 	        
 	        if(this.username.equals(username) && this.password.equals(password)) {
-	            HttpSession oldSession = request.getSession(false);
-	            if(oldSession != null) {
-	                oldSession.invalidate();
+//	            HttpSession oldSession = request.getSession(false);
+//	            if(oldSession != null) {
+//	                oldSession.invalidate();
+//	            }
+	            HttpSession session = request.getSession();
+	            TrocEnchereDAOImplSelect dao = new TrocEnchereDAOImplSelect();
+	            Utilisateur user = null;
+				try {
+					user = dao.SelectUserById(20);
+				} catch (TrocEnchereException e) {
+					System.out.println(e.getListeCodesErreur());
+				}
+	            if (session != null) {
+	            	session.setAttribute("Utilisateur", user);
 	            }
-	            HttpSession newSession = request.getSession(true);
-	            newSession.setMaxInactiveInterval(1*60);
+//	            newSession.setMaxInactiveInterval(1*60);
 	            Cookie message = new Cookie("message", "Bienvenue");
 	            response.addCookie(message);
 	            
-	            String messag = null;
-	            String sessionID = null;
-	            Cookie[] cookies = request.getCookies();
-	            if(cookies != null){
-	                for(Cookie cookie : cookies){
-	                    if(cookie.getName().equals("message")) messag = cookie.getValue();
-	                    if(cookie.getName().equals("JSESSIONID")) sessionID = cookie.getValue();
-	            }
-	            }
+//	            String messag = null;
+//	            String sessionID = null;
+//	            Cookie[] cookies = request.getCookies();
+//	            if(cookies != null){
+//	                for(Cookie cookie : cookies){
+//	                    if(cookie.getName().equals("message")) messag = cookie.getValue();
+//	                    if(cookie.getName().equals("JSESSIONID")) sessionID = cookie.getValue();
+//	            }
+//	            }
 	            
 	            
 	            
-	            System.out.println("message : " + messag);
-	            System.out.println("Session Id : " + sessionID);
+//	            System.out.println("message : " + messag);
+//	            System.out.println("Session Id : " + sessionID);
 	            
 	            //response.sendRedirect("/WEB-INF/JspConnexionSucces.jsp");
 	            RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/JspConnexionSucces.jsp");
@@ -74,4 +88,5 @@ public class ServletConnexion extends HttpServlet {
 	            rd.include(request, response);
 	        }
 	    }
-	}
+	    
+}
