@@ -5,8 +5,14 @@ import fr.eni.ecole.trocenchere.bo.Utilisateur;
 
 public interface ConnexionDAO {
 
+	/**
+	 * Methode pour récuperer une utilisateur a l'aide de ses informations de connexions
+	 * @param pseudoOuMail
+	 * @param mdp
+	 * @return
+	 * @throws TrocEnchereException
+	 */
 	Utilisateur selectMdpAndPseudo(String pseudoOuMail, String mdp) throws TrocEnchereException;
 	
-	//public Utilisateur selectMdpAndPseudo(String pseudo, String mdp) throws TrocEnchereException;
-	//public Utilisateur selectMdpAndEmail(String email, String mdp) throws TrocEnchereException;
+
 }
