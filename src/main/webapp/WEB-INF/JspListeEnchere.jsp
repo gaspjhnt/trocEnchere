@@ -10,6 +10,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+  <link rel="stylesheet" type="text/css" href="Style.css">
 </head>
 <body>
 <%
@@ -36,8 +37,6 @@
 	List<Categorie> lstCategorie = (List<Categorie>) request.getAttribute("lstCategorie");
 	%>
 	
-	<h1>ça marche bien</h1>
-
 <%if(session.getAttribute("Utilisateur")==null){
 	 %>
 	<jsp:include page="NavBarDeconnecte.html"></jsp:include>
