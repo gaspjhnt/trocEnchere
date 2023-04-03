@@ -11,6 +11,7 @@ import java.util.List;
 
 import fr.eni.ecole.trocenchere.TrocEnchereException;
 import fr.eni.ecole.trocenchere.bo.Utilisateur;
+import fr.eni.ecole.trocenchere.dal.ConnectionProvider;
 
 public class InscriptionDAOImpl implements InscriptionDAO {
 
