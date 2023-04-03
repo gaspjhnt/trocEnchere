@@ -1,18 +1,13 @@
-package fr.eni.ecole.trocenchere.dal;
+package fr.eni.ecole.trocenchere.bll.Utilisateur;
 
 import fr.eni.ecole.trocenchere.TrocEnchereException;
 import fr.eni.ecole.trocenchere.bo.Utilisateur;
 
-public interface DAOUtilisateur {
-	
+public interface UtilisateurManager {
+
 	public Utilisateur selectById(int id) throws TrocEnchereException;
 	
-	/**
-	 * Permet de modifier un utilisateur
-	 * @param utilisateur
-	 * @throws TrocEnchereException
-	 */
 	public void updateUtilisateur (Utilisateur utilisateur) throws TrocEnchereException;
 	
-	void deleteUtilisateur(int idUtilisateur) throws TrocEnchereException;
+	public void deleteUtilisateur (int noUtilisateur) throws TrocEnchereException;
 }

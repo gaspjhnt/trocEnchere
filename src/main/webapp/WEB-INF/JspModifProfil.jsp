@@ -1,3 +1,4 @@
+<%@page import="fr.eni.ecole.trocenchere.bo.Utilisateur" %>
 <%@page import="java.util.List"%>
 <%@page import="fr.eni.ecole.trocenchere.bo.Categorie" %>
 <%@page import="java.util.ArrayList" %>
@@ -7,19 +8,18 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Formulaire inscription</title>
+<title>Insert title here</title>
 </head>
 <body>
-	<%List<String> lstErreurs = (List<String>)request.getAttribute("lstErreurs");
-	if(lstErreurs != null) {
-		for(String message : lstErreurs){
-			%> <p><%=message%></p>
-			<%
-		}
-	}%>
+<h1>ça marche bien</h1>
+
+
 <h3>Mon profil</h3>
 
-<form action="./ServletInscription" method="post" id="inscription">
+	<%Utilisateur user = (Utilisateur) session.getAttribute("Utilisateur");
+	String credit=(String) request.getAttribute("credit");%>
+
+<form action="./ServletModificationProfil" method="post" id="modifProfil">
 <label for="pseudo">Pseudo : </label>
 <input type="text" id="pseudo" name="pseudo" minlength="2" maxlength="25" required>
 <br>
@@ -27,7 +27,7 @@
 <input type="text" id="nom" name="nom" minlength="2" maxlength="25" required>
 <br>
 <label for="prenom">Prenom : </label>
-<input type="text" id="prenom" name="prenom" minlength="2" maxlength="25" required>
+<input type="text" id="prenom" name="prenom" minlength="2" maxlsength="25" required>
 <br>
 <label for="email">Email : </label>
 <input type="email" id="email" name="email" minlength="10" maxlength="75" required>
@@ -44,13 +44,21 @@
 <label for="ville">Ville : </label>
 <input type="text" id="ville" name="ville" required>
 <br>
-<label for="mdp">Mot de passe : </label>
-<input type="password" id="mdp" name="mdp" minlength="8" required>
+<label for="mdp">Mot de passe actuel : </label>
+<input type="password" id="mdpActuel" name="mdpActuel" minlength="8" required>
 <br>
-<label for="confirmMdp">Confirmation du mot de passe : </label>
+<label for="mdp">Nouveau mot de passe : </label>
+<input type="password" id="nouveauMdp" name="nouveauMdp" minlength="8" required>
+<br>
+<label for="confirmMdp">Confirmation : </label>
 <input type="password" id="confirmMdp" name="confirmMdp" minlength="8" required>
 </form>
-<button type="submit" form="inscription">Créer</button>
-<a href="http://localhost:8080/trocEnchere/ServletListeEnchere"><input type="button" value="Annuler"></a>
+	<%="Crédit : "+user.getCredit()%>
+<br>
+<button type="submit" form="modifProfil">Enregistrer</button>
+
+<form method="get" action="./ServletSuppressionProfil">
+<input type="submit" value="Supprimer mon compte">
+</form>
 </body>
 </html>

@@ -10,7 +10,7 @@
 <head>
 <link rel="stylesheet" type="text/css" href="Style.css">
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Page d'Accueil</title>
 </head>
 <body>
 <%
@@ -120,7 +120,7 @@
 	}%>
 <!-- 	S'il n'y a aucune réponse à la recherche utilisateur, on imprime un message  -->
 	<%if(imprimeChacal==false) {%>
-	<h1><%="Aucun article trouvé pour ta recherche... Essaye autre chose mon gourmand"%></h1>
+	<h1><%="Aucun article trouvé pour ta recherche... Essaye autre chose"%></h1>
 	<%} %>
 </body>
 </html>
