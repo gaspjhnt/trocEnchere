@@ -3,20 +3,21 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" type="text/css" href="Navbar.css">
 </head>
 <body>
 <nav>
 <div>
-<h1><a href="./ServletListeEnchere">ENI-Enchères</a></h1>
+<h1><a class="eniNav" href="./ServletListeEnchere">ENI-Enchères</a></h1>
 </div>
-<div>
-<a href="./ServletListeEnchere">Enchères</a>
-<a href="./ServletVendreArticle">Vendre un article</a>
+<div class="mesliens">
+<a class="inscrireCo" href="./ServletListeEnchere">Enchères</a>
+<a class="inscrireCo" href="./ServletVendreArticle">Vendre un article</a>
 <form action="./ServletSession" method="get">
-<input type="submit" value="Profil">
+<input class="inscrireCo" type="submit" value="Profil">
 </form>
 <form action="./ServletDeconnexion" method="post">
-<input type="submit" value="deconnexion">
+<input class="inscrireCo" id="deco"  type="submit" value="deconnexion">
 </form>
 </div>
 </nav>

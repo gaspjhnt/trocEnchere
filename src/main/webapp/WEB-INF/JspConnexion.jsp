@@ -9,10 +9,12 @@
 <head>
     <meta charset="US-ASCII">
     <title>Page de connexion</title>
+    <link rel="stylesheet" type="text/css" href="Connexion.css">
 </head>
 <body>
-
+<div class="container">
     <h1>Connecte toi</h1>
+<div class="saisir">
 <% List<String> lstErreur = (List<String>) request.getAttribute("lstErreur"); 
 // Verification si il y a des erreurs
 if (lstErreur != null) {
@@ -27,14 +29,17 @@ if (lstErreur != null) {
 	}
 %>
 
-<form action="./ServletConnexion" method="post">
+<form action="./ServletConnexion" method="post" id="connexion">
 
-    Nom d'utilisateur: <input type="text" name="name">
+    <p>Nom d'utilisateur:</p> <input class="champ" type="text" name="name">
     <br>
-    Mot de passe: <input type="password" name="password">
-    <br><br>
-    <input type="submit" value="Connexion">
+    <p>Mot de passe:</p> <input class="champ" type="password" name="password">
 </form>
-<a href="./ServletInscription">Inscription</a>
+<div class="bouteboute">
+<input class="bout" type="submit" value="Connexion" form="connexion">
+<a class="bout" href="./ServletInscription">Inscription</a>
+</div>
+</div>
+</div>
 </body>
 </html>	
