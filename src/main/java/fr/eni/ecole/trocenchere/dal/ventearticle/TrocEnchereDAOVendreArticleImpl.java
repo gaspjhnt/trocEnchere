@@ -13,6 +13,7 @@ import fr.eni.ecole.trocenchere.bo.Article;
 import fr.eni.ecole.trocenchere.bo.Categorie;
 import fr.eni.ecole.trocenchere.bo.Retrait;
 import fr.eni.ecole.trocenchere.bo.Utilisateur;
+import fr.eni.ecole.trocenchere.dal.ConnectionProvider;
 
 class TrocEnchereDAOVendreArticleImpl implements TrocEnchereDAOVendreArticle{
 	

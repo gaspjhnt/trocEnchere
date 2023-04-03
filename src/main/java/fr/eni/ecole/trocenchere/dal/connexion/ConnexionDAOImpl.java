@@ -12,6 +12,7 @@ import fr.eni.ecole.trocenchere.bo.Article;
 import fr.eni.ecole.trocenchere.bo.Categorie;
 import fr.eni.ecole.trocenchere.bo.Enchere;
 import fr.eni.ecole.trocenchere.bo.Utilisateur;
+import fr.eni.ecole.trocenchere.dal.ConnectionProvider;
 
 public class ConnexionDAOImpl implements ConnexionDAO {
 
