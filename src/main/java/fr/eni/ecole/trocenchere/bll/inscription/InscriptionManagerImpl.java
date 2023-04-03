@@ -32,10 +32,10 @@ public class InscriptionManagerImpl implements InscriptionManager {
 		
 		if(!exception.hasErreurs()) {
 			this.inscriptionDAO.insertUtilisateur(utilisateur);
-		}
-		if(exception.hasErreurs()) {
+		} else {
 			throw exception;
 		}
+		
 		return utilisateur;
 	}
 	//Méthode pour valider le pseudo (on ajoute des conditions pour valider le pseudo)

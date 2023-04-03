@@ -10,13 +10,13 @@
 <title>Formulaire inscription</title>
 </head>
 <body>
-<%List<String> lstErreurs = (List<String>)request.getAttribute("lstErreurs");
-if(lstErreurs != null) {
-for(String message : lstErreurs){
-	%> <p><%=message%></p>
-	<%
-}
-}%>
+	<%List<String> lstErreurs = (List<String>)request.getAttribute("lstErreurs");
+	if(lstErreurs != null) {
+		for(String message : lstErreurs){
+			%> <p><%=message%></p>
+			<%
+		}
+	}%>
 <h3>Mon profil</h3>
 
 <form action="./ServletInscription" method="post" id="inscription">

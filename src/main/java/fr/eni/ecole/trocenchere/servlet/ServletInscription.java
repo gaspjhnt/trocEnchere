@@ -42,54 +42,44 @@ public class ServletInscription extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-		String pseudo;
-		String nom;
-		String prenom;
-		String email;
-		String telephone;
-		String rue;
-		String codePostal;
-		String ville;
-		String mdp;
-		String mdp1;
 		
 		try {
-		pseudo= request.getParameter("pseudo");
-		nom= request.getParameter("nom");
-		prenom = request.getParameter("prenom");
-		email = request.getParameter("email");
-		telephone = request.getParameter("telephone");
-		rue = request.getParameter("rue");
-		codePostal = request.getParameter("codePostal");
-		ville = request.getParameter("ville");
-		mdp = request.getParameter("mdp");
-		mdp1 = request.getParameter("confirmMdp");
-		
-		InscriptionManagerImpl imp = new InscriptionManagerImpl();
-		if(!isEgalMdp(mdp, mdp1)) {
-			TrocEnchereException exception = new TrocEnchereException();
-			exception.ajouterErreur("Les mots de passe sont différents");
-			throw exception;
-		}
-		Utilisateur utilisateur = imp.ajouter(pseudo, nom, prenom, email, telephone, rue, codePostal, ville, mdp);
-		request.setAttribute("user", utilisateur);
-		
-		HttpSession session = request.getSession();	            
-		if (session != null) {
-			// on set l'interval d'innactivié a 30min
-			session.setMaxInactiveInterval(1800);
-			//On ajoute l'utilisateur a la session
-	    	session.setAttribute("Utilisateur", utilisateur);
-	    }
+			String pseudo= request.getParameter("pseudo");
+			String nom= request.getParameter("nom");
+			String prenom = request.getParameter("prenom");
+			String email = request.getParameter("email");
+			String telephone = request.getParameter("telephone");
+			String rue = request.getParameter("rue");
+			String codePostal = request.getParameter("codePostal");
+			String ville = request.getParameter("ville");
+			String mdp = request.getParameter("mdp");
+			String mdp1 = request.getParameter("confirmMdp");
+			
+			InscriptionManagerImpl imp = new InscriptionManagerImpl();
+			if(!isEgalMdp(mdp, mdp1)) {
+				TrocEnchereException exception = new TrocEnchereException();
+				exception.ajouterErreur("Les mots de passe sont différents");
+				throw exception;
+			}
+			Utilisateur utilisateur = imp.ajouter(pseudo, nom, prenom, email, telephone, rue, codePostal, ville, mdp);
+			request.setAttribute("user", utilisateur);
+			
+			HttpSession session = request.getSession();	            
+			if (session != null) {
+				// on set l'interval d'innactivié a 30min
+				session.setMaxInactiveInterval(1800);
+				//On ajoute l'utilisateur a la session
+		    	session.setAttribute("Utilisateur", utilisateur);
+		    }
+			response.sendRedirect("http://localhost:8080/trocEnchere/ServletListeEnchere");
 		
 		} catch(TrocEnchereException e) {
 			request.setAttribute("lstErreurs", e.getListeCodesErreur());
+			
 			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/Inscription.jsp");
 			rd.forward(request, response);
 		}
 		
-
-		response.sendRedirect("http://localhost:8080/trocEnchere/ServletListeEnchere");
 	}
 	
 	private boolean isEgalMdp(String mdp, String mdp1) {
