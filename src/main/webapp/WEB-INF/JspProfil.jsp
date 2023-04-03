@@ -4,6 +4,7 @@
 <%@page import="java.util.ArrayList" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,9 +23,9 @@
 	String telephone=(String) request.getAttribute("telephone");
 	String rue=(String) request.getAttribute("rue");
 	String codepostal=(String) request.getAttribute("codepostal");
-	String ville=(String) request.getAttribute("vile");
+	String ville=(String) request.getAttribute("ville");
 	%>
-
+	<h1>Mon Profil</h1>
 	<p>Pseudo: <%=user.getPseudo()%></p>
 	<p>Nom: <%= user.getNom()%></p>
 	<p>Prenom: <%= user.getPrenom()%></p>
@@ -33,6 +34,10 @@
 	<p>Rue: <%=user.getRue()%></p>
 	<p>Code postal: <%=user.getCodePostal()%></p>
 	<p>Ville: <%=user.getVille()%></p>
+	
+	<form method="get" action="./ServletModificationProfil">
+	<input type="submit" value="Modifier">
+	</form>
 	
 </body>
 </html>

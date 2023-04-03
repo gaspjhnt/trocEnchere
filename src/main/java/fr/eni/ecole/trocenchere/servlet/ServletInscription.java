@@ -70,6 +70,7 @@ public class ServletInscription extends HttpServlet {
 				session.setMaxInactiveInterval(1800);
 				//On ajoute l'utilisateur a la session
 		    	session.setAttribute("Utilisateur", utilisateur);
+		    	session.setAttribute("mdp", mdp);
 		    }
 			response.sendRedirect("http://localhost:8080/trocEnchere/ServletListeEnchere");
 		
