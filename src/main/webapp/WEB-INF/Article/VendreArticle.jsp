@@ -82,15 +82,15 @@
 				
 				<div class="article">
 					<p>Rue :</p>
-					<label for="input_rue"></label><input id="input_rue" type="text" value="Costes et coucou" name="rueRetrait"/>
+					<label for="input_rue"></label><input id="input_rue" type="text" value="<%=user.getRue() %>" name="rueRetrait"/>
 					</div>
 					<div class="article">
 					<p>Code postal :</p>
-					<label for="input_code_post"></label><input id="input_code_post" type="number" max="99999" value="35131" name="codePostalRetrait"/>
+					<label for="input_code_post"></label><input id="input_code_post" type="number" max="99999" value=<%=user.getCodePostal() %> name="codePostalRetrait"/>
 					</div>
 					<div class="article">
 					<p>Ville :</p>
-					<label for="input_ville"></label><input id="input_ville" type="text" value="Chartres" name="villeRetrait"/>
+					<label for="input_ville"></label><input id="input_ville" type="text" value="<%=user.getVille() %>" name="villeRetrait"/>
 					</div>
 			</form>
 			</div>

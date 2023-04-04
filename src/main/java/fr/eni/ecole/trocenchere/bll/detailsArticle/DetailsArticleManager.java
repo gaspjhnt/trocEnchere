@@ -40,4 +40,12 @@ public interface DetailsArticleManager {
 	 * @throws TrocEnchereException
 	 */
 	public void insertRetrait(Retrait retrait) throws TrocEnchereException;
+	
+	
+	/**
+	 * Permet d'ajouter une enchère avec des conditions
+	 * @param article
+	 * @throws TrocEnchereException
+	 */
+	public void insertEnchere(Enchere enchere) throws TrocEnchereException;
 }
