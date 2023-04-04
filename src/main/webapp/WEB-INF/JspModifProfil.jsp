@@ -8,57 +8,64 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Modifier Profil</title>
+ <link rel="stylesheet" type="text/css" href="ModifProfil.css">
 </head>
+
 <body>
-<h1>ça marche bien</h1>
-
-
-<h3>Mon profil</h3>
+<jsp:include page="NavBarConnecte.html"></jsp:include>
+<div class="container">
+<div class="card">
+<div class="titre">
+<h1>Mon Profil</h1>
+</div>
 
 	<%Utilisateur user = (Utilisateur) session.getAttribute("Utilisateur");
 	String credit=(String) request.getAttribute("credit");%>
-
-<form action="./ServletModificationProfil" method="post" id="modifProfil">
-<label for="pseudo">Pseudo : </label>
+<form class="infos" action="./ServletModificationProfil" method="post" id="modifProfil">
+<label for="pseudo">Pseudo : 
 <input type="text" id="pseudo" name="pseudo" minlength="2" maxlength="25" required>
-<br>
-<label for="nom">Nom : </label>
+</label>
+<label for="nom">Nom : 
 <input type="text" id="nom" name="nom" minlength="2" maxlength="25" required>
-<br>
-<label for="prenom">Prenom : </label>
+</label>
+<label for="prenom">Prenom : 
 <input type="text" id="prenom" name="prenom" minlength="2" maxlsength="25" required>
-<br>
-<label for="email">Email : </label>
+</label>
+<label for="email">Email : 
 <input type="email" id="email" name="email" minlength="10" maxlength="75" required>
-<br>
-<label for="telephone">Téléphone : </label>
+</label>
+<label for="telephone">Téléphone : 
 <input type="number" id="telephone" name="telephone" minlength="10" maxlength="10" required>
-<br>
-<label for="rue">Rue : </label>
+</label>
+<label for="rue">Rue : 
 <input type="text" id="rue" name="rue" required>
-<br>
-<label for="codePostal">Code Postal : </label>
+</label>
+<label for="codePostal">Code Postal : 
 <input type="number" id="codePostal" name="codePostal" minlength="5" maxlength="5" required>
-<br>
-<label for="ville">Ville : </label>
+</label>
+<label for="ville">Ville : 
 <input type="text" id="ville" name="ville" required>
-<br>
-<label for="mdp">Mot de passe actuel : </label>
+</label>
+<label for="mdp">Mot de passe actuel : 
 <input type="password" id="mdpActuel" name="mdpActuel" minlength="8" required>
-<br>
-<label for="mdp">Nouveau mot de passe : </label>
+</label>
+<label for="mdp">Nouveau mot de passe : 
 <input type="password" id="nouveauMdp" name="nouveauMdp" minlength="8" required>
-<br>
-<label for="confirmMdp">Confirmation : </label>
+</label>
+<label for="confirmMdp">Confirmation : 
 <input type="password" id="confirmMdp" name="confirmMdp" minlength="8" required>
+</label>
+<p><%="Crédit : "+user.getCredit()%></p>
 </form>
-	<%="Crédit : "+user.getCredit()%>
-<br>
-<button type="submit" form="modifProfil">Enregistrer</button>
+<div class="boutons">
+<button class="bout" type="submit" form="modifProfil">Enregistrer</button>
 
 <form method="get" action="./ServletSuppressionProfil">
-<input type="submit" value="Supprimer mon compte">
+<input class="bout" type="submit" value="Supprimer mon compte">
 </form>
+</div>
+</div>
+</div>
 </body>
 </html>
