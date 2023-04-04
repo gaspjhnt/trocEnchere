@@ -53,10 +53,10 @@
 <input type="password" id="mdpActuel" name="mdpActuel" minlength="8" required>
 </label>
 <label for="mdp">Nouveau mot de passe : 
-<input type="password" id="nouveauMdp" name="nouveauMdp" minlength="8" required>
+<input type="password" id="nouveauMdp" name="nouveauMdp" minlength="8">
 </label>
 <label for="confirmMdp">Confirmation : 
-<input type="password" id="confirmMdp" name="confirmMdp" minlength="8" required>
+<input type="password" id="confirmMdp" name="confirmMdp" minlength="8">
 </label>
 <p><%="Crédit : "+user.getCredit()%></p>
 </form>

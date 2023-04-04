@@ -1,3 +1,4 @@
+<%@page import="org.apache.taglibs.standard.lang.jstl.DivideOperator"%>
 <%@page import="fr.eni.ecole.trocenchere.bo.Categorie" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
@@ -8,11 +9,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-<link rel="stylesheet" type="text/css" href="Style.css">
+<link rel="stylesheet" type="text/css" href="ListeEnchere.css">
 <meta charset="UTF-8">
 <title>Page d'Accueil</title>
 </head>
 <body>
+
 <%
 	//Initialisation des cookies qui prennent la valeur des clés "ChoixCookies" et "RechercheCookie"
 	Cookie cookie= (Cookie) request.getAttribute("ChoixCookie");
@@ -50,9 +52,6 @@
 	<jsp:include page="NavBarConnecte.html"></jsp:include>
 	<%} %>
 
-<br>
-
-
 <%if (lstErreur != null) {
 	if (lstErreur.size() > 0) {
 	%> <p>Erreur :</p> <%
@@ -65,15 +64,9 @@ else if (succes != null){%>
 <%  }
 	} %>
 
-<br>
-
+<div class="container">
 <!-- 	Création du champ de recherche et de la liste déroulante de catégorie -->
-<form method="post" action="./ServletListeEnchere">
-	<label for="name">Filtres :</label>
-
-	<input type="search" id="name" name="recherche" style="width:200px" placeholder="le nom de l'article contient"> <input type="submit" value="Envoyer">
-	<br>
-	<br>
+<form class="filtre" method="post" action="./ServletListeEnchere">
 	<label for="choixCategorie">Catégorie :</label>
 	<select name="categorie" id="choixCategorie">
 		<option value="Toutes">Toutes</option>
@@ -82,66 +75,88 @@ else if (succes != null){%>
 		<option value="Vetement">Vêtement</option>
 		<option value="Sport">Sport&Loisirs</option>
 	</select>
+	<label class="textFiltre" for="name">Filtres :</label>
+	<input type="search" id="name" name="recherche" style="width:200px" placeholder="le nom de l'article contient"> 
+	<input class="bouteFiltre" type="submit" value="Envoyer">
 </form>
-
+	<div class="articles">
 	<!-- Boucle foreach de la Liste article qui va imprimer tous les articles dont la date de fin d'enchere est après la date du jour présents dans la base de donnée --> 
 	<% if(choix.equals("")){%>
 	<form method="get" action="./ServletDetailArticle"> 
+	<div class="flex-container">
 	<% for (Article current : article) {if (current.isEtatVente()==false){ %> 
-	<button type="submit" name="idArticle" value="<%= current.getNoArticle() %>">
+	<div class="unArticle">
+	<button class="bouteboute" type="submit" name="idArticle" value="<%= current.getNoArticle() %>">
         <%= current.getNomArticle() %>
    		 </button>
 	<p> <%="Prix: " + current.getPrixDepart() + " " + "points"%> </p> 
 	<p> <%="Fin de l'enchere: " + current.getDateFinEnchere()%> </p> 
 	<p> <%="Vendeur: " + current.getUtilisateur().getPseudo()%> </p> 
-	<br> <% }} %>
+	</div>
+	<% }} %>
+	</div>
 	</form>
 	<%
 		imprimeChacal=true;
 		}
 	%>
+	
 		<!-- Création de deux if selon le choix utilisateur. On passe dans le premier lorsque l'utilisateur a choisi toutes les catégories  -->
 <!-- La foreach va imprimer un article si l'état de l'article est en vente et si l'article contient la valeur dans le champ de recherche de l'utilisateur -->
-
 	<% if(choix.equals("Toutes")){%>
+		
 		<form method="get" action="./ServletDetailArticle">
-		<%for (Article current : article) {if ((current.isEtatVente()==false) && current.getNomArticle().toLowerCase().contains(deuxiemeChoix.toLowerCase())){
+		<div class="flex-container">
+		<%for (Article current : article){if ((current.isEtatVente()==false) && current.getNomArticle().toLowerCase().contains(deuxiemeChoix.toLowerCase())){
 			%>
-			<button type="submit" name="idArticle" value="<%= current.getNoArticle()%>">
+			<div class="unArticle">
+			<button class="bouteboute" type="submit" name="idArticle" value="<%= current.getNoArticle()%>">
        		 <%= current.getNomArticle() %>
    		 	</button>
 			<p>	<%="Prix: " + current.getPrixDepart() + " " + "points"%> </p>
 			<p>	<%="Fin de l'enchere: " + current.getDateFinEnchere()%> </p>
 			<p>	<%="Vendeur: " + current.getUtilisateur().getPseudo()%> </p>
-			<br>
+			</div>
 		<%
 		imprimeChacal=true; 
 		}}
 	%>
+	</div>
 		</form>
+			
+		
+		
 		<!-- Création du deuxième if. On passe dans le deuxième lorsque l'utilisateur a choisi une catégorie  -->
 <!-- La foreach va imprimer un article si sa catégorie correspond à celle de l'utilisateur et si l'état de l'article est en vente et si l'article contient la valeur dans le champ de recherche de l'utilisateur -->
+	
 <% 
 	} else //if(choix.equals("Informatique")||choix.equals("Ameublement")||choix.equals("Vetement")||choix.equals("Sport")){
-		{for (Article current : article) {%>
+		%>
 		<form method="get" action="./ServletDetailArticle">
-		<%if (current.getCategorie().getLibelle().equals(choix)&&(current.isEtatVente()==false)&& current.getNomArticle().toLowerCase().contains(deuxiemeChoix.toLowerCase())){%>
-    	<button type="submit" name="idArticle" value="<%= current.getNoArticle() %>">
+		<div class="flex-container2">
+		<%{for (Article current : article) { if (current.getCategorie().getLibelle().equals(choix)&&(current.isEtatVente()==false)&& current.getNomArticle().toLowerCase().contains(deuxiemeChoix.toLowerCase())){
+			%>
+			<div class="UnArticle">
+    	<button class="bouteboute"  type="submit" name="idArticle" value="<%= current.getNoArticle() %>">
         <%= current.getNomArticle() %>
    		 </button>
 				<p>	<%="Prix: " + current.getPrixDepart() + " " + "points"%> </p>
 				<p>	<%="Fin de l'enchere: " + current.getDateFinEnchere()%> </p>
 				<p>	<%="Vendeur: " + current.getUtilisateur().getPseudo()%> </p>
-				<br>
+			</div>
 			<%
 			imprimeChacal=true;
 			}
 		}%>
+		</div>
 		</form> <%
 	}%>
+	
+	</div>
 <!-- 	S'il n'y a aucune réponse à la recherche utilisateur, on imprime un message  -->
 	<%if(imprimeChacal==false) {%>
 	<h1><%="Aucun article trouvé pour ta recherche... Essaye autre chose"%></h1>
 	<%} %>
+	</div>
 </body>
 </html>
