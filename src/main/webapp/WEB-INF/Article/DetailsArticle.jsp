@@ -70,7 +70,8 @@ Article article = (Article) request.getAttribute("article");
 		
 		
 	 	<form action="./ServletDetailArticle" method="post">
-	 	<%Integer minPropo = (Integer) request.getAttribute("Proposition"); %>
+	 	<%Integer minPropo = (Integer) request.getAttribute("Proposition") + 1; %>
+	 		<input type="hidden" name="PropositionMin" value=<%=minPropo %>>
 	 		<label for="input_proposition">Ma proposition : </label><input id="input_proposition" type="number" name="proposition" min="<%=minPropo%>" value="<%=minPropo%>" required/>
 	 		<input type="submit" value="Encherir">
 	 	</form>

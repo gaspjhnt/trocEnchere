@@ -85,7 +85,7 @@
 		<form method="get" action="./ServletDetailArticle">
 		<%for (Article current : article) {if ((current.isEtatVente()==false) && current.getNomArticle().toLowerCase().contains(deuxiemeChoix.toLowerCase())){
 			%>
-			<button type="submit" name="idArticle" value="<%= current.getNoArticle() %>">
+			<button type="submit" name="idArticle" value="<%= current.getNoArticle()%>">
        		 <%= current.getNomArticle() %>
    		 	</button>
 			<p>	<%="Prix: " + current.getPrixDepart() + " " + "points"%> </p>
@@ -93,7 +93,7 @@
 			<p>	<%="Vendeur: " + current.getUtilisateur().getPseudo()%> </p>
 			<br>
 		<%
-		imprimeChacal=true;
+		imprimeChacal=true; 
 		}}
 	%>
 		</form>

@@ -9,12 +9,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import fr.eni.ecole.trocenchere.TrocEnchereException;
 import fr.eni.ecole.trocenchere.bll.detailsArticle.DetailsArticleManager;
 import fr.eni.ecole.trocenchere.bll.detailsArticle.DetailsArticleManagerSing;
-import fr.eni.ecole.trocenchere.bo.Article;
 import fr.eni.ecole.trocenchere.bo.Enchere;
 
 /**
@@ -38,15 +36,6 @@ public class ServletDetailArticle extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		DetailsArticleManager dao = DetailsArticleManagerSing.getInstance();
 		
-		//On récupère l'id article donné par la value du select
-//		HttpSession session = request.getSession();
-//		int max = (int) session.getAttribute("indexDetailMax");
-//		for (int index = 0; index < max; index++ ) {
-//			
-//		}
-		List<Article> article = (List<Article>) request.getAttribute("article");
-		System.out.println(article);
-
 		Integer idArticle = Integer.parseInt(request.getParameter("idArticle"));
 		try {
 			//On envoie l'article
@@ -85,7 +74,8 @@ public class ServletDetailArticle extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println(request.getParameter("proposition"));
+		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/JspListeEnchere.jsp");
+		rd.forward(request, response);
 	}
 
 }
