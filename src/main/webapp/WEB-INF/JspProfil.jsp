@@ -14,6 +14,14 @@
 </head>
 <body>
 
+<%List<String> lstErreurs = (List<String>)request.getAttribute("lstErreurs");
+	if(lstErreurs != null) {
+		for(String message : lstErreurs){
+			%> <p><%=message%></p>
+			<%
+		}
+	}%>
+	
 <jsp:include page="NavBarConnecte.html"></jsp:include>	
 
 	<%
