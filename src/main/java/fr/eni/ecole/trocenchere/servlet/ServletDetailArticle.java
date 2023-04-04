@@ -1,6 +1,8 @@
 package fr.eni.ecole.trocenchere.servlet;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -13,7 +15,9 @@ import javax.servlet.http.HttpServletResponse;
 import fr.eni.ecole.trocenchere.TrocEnchereException;
 import fr.eni.ecole.trocenchere.bll.detailsArticle.DetailsArticleManager;
 import fr.eni.ecole.trocenchere.bll.detailsArticle.DetailsArticleManagerSing;
+import fr.eni.ecole.trocenchere.bo.Article;
 import fr.eni.ecole.trocenchere.bo.Enchere;
+import fr.eni.ecole.trocenchere.bo.Utilisateur;
 
 /**
  * Servlet implementation class ServletDetailArticle
@@ -37,6 +41,7 @@ public class ServletDetailArticle extends HttpServlet {
 		DetailsArticleManager dao = DetailsArticleManagerSing.getInstance();
 		
 		Integer idArticle = Integer.parseInt(request.getParameter("idArticle"));
+		request.getSession().setAttribute("idArticleDetailsArticle", idArticle);
 		try {
 			//On envoie l'article
 			request.setAttribute("article", dao.selectArticleById(idArticle));
@@ -74,8 +79,34 @@ public class ServletDetailArticle extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/JspListeEnchere.jsp");
-		rd.forward(request, response);
+		DetailsArticleManager dao = DetailsArticleManagerSing.getInstance();
+		Integer idArticle = (Integer) request.getSession().getAttribute("idArticleDetailsArticle");
+		try {
+			Article article = dao.selectArticleById(idArticle);
+			Enchere enchere = new Enchere();
+			
+			enchere.setArticle(article);
+			enchere.setDateEnchere(LocalDate.now());
+			enchere.setMontantEnchere(Integer.parseInt(request.getParameter("proposition")));
+			Utilisateur user = (Utilisateur) request.getSession().getAttribute("Utilisateur");
+			enchere.setUtilisateur(user);
+			
+			dao.insertEnchere(enchere);
+			request.getSession().setAttribute("lstErreurEnchere", new ArrayList<>());
+		} catch (TrocEnchereException e) {			
+			if (e.hasErreurs()) {
+				request.getSession().setAttribute("lstErreurEnchere", e.getListeCodesErreur());
+			}
+		}
+		List<String> lstErreur = (List<String>) request.getSession().getAttribute("lstErreurEnchere");	
+		if (lstErreur.size() <= 0) {
+			request.getSession().setAttribute("SuccesDetailsArticle", "Enchère ajoutée !");
+			System.out.println("succès");
+		} else {
+			request.getSession().setAttribute("SuccesDetailsArticle", null);
+			System.out.println("nan");
+		}
+		response.sendRedirect("http://localhost:8080/trocEnchere/ServletListeEnchere");
 	}
 
 }
