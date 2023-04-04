@@ -66,12 +66,17 @@
 	<div class="moninfo">
 	<h3>Ville:</h3> <p><%=user.getVille()%></p>
 	</div>
+	<div class="moninfo">
+	<h3>Crédit:</h3> <p><%=user.getCredit()%></p>
 	</div>
+	</div>
+	
 	<div class="bouteboute">
 	<form id="bouton" method="get" action="./ServletModificationProfil">
 	<input class="boute" type="submit" value="Modifier">
 	</form>
 	</div>
+	
 	</div>
 	</div>
 </body>
