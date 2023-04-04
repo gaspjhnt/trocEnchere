@@ -1,5 +1,7 @@
 package fr.eni.ecole.trocenchere.dal;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -14,8 +16,7 @@ public class DAOUtilisateurImpl implements DAOUtilisateur {
 			+ "code_postal, ville, mot_de_passe, credit, " + "administrateur FROM utilisateur "
 			+ "where noUtilisateur = ?";
 	private static final String UPDATE_UTILISATEUR = "UPDATE Utilisateur SET pseudo=?, "
-			+ "nom=?, prenom=?, email=?, telephone=?,  rue=?, code_postal=?, ville=? , mot_de_passe=?, "
-			+ "credit=?, administrateur=? WHERE noUtilisateur=?";
+			+ "nom=?, prenom=?, email=?, telephone=?,  rue=?, code_postal=?, ville=? , mot_de_passe=?, credit=? WHERE noUtilisateur=?";
 	private static final String DELETE_UTILISATEUR = "DELETE FROM Utilisateur where noUtilisateur=?";
 
 	@Override
@@ -66,13 +67,11 @@ public class DAOUtilisateurImpl implements DAOUtilisateur {
 			pstmt.setString(6, utilisateur.getRue());
 			pstmt.setString(7, utilisateur.getCodePostal());
 			pstmt.setString(8, utilisateur.getVille());
-			pstmt.setString(9, utilisateur.getMotDePasse());
+			pstmt.setString(9, sha256(utilisateur.getMotDePasse()));
 			pstmt.setInt(10, utilisateur.getCredit());
-			pstmt.setBoolean(11, utilisateur.isAdministrateur());
-			pstmt.setInt(12, utilisateur.getNoUtilisateur());
+			pstmt.setInt(11, utilisateur.getNoUtilisateur());
 
 			pstmt.executeUpdate();
-
 		} catch (Exception e) {
 
 		}
@@ -89,5 +88,19 @@ public class DAOUtilisateurImpl implements DAOUtilisateur {
 		}
 
 	}
-
+	private static String sha256(String password) {
+        try {
+            MessageDigest digest = MessageDigest.getInstance("SHA-256");
+            byte[] hash = digest.digest(password.getBytes());
+            StringBuilder hexString = new StringBuilder();
+            for (byte b : hash) {
+                String hex = Integer.toHexString(0xff & b);
+                if (hex.length() == 1) hexString.append('0');
+                hexString.append(hex);
+            }
+            return hexString.toString();
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

@@ -14,7 +14,6 @@ import javax.servlet.http.HttpSession;
 
 import fr.eni.ecole.trocenchere.TrocEnchereException;
 import fr.eni.ecole.trocenchere.bll.Utilisateur.UtilisateurManagerImpl;
-import fr.eni.ecole.trocenchere.bll.inscription.InscriptionManagerImpl;
 import fr.eni.ecole.trocenchere.bo.Utilisateur;
 
 /**
@@ -59,8 +58,8 @@ public class ServletModificationProfil extends HttpServlet {
 			String codePostal = request.getParameter("codePostal");
 			String ville = request.getParameter("ville");
 			String mdpActuel = sha256(request.getParameter("mdpActuel"));
-			String mdp = request.getParameter("nouveauMdp");
-			String mdp1 = request.getParameter("confirmMdp");
+			String mdp = sha256(request.getParameter("nouveauMdp"));
+			String mdp1 = sha256(request.getParameter("confirmMdp"));
 
 			HttpSession session = request.getSession();
 			UtilisateurManagerImpl dao = new UtilisateurManagerImpl();
@@ -86,19 +85,23 @@ public class ServletModificationProfil extends HttpServlet {
 				throw exception;
 			}
 
-			Utilisateur utilisateur = new Utilisateur(pseudo, nom, prenom, email, telephone, rue, codePostal, ville,
-					mdp);
+			Utilisateur utilisateur = new Utilisateur(utilisateurSession.getNoUtilisateur(),pseudo, nom, prenom, email, telephone, rue, codePostal, ville,sha256(mdp),utilisateurSession.getCredit());
+			System.out.println(utilisateur);
 			dao.updateUtilisateur(utilisateur);
-
+			System.out.println(utilisateur);
 			request.setAttribute("user", utilisateur);
-
+			session.setAttribute("Utilisateur", utilisateur);
+			
+			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/JspProfil.jsp");
+			rd.forward(request, response);
+			
 		} catch (TrocEnchereException e) {
 			request.setAttribute("lstErreurs", e.getListeCodesErreur());
 
 			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/JspProfil.jsp");
 			rd.forward(request, response);
 		}
-
+		
 	}
 
 	private boolean isEgalMdp(String mdp, String mdp1) {

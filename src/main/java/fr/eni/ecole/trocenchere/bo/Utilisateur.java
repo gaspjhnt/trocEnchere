@@ -40,7 +40,7 @@ public class Utilisateur {
 	 * @param motDePasse
 	 */
 	public Utilisateur(String pseudo, String nom, String prenom, String email, String telephone, String rue,
-			String codePostale, String ville, String motDePasse) {
+			String codePostal, String ville, String motDePasse) {
 		super();
 		this.pseudo = pseudo;
 		this.nom = nom;
@@ -48,7 +48,7 @@ public class Utilisateur {
 		this.email = email;
 		this.telephone = telephone;
 		this.rue = rue;
-		this.codePostal = codePostale;
+		this.codePostal = codePostal;
 		this.ville = ville;
 		this.motDePasse = motDePasse;
 		this.credit = 200;
@@ -73,7 +73,7 @@ public class Utilisateur {
 	 * @param lstArticle
 	 */
 	public Utilisateur(String pseudo, String nom, String prenom, String email, String telephone, String rue,
-			String codePostale, String ville, String motDePasse, Boolean administrateur, List<Enchere> lstEnchere,
+			String codePostal, String ville, String motDePasse, Boolean administrateur, List<Enchere> lstEnchere,
 			List<Article> lstArticle) {
 		super();
 		this.pseudo = pseudo;
@@ -82,7 +82,7 @@ public class Utilisateur {
 		this.email = email;
 		this.telephone = telephone;
 		this.rue = rue;
-		this.codePostal = codePostale;
+		this.codePostal = codePostal;
 		this.ville = ville;
 		this.motDePasse = motDePasse;
 		this.credit = 200;
@@ -109,7 +109,7 @@ public class Utilisateur {
 	 * @param lstArticle
 	 */
 	public Utilisateur(Integer noUtilisateur, String pseudo, String nom, String prenom, String email, String telephone,
-			String rue, String codePostale, String ville, String motDePasse, Integer credit, Boolean administrateur,
+			String rue, String codePostal, String ville, String motDePasse, Integer credit, Boolean administrateur,
 			List<Enchere> lstEnchere, List<Article> lstArticle) {
 		super();
 		this.noUtilisateur = noUtilisateur;
@@ -119,7 +119,7 @@ public class Utilisateur {
 		this.email = email;
 		this.telephone = telephone;
 		this.rue = rue;
-		this.codePostal = codePostale;
+		this.codePostal = codePostal;
 		this.ville = ville;
 		this.motDePasse = motDePasse;
 		this.credit = credit;
@@ -127,6 +127,21 @@ public class Utilisateur {
 		this.lstEnchere = lstEnchere;
 		this.lstArticle = lstArticle;
 	}
+
+	public Utilisateur(Integer noUtilisateur, String pseudo, String nom, String prenom, String email,
+			String telephone, String rue, String codePostal, String ville, String motDePasse, Integer credit) {
+		this.noUtilisateur = noUtilisateur;
+		this.pseudo = pseudo;
+		this.nom = nom;
+		this.prenom = prenom;
+		this.email = email;
+		this.telephone = telephone;
+		this.rue = rue;
+		this.codePostal = codePostal;
+		this.ville = ville;
+		this.motDePasse = motDePasse;
+		this.credit=credit;
+			}
 
 	public Integer getNoUtilisateur() {
 		return noUtilisateur;
