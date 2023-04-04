@@ -95,10 +95,10 @@
 			</form>
 			</div>
 			<div class="boutons">
-			<input type="submit" value="Valider" form="vendreArticle"> 
+			<input class="boute" type="submit" value="Valider" form="vendreArticle"> 
 			
 			<a href="http://localhost:8080/trocEnchere/ServletListeEnchere">
-				<button>Annuler</button>
+				<button class="boute">Annuler</button>
 			</a>
 			</div>
 	</div>

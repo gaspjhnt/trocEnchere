@@ -4,12 +4,11 @@
 	margin:0;
 	padding:0;
 }
-
 body{
-	background-color:#0E3B43;
+	background-color: #0E3B43;
 }
 
-.containerCard{
+.container{
 	width:100vw;
 	height:90vh;
 	display:flex;
@@ -17,7 +16,7 @@ body{
 	justify-content: center;
 }
 
-.CardVente{
+.card{
 	width:40vw;
 	height:70vh;
 	display : flex;
@@ -26,50 +25,43 @@ body{
 	background-color: #EEE1B3;
 	border-radius: 4%;
 }
-
-h3{
-	font-size: 2em;
-	color : #813405;
-}
-p{
-	color:#813405;
-	font-size:1.3em;
-	padding-right:20px;
-}
 .titre{
+	display:flex;
+	align-items:center;
+	justify-content:center;
 	width:100%;
 	height:10%;
-	display:flex;
-	justify-content:center;
-	align-items:center;
-	text-align:center;
-	padding-top:20px;
+	color:#813405;
+	padding-top:30px;
 }
-.textinput{
+.infos{
 	width:100%;
-	height:70%;
+	height: 70%; 
 	display:flex;
-	justify-content:center;
+	flex-direction:column;
+	justify-content:space-around;
 	align-items:center;
-	padding-top:20px;
+	color:#813405;
 }
-.article{
+h3{
+	color: #0E3B43;
+	font-size:1.5em;
+}
+.moninfo{
 	display:flex;
-	justify-content: space-between;
-	margin-bottom: 15px;
+	align-items:center;
 }
-
-#categorie_select{
-	width:50%;
+p{
+	padding-left:10px;
+	font-size:1.2em;
 }
-.boutons{
+.bouteboute{
 	width:100%;
 	height:20%;
 	display:flex;
-	justify-content:space-around;
 	align-items:center;
+	justify-content:center;
 }
-
 .boute{
 	box-shadow:inset 0px 1px 0px 0px #0E3B43; 
 	background:linear-gradient(to bottom, #0E3B43 5%, #0E3B43 100%); 
@@ -83,7 +75,12 @@ p{
 	padding:6px 24px; 
 	text-decoration:none; 
 	text-shadow:0px 1px 0px #ffee66; 
-	}
+}
 	.inscrireCo:hover { background:linear-gradient(to bottom, #ffab23 5%, #ffec64 100%); 
 	background-color:#ffab23; } 
-	.inscrireCo:active { position:relative; top:1px; }
+	.inscrireCo:active { position:relative; top:1px;
+	
+}
+#bouton{
+	padding-bottom:30px;
+}
