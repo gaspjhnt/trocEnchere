@@ -60,18 +60,24 @@ public class ServletModificationProfil extends HttpServlet {
 			String mdpActuel = sha256(request.getParameter("mdpActuel"));
 			String mdp = sha256(request.getParameter("nouveauMdp"));
 			String mdp1 = sha256(request.getParameter("confirmMdp"));
-
+			
 			HttpSession session = request.getSession();
 			UtilisateurManagerImpl dao = new UtilisateurManagerImpl();
 			Utilisateur utilisateurSession = (Utilisateur) session.getAttribute("Utilisateur");
+			
+			if(mdp==null) {
+				mdp=utilisateurSession.getMotDePasse();
+			}
+			if(mdp1==null) {
+				mdp1=utilisateurSession.getMotDePasse();
+			}
+			
 			System.out.println("TEST");
 			System.out.println(mdpActuel);
 			System.out.println(utilisateurSession.getMotDePasse());
 
 			if (!isEgalMdp(utilisateurSession.getMotDePasse(),mdpActuel)) {
 				
-				System.out.println("%%%%%%%");
-				System.out.println(mdpActuel);
 				System.out.println(utilisateurSession.getMotDePasse());
 				TrocEnchereException exception1 = new TrocEnchereException();
 				exception1.ajouterErreur("Le mot de passe ne correspond pas au mot de passe actuel");
@@ -85,7 +91,7 @@ public class ServletModificationProfil extends HttpServlet {
 				throw exception;
 			}
 
-			Utilisateur utilisateur = new Utilisateur(utilisateurSession.getNoUtilisateur(),pseudo, nom, prenom, email, telephone, rue, codePostal, ville,sha256(mdp),utilisateurSession.getCredit());
+			Utilisateur utilisateur = new Utilisateur(utilisateurSession.getNoUtilisateur(),pseudo, nom, prenom, email, telephone, rue, codePostal, ville,mdp,utilisateurSession.getCredit());
 			System.out.println(utilisateur);
 			dao.updateUtilisateur(utilisateur);
 			System.out.println(utilisateur);

@@ -1,6 +1,8 @@
 package fr.eni.ecole.trocenchere.servlet;
 
 import java.io.IOException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -70,7 +72,7 @@ public class ServletInscription extends HttpServlet {
 				session.setMaxInactiveInterval(1800);
 				//On ajoute l'utilisateur a la session
 		    	session.setAttribute("Utilisateur", utilisateur);
-		    	session.setAttribute("mdp", mdp);
+		    	session.setAttribute("mdp", sha256(mdp));
 		    }
 			response.sendRedirect("http://localhost:8080/trocEnchere/ServletListeEnchere");
 		
@@ -91,4 +93,19 @@ public class ServletInscription extends HttpServlet {
 			return false;
 		}
 	}
+	private static String sha256(String password) {
+        try {
+            MessageDigest digest = MessageDigest.getInstance("SHA-256");
+            byte[] hash = digest.digest(password.getBytes());
+            StringBuilder hexString = new StringBuilder();
+            for (byte b : hash) {
+                String hex = Integer.toHexString(0xff & b);
+                if (hex.length() == 1) hexString.append('0');
+                hexString.append(hex);
+            }
+            return hexString.toString();
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
