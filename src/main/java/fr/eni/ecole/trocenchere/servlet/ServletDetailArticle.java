@@ -2,6 +2,7 @@ package fr.eni.ecole.trocenchere.servlet;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -91,13 +92,20 @@ public class ServletDetailArticle extends HttpServlet {
 			enchere.setUtilisateur(user);
 			
 			dao.insertEnchere(enchere);
+			request.getSession().setAttribute("lstErreurEnchere", new ArrayList<>());
 		} catch (TrocEnchereException e) {			
 			if (e.hasErreurs()) {
-			request.setAttribute("lstErreur", e.getListeCodesErreur());
+				request.getSession().setAttribute("lstErreurEnchere", e.getListeCodesErreur());
 			}
 		}
-				
-
+		List<String> lstErreur = (List<String>) request.getSession().getAttribute("lstErreurEnchere");	
+		if (lstErreur.size() <= 0) {
+			request.getSession().setAttribute("SuccesDetailsArticle", "Enchère ajoutée !");
+			System.out.println("succès");
+		} else {
+			request.getSession().setAttribute("SuccesDetailsArticle", null);
+			System.out.println("nan");
+		}
 		response.sendRedirect("http://localhost:8080/trocEnchere/ServletListeEnchere");
 	}
 

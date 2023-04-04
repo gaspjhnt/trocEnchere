@@ -2,6 +2,7 @@
 <%@page import="fr.eni.ecole.trocenchere.bo.Categorie" %>
 <%@page import="fr.eni.ecole.trocenchere.bo.Article" %>
 <%@page import="fr.eni.ecole.trocenchere.bo.Retrait" %>
+<%@page import="fr.eni.ecole.trocenchere.bo.Utilisateur" %>
 <%@page import="java.util.ArrayList" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -30,6 +31,10 @@ Article article = (Article) request.getAttribute("article");
    	}
    		//Si non on verifie s'il y a un succès
    } %>
+   
+   
+   
+
    
 <h3>Détail vente</h3>
 
@@ -68,13 +73,17 @@ Article article = (Article) request.getAttribute("article");
 			<p>Vendeur : <%=article.getUtilisateur().getPseudo() %></p>
 		</div><br>
 		
-		
+		<%if (session.getAttribute("Utilisateur") != null) {
+			Utilisateur user = (Utilisateur) session.getAttribute("Utilisateur");
+			if (user.getNoUtilisateur() != article.getUtilisateur().getNoUtilisateur()) {%>
 	 	<form action="./ServletDetailArticle" method="post">
 	 	<%Integer minPropo = (Integer) request.getAttribute("Proposition") + 1; %>
 	 		<input type="hidden" name="PropositionMin" value=<%=minPropo %>>
 	 		<label for="input_proposition">Ma proposition : </label><input id="input_proposition" type="number" name="proposition" min="<%=minPropo%>" value="<%=minPropo%>" required/>
 	 		<input type="submit" value="Encherir">
 	 	</form>
+	 	<%}
+			} %>
 		
 	</div>
 	

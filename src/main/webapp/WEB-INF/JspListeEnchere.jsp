@@ -35,6 +35,12 @@
 	//Initialisation d'une Liste d'article qui prend en valeur la clé "article" qui contient notre méthode getAllByDate
 	List<Article> article = (List<Article>)request.getAttribute("article");
 	List<Categorie> lstCategorie = (List<Categorie>) request.getAttribute("lstCategorie");
+	
+	
+	//Affichage erreur
+	List<String> lstErreur = (List<String>) request.getSession().getAttribute("lstErreurEnchere");
+	String succes = (String) request.getSession().getAttribute("SuccesDetailsArticle");
+
 	%>
 
 <%if(session.getAttribute("Utilisateur")==null){
@@ -45,6 +51,22 @@
 	<%} %>
 
 <br>
+
+
+<%if (lstErreur != null) {
+	if (lstErreur.size() > 0) {
+	%> <p>Erreur :</p> <%
+	for (String element : lstErreur) {%>
+	<p><%=element %></p>
+<%}
+	}
+else if (succes != null){%>
+<p>Succès : </p> <%= succes%>
+<%  }
+	} %>
+
+<br>
+
 <!-- 	Création du champ de recherche et de la liste déroulante de catégorie -->
 <form method="post" action="./ServletListeEnchere">
 	<label for="name">Filtres :</label>

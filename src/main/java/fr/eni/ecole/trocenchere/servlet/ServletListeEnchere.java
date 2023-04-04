@@ -37,6 +37,8 @@ public class ServletListeEnchere extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+
+		
 		
 		//Création d'un dao avec le manager pour obtenir les méthodes nécessaires
 		lstEnchereManager dao = LstEnchereManagerSing.getInstance();

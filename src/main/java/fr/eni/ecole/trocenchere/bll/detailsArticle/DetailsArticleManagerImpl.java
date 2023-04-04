@@ -6,8 +6,11 @@ import fr.eni.ecole.trocenchere.TrocEnchereException;
 import fr.eni.ecole.trocenchere.bo.Article;
 import fr.eni.ecole.trocenchere.bo.Enchere;
 import fr.eni.ecole.trocenchere.bo.Retrait;
+import fr.eni.ecole.trocenchere.bo.Utilisateur;
 import fr.eni.ecole.trocenchere.dal.DAOEncheres;
 import fr.eni.ecole.trocenchere.dal.DAOEncheresFact;
+import fr.eni.ecole.trocenchere.dal.DAOUtilisateur;
+import fr.eni.ecole.trocenchere.dal.DAOUtilisateurFactory;
 import fr.eni.ecole.trocenchere.dal.detailsArticle.DAODetailsArticleFact;
 import fr.eni.ecole.trocenchere.dal.detailsArticle.TrocEnchereDAODetailsArticle;
 
@@ -15,6 +18,7 @@ public class DetailsArticleManagerImpl implements DetailsArticleManager{
 	
 	TrocEnchereDAODetailsArticle dao = DAODetailsArticleFact.getVendreArticleDAO();
 	DAOEncheres daoEnchere = DAOEncheresFact.getDAOEnchere();
+	DAOUtilisateur daoUser = DAOUtilisateurFactory.getDAOUtilisateur();
 
 	@Override
 	public Article selectArticleById(int id) throws TrocEnchereException {
@@ -66,6 +70,14 @@ public class DetailsArticleManagerImpl implements DetailsArticleManager{
 		verifInsertEnchere(enchere, tee);
 		
 		if (!tee.hasErreurs()) {
+			Utilisateur user = enchere.getUtilisateur();
+			if (enchere.getArticle().getLstEnchere() != null) {
+				Enchere lastEnchere = enchere.getArticle().getLstEnchere().get(enchere.getArticle().getLstEnchere().size() - 1);
+				user.setCredit(user.getCredit() - lastEnchere.getMontant_enchere());
+			} else {
+				user.setCredit(user.getCredit() - enchere.getArticle().getPrixDepart());
+			}
+			daoUser.updateUtilisateur(user);
 			daoEnchere.insertEnchere(enchere);
 		} else {
 			throw tee;
@@ -127,6 +139,15 @@ public class DetailsArticleManagerImpl implements DetailsArticleManager{
 				tee.ajouterErreur("Enchère trop basse veuillez encherir au dessus de " + enchere.getArticle().getPrixDepart());
 			}
 		}
+		
+		if (enchere.getUtilisateur().getCredit() < enchere.getMontant_enchere()) {
+			tee.ajouterErreur("Vous n'avez pas les fonds nécessaires");
+		}
+		
+		if (enchere.getUtilisateur().getCredit() < enchere.getArticle().getPrixDepart()) {
+			tee.ajouterErreur("Vous n'avez pas les fonds nécessaires");
+		}
+		
 	}
 	
 	
