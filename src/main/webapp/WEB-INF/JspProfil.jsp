@@ -12,7 +12,14 @@
 <title>Insert title here</title>
 </head>
 <body>
-
+<%List<String> lstErreurs = (List<String>)request.getAttribute("lstErreurs");
+	if(lstErreurs != null) {
+		for(String message : lstErreurs){
+			%> <p><%=message%></p>
+			<%
+		}
+	}%>
+	
 	<%
 	Utilisateur user = (Utilisateur) session.getAttribute("Utilisateur");
 	
