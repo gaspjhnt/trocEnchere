@@ -66,8 +66,9 @@
 	<% if(choix.equals("")){%>
 	<form method="get" action="./ServletDetailArticle"> 
 	<% for (Article current : article) {if (current.isEtatVente()==false){ %> 
-	<button type="submit"> <%=current.getNomArticle()%> </button>
-	<input type="hidden" id="input_article" name="idArticle" value=<%=current.getNoArticle()%>> 
+	<button type="submit" name="idArticle" value="<%= current.getNoArticle() %>">
+        <%= current.getNomArticle() %>
+   		 </button>
 	<p> <%="Prix: " + current.getPrixDepart() + " " + "points"%> </p> 
 	<p> <%="Fin de l'enchere: " + current.getDateFinEnchere()%> </p> 
 	<p> <%="Vendeur: " + current.getUtilisateur().getPseudo()%> </p> 
@@ -84,10 +85,9 @@
 		<form method="get" action="./ServletDetailArticle">
 		<%for (Article current : article) {if ((current.isEtatVente()==false) && current.getNomArticle().toLowerCase().contains(deuxiemeChoix.toLowerCase())){
 			%>
-			<button type="submit">
-					<%=current.getNomArticle()%>
-			</button><input type="hidden" id="input_article" name="idArticle" value=<%=current.getNoArticle()%>>
-		
+			<button type="submit" name="idArticle" value="<%= current.getNoArticle() %>">
+       		 <%= current.getNomArticle() %>
+   		 	</button>
 			<p>	<%="Prix: " + current.getPrixDepart() + " " + "points"%> </p>
 			<p>	<%="Fin de l'enchere: " + current.getDateFinEnchere()%> </p>
 			<p>	<%="Vendeur: " + current.getUtilisateur().getPseudo()%> </p>
@@ -102,12 +102,11 @@
 <% 
 	} else //if(choix.equals("Informatique")||choix.equals("Ameublement")||choix.equals("Vetement")||choix.equals("Sport")){
 		{for (Article current : article) {%>
-		<form method="post" action="./ServletDetailArticle">
+		<form method="get" action="./ServletDetailArticle">
 		<%if (current.getCategorie().getLibelle().equals(choix)&&(current.isEtatVente()==false)&& current.getNomArticle().toLowerCase().contains(deuxiemeChoix.toLowerCase())){%>
-				<button type="submit">
-						<%=current.getNomArticle()%>
-				</button><input type="hidden" id="input_article" name="idArticle" value=<%=current.getNoArticle()%>>
-			
+    	<button type="submit" name="idArticle" value="<%= current.getNoArticle() %>">
+        <%= current.getNomArticle() %>
+   		 </button>
 				<p>	<%="Prix: " + current.getPrixDepart() + " " + "points"%> </p>
 				<p>	<%="Fin de l'enchere: " + current.getDateFinEnchere()%> </p>
 				<p>	<%="Vendeur: " + current.getUtilisateur().getPseudo()%> </p>
