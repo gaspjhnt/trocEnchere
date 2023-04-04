@@ -64,7 +64,7 @@ public class ServletModificationProfil extends HttpServlet {
 			HttpSession session = request.getSession();
 			UtilisateurManagerImpl dao = new UtilisateurManagerImpl();
 			Utilisateur utilisateurSession = (Utilisateur) session.getAttribute("Utilisateur");
-			
+			String mdpSession= (String) session.getAttribute("mdp");
 			if(mdp==null) {
 				mdp=utilisateurSession.getMotDePasse();
 			}

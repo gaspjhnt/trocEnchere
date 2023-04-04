@@ -71,7 +71,7 @@ public class ServletInscription extends HttpServlet {
 				// on set l'interval d'innactivié a 30min
 				session.setMaxInactiveInterval(1800);
 				//On ajoute l'utilisateur a la session
-		    	session.setAttribute("Utilisateur", utilisateur);
+		    	session.setAttribute("Utilisateur", new Utilisateur(pseudo, nom, prenom, email, telephone, rue, codePostal, ville, sha256(mdp)));
 		    	session.setAttribute("mdp", sha256(mdp));
 		    }
 			response.sendRedirect("http://localhost:8080/trocEnchere/ServletListeEnchere");
