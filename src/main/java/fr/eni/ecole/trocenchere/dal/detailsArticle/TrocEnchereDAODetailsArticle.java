@@ -39,5 +39,12 @@ public interface TrocEnchereDAODetailsArticle {
 	 * 	@param retrait
 	 * @throws TrocEnchereException
 	 */
-	public void insertRetrait(Retrait retrait) throws TrocEnchereException;
+	public void insertRetrait(Retrait retrait) throws TrocEnchereException;	
+	
+	/**
+	 * Permet de modifier un article
+	 * @param article
+	 * @throws TrocEnchereException
+	 */
+	public void updateArticle (Article article) throws TrocEnchereException;
 }

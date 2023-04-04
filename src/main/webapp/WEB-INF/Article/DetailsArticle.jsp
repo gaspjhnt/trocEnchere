@@ -40,6 +40,7 @@ Article article = (Article) request.getAttribute("article");
 
 	<div class="cardArticle">
 		<p><%=article.getNomArticle() %></p>
+		<p><%=article.getNoArticle() %></p>
 		
 		<div class="description">
 			<p>Description : <%=article.getDescription() %></p>
@@ -53,7 +54,7 @@ Article article = (Article) request.getAttribute("article");
 			<p>Meilleure offre : <%=request.getAttribute("Enchere") %></p>
 		</div><br>
 		
-		
+		 
 		<div class="miseAPrix">
 			<p>Mise à prix : <%=article.getPrixDepart() %> points</p>
 		</div><br>
@@ -82,6 +83,12 @@ Article article = (Article) request.getAttribute("article");
 	 		<label for="input_proposition">Ma proposition : </label><input id="input_proposition" type="number" name="proposition" min="<%=minPropo%>" value="<%=minPropo%>" required/>
 	 		<input type="submit" value="Encherir">
 	 	</form>
+	 	<%}else {%>
+	 		<form action="./ServletUdpateArticle" method="get">
+	 			<button type="submit" name="modifSupp" value=<%=article.getNoArticle() %>>
+	 			Modifier - Supprimer
+	 			</button>
+	 		</form>
 	 	<%}
 			} %>
 		

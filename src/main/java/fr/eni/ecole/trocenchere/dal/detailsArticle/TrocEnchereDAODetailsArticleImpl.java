@@ -41,7 +41,8 @@ class TrocEnchereDAODetailsArticleImpl implements TrocEnchereDAODetailsArticle{
 	
 	public static final String INSERT_RETRAIT ="INSERT INTO retrait(rue,code_postal,ville,Article_NoArticle) VALUES(?,?,?,?)";
 
-	
+	private static final String UPDATE_ARTICLE = "UPDATE Article SET nom=?, description=?, date_debut_enchere=?, date_fin_enchere=?, prix_depart=?,  prix_vente=?, etat_vente=? WHERE noArticle=?";
+		
 	
 	
 	@Override
@@ -191,5 +192,31 @@ class TrocEnchereDAODetailsArticleImpl implements TrocEnchereDAODetailsArticle{
 			}
 			
 		}
+	
+	
+
+	@Override
+	public void updateArticle(Article article) throws TrocEnchereException {
+		 try (Connection cnx = ConnectionProvider.getConnection()){
+			 
+	            PreparedStatement pstmt = cnx.prepareStatement(UPDATE_ARTICLE);
+	 
+	            pstmt.setString(1, article.getNomArticle());
+	            pstmt.setString(2, article.getDescription());
+	            pstmt.setDate(3, java.sql.Date.valueOf(article.getDateDebutEnchere()));
+	            pstmt.setDate(4, java.sql.Date.valueOf(article.getDateFinEnchere()));
+	            pstmt.setInt(5, article.getPrixDepart());
+	            pstmt.setInt(6, article.getPrixVente());
+	            pstmt.setBoolean(7, article.isEtatVente());
+	            pstmt.setInt(8, article.getNoArticle());
+	             
+	            pstmt.executeUpdate();
+	            
+		 } catch (Exception e) {
+
+			}
+		
+	}
+	
 
 }
