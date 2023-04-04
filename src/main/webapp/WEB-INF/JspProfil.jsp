@@ -9,9 +9,12 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Mon profil</title>
+ <link rel="stylesheet" type="text/css" href="Profil.css">
 </head>
 <body>
+
+<jsp:include page="NavBarConnecte.html"></jsp:include>	
 
 	<%
 	Utilisateur user = (Utilisateur) session.getAttribute("Utilisateur");
@@ -25,19 +28,43 @@
 	String codepostal=(String) request.getAttribute("codepostal");
 	String ville=(String) request.getAttribute("ville");
 	%>
+	<div class="container">
+	<div class="card">
+	<div class="titre">
 	<h1>Mon Profil</h1>
-	<p>Pseudo: <%=user.getPseudo()%></p>
-	<p>Nom: <%= user.getNom()%></p>
-	<p>Prenom: <%= user.getPrenom()%></p>
-	<p>Email: <%=user.getEmail()%></p>
-	<p>Telephone: <%=user.getTelephone()%></p>
-	<p>Rue: <%=user.getRue()%></p>
-	<p>Code postal: <%=user.getCodePostal()%></p>
-	<p>Ville: <%=user.getVille()%></p>
-	
-	<form method="get" action="./ServletModificationProfil">
-	<input type="submit" value="Modifier">
+	</div>
+	<div class="infos">
+	<div class="moninfo">
+	<h3>Pseudo:</h3> <p><%=user.getPseudo()%></p>
+	</div>
+	<div class="moninfo">
+	<h3>Nom:</h3> <p><%= user.getNom()%></p>
+	</div>
+	<div class="moninfo">
+	<h3>Prenom:</h3> <p><%= user.getPrenom()%></p>
+	</div>
+	<div class="moninfo">
+	<h3>Email:</h3> <p><%=user.getEmail()%></p>
+	</div>
+	<div class="moninfo">
+	<h3>Telephone:</h3> <p><%=user.getTelephone()%></p>
+	</div>
+	<div class="moninfo">
+	<h3>Rue:</h3> <p><%=user.getRue()%></p>
+	</div>
+	<div class="moninfo">
+	<h3>Code postal:</h3> <p><%=user.getCodePostal()%></p>
+	</div>
+	<div class="moninfo">
+	<h3>Ville:</h3> <p><%=user.getVille()%></p>
+	</div>
+	</div>
+	<div class="bouteboute">
+	<form id="bouton" method="get" action="./ServletModificationProfil">
+	<input class="boute" type="submit" value="Modifier">
 	</form>
-	
+	</div>
+	</div>
+	</div>
 </body>
 </html>
