@@ -13,6 +13,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" type="text/css" href="DetailsArticle.css">
 </head>
 <body>	
 
@@ -35,51 +36,59 @@ List<Enchere> lstEnchere = (List<Enchere>) request.getAttribute("lstEnchere");
    		//Si non on verifie s'il y a un succès
    } %>
    
-   
-   
+ 
+<%if(session.getAttribute("Utilisateur")==null){
+	 %>
+	<jsp:include page="../NavBarDeconnecte.html"></jsp:include>
+<% } else {%>
+	<jsp:include page="../NavBarConnecte.html"></jsp:include>
+	<%} %>
 
-   
-<h3>Détail vente</h3>
-
-	<div class="cardArticle">
+<div class="container">
+<div class="cardArticle">
+<div class="titre">
+<h1>Détail vente</h1>
+</div>
+	<div class="infos">
 		<p><%=article.getNomArticle() %></p>
 		
-		<div class="description">
-			<p>Description : <%=article.getDescription() %></p>
-		</div> <br>
+		<div class="monInfo">
+			<h3>Description :</h3> <p><%=article.getDescription() %></p>
+		</div>
 		
-		<div class="categorie">
-			<p>Catégorie : <%=article.getCategorie().getLibelle()%></p>
-		</div><br>
+		<div class="monInfo">
+		 <h3>Catégorie :</h3> <p><%=article.getCategorie().getLibelle()%></p>
+		</div>
 		
-		<div class="enchere">
-			<p>Meilleure offre : <%=request.getAttribute("Enchere") %></p>
-		</div><br>
+		<div class="monInfo">
+			<h3>Meilleure offre :</h3> <p><%=request.getAttribute("Enchere") %></p>
+		</div>
 		
 		 
-		<div class="miseAPrix">
-			<p>Mise à prix : <%=article.getPrixDepart() %> points</p>
-		</div><br>
+		<div class="monInfo">
+			<h3>Mise à prix :</h3> <p><%=article.getPrixDepart() %> points</p>
+		</div>
 		
-		<div class="dateFinEnchere">
-			<p>Fin de l'enchère : <%=article.getDateFinEnchere() %></p>
-		</div><br>
+		<div class="monInfo">
+			<h3>Fin de l'enchère :</h3> <p><%=article.getDateFinEnchere() %></p>
+		</div>
 		
-		<div class="retrait">
+		<div class="monInfo">
 			<%Retrait retrait = (Retrait) request.getAttribute("Retrait");%>
-			<p>Retrait : <%=retrait.getRue() + " " %></p>
-			<p><%=retrait.getCodePostal()  %> <%=retrait.getVille()%></p>
-		</div><br>
+			<h3>Retrait :</h3> <p><%=retrait.getRue()%>
+			<%=retrait.getCodePostal()  %> <%=retrait.getVille()%></p>
+		</div>
 		
 		
 		<div class="vendeur">
 			<form action="./ServletProfilOther" method="get">
-				<label>Vendeur : </label>
-				<button type="submit" name="seller" value="<%=article.getUtilisateur().getNoUtilisateur()%>">
+				<label class="babybel">Vendeur : 
+				<button class="boute" type="submit" name="seller" value="<%=article.getUtilisateur().getNoUtilisateur()%>">
 					<%=article.getUtilisateur().getPseudo() %>
 				</button>
+				</label>
 			</form>
-		</div><br>
+		</div>
 		
 		<%if (session.getAttribute("Utilisateur") != null) {
 			Utilisateur user = (Utilisateur) session.getAttribute("Utilisateur");
@@ -102,9 +111,11 @@ List<Enchere> lstEnchere = (List<Enchere>) request.getAttribute("lstEnchere");
 			
 			
 			else { %>
+					<div class="propo">
 		 			<input type="hidden" name="PropositionMin" value=<%=minPropo %>>
-			 		<label for="input_proposition">Ma proposition : </label><input id="input_proposition" type="number" name="proposition" min="<%=minPropo%>" value="<%=minPropo%>" required/>
-			 		<input type="submit" value="Encherir">
+			 		<label class="babybel" id="mapropo" for="input_proposition">Ma proposition : </label><input id="input_proposition" type="number" name="proposition" min="<%=minPropo%>" value="<%=minPropo%>" required/>
+			 		<input class="boute" type="submit" value="Encherir">
+		 			</div>
 		 		<%} %>
 	 	</form>
 	 	<%}else {%>
@@ -115,6 +126,8 @@ List<Enchere> lstEnchere = (List<Enchere>) request.getAttribute("lstEnchere");
 			<%} %>
 	 		</form>
 	 	<%} %>
+	 	</div>
+	 	</div>
 		
 	</div>
 	

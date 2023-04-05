@@ -99,7 +99,7 @@ public class Enchere { //(Achat)
 	@Override
 	public String toString() {
 		return "Enchere [noEnchere=" + noEnchere + ", dateEnchere=" + dateEnchere + ", montant_enchere="
-				+ montantEnchere + "]\n";
+				+ montantEnchere + " " + article.getNomArticle();
 	}
 	
 	

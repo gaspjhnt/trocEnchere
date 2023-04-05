@@ -1,6 +1,7 @@
 <%@page import="org.apache.taglibs.standard.lang.jstl.DivideOperator"%>
 <%@page import="fr.eni.ecole.trocenchere.bo.Categorie" %>
 <%@page import="fr.eni.ecole.trocenchere.bo.Utilisateur" %>
+<%@page import="fr.eni.ecole.trocenchere.bo.Enchere" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@page import="java.util.ArrayList"%>
@@ -57,7 +58,7 @@
 	List<Article> article = (List<Article>)request.getAttribute("article");
 	List<Categorie> lstCategorie = (List<Categorie>) request.getAttribute("lstCategorie");
 	
-	
+	List<Enchere>enchere = (List<Enchere>)request.getAttribute("encherebyuser");
 	//Affichage erreur
 	List<String> lstErreur = (List<String>) request.getSession().getAttribute("lstErreurEnchere");
 	String succes = (String) request.getSession().getAttribute("SuccesDetailsArticle");
@@ -108,7 +109,7 @@ else if (succes != null){%>
          onclick="checkIfAllChecked('bouton-radio-1'); uncheckOtherCheckboxes(this);" checked>
 
   <label for="checkbox-1-2">mes enchères</label>
-  <input type="checkbox" name="checkbox-1" id="checkbox-1-2" value="checkbox-1-2"
+  <input type="checkbox" name="checkbox-1" id="checkbox-1-2" value="mesEncheres"
          onclick="checkIfAllChecked('bouton-radio-1'); uncheckOtherCheckboxes(this);">
 
   <label for="checkbox-1-3">mes enchères remportées</label>
@@ -255,7 +256,7 @@ function disableCheckboxes(boutonRadioValue) {
 			
 		<form method="get" action="./ServletDetailArticle">
 		<div class="flex-container2">
-		<%{for (Article current : article) { if (current.getCategorie().getLibelle().equals(choix)&&(current.isEtatVente()==false)&& current.getNomArticle().toLowerCase().contains(deuxiemeChoix.toLowerCase())&& user.getNoUtilisateur()!=current.getUtilisateur().getNoUtilisateur()){
+		<%for (Article current : article) { if (current.getCategorie().getLibelle().equals(choix)&&(current.isEtatVente()==false)&& current.getNomArticle().toLowerCase().contains(deuxiemeChoix.toLowerCase())&& user.getNoUtilisateur()!=current.getUtilisateur().getNoUtilisateur()){
 			%>
 			<div class="UnArticle">
     	<button class="bouteboute"  type="submit" name="idArticle" value="<%= current.getNoArticle() %>">
@@ -270,14 +271,40 @@ function disableCheckboxes(boutonRadioValue) {
 			}
 		}%>
 		</div>
-		</form> <%
-	}%>
+		</form>
 	
-	</div>
+	
 <!-- 	S'il n'y a aucune réponse à la recherche utilisateur, on imprime un message  -->
 	<%if(imprimeChacal==false) {%>
 	<h1><%="Aucun article trouvé pour ta recherche... Essaye autre chose"%></h1>
 	<%}}} %>
+	
+	<% 
+	if(choix.equals("Toutes")){%>
+		<% if (troisiemeChoix.equals("achat") && quatriemeChoix.equals("mesEncheres")) {%>
+		
+		<%List<Integer>lstTmp=new ArrayList<>();%>
+		<form method="get" action="./ServletDetailArticle">
+				<div class="flex-container2">
+		
+		<% for(Enchere current: enchere) {%>
+		<%if(!lstTmp.contains(current.getArticle().getNoArticle())){ %>
+		<div class="unArticle">
+		<button class="bouteboute"  type="submit" name="idArticle" value="<%= current.getArticle().getNoArticle()%>">
+        <%= current.getArticle().getNomArticle() %>
+   		 </button>
+			<p> <%="Mon enchere: "+ current.getMontant_enchere() %></p>
+			<p>	<%="Prix: " + current.getArticle().getPrixDepart() + " " + "points"%> </p>
+			<p>	<%="Fin de l'enchere: " + current.getArticle().getDateFinEnchere()%> </p>
+			<p>	<%="Vendeur: " + current.getArticle().getUtilisateur().getPseudo()%> </p>
+			<%lstTmp.add(current.getArticle().getNoArticle()); %>
+			</div>
+	<% }}}}%>
+	</div>
+	</form>
+	
+	
+	</div>
 	</div>
 </body>
 </html>

@@ -230,7 +230,7 @@ public class Article { //(Vente)
 	public String toString() {
 		return "\nArticle [noArticle=" + noArticle + ", nomArticle=" + nomArticle + ", description=" + description
 				+ ", dateDebutEnchere=" + dateDebutEnchere + ", dateFinEnchere=" + dateFinEnchere + ", prixDepart="
-				+ prixDepart + ", prixVente=" + prixVente + ", etatVente=" + etatVente + "\n";
+				+ prixDepart + ", prixVente=" + prixVente + ", etatVente=" + etatVente + " "+utilisateur+"\n";
 	}
 
 }

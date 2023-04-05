@@ -125,7 +125,9 @@ public class ServletListeEnchere extends HttpServlet {
 		
 		
 		try {
-			System.out.println(dao.getAllArticlesByDate(LocalDate.now()));
+			System.out.println(dao.selectEnchereByUser(utilisateurSession));
+			request.setAttribute("encherebyuser", dao.selectEnchereByUser(utilisateurSession));
+			dao.getAllArticlesByDate(LocalDate.now());
 			request.setAttribute("article", dao.getAllArticlesByDate(LocalDate.now()));
 		} catch (TrocEnchereException e) {
 			e.printStackTrace();
