@@ -25,7 +25,7 @@
 <jsp:include page="NavBarConnecte.html"></jsp:include>	
 
 	<%
-	Utilisateur user = (Utilisateur) session.getAttribute("Utilisateur");
+	Utilisateur user = (Utilisateur) request.getAttribute("user");
 	
 	String pseudo=(String) request.getAttribute("pseudo");
 	String nom=(String) request.getAttribute("nom");
@@ -69,8 +69,8 @@
 	</div>
 	
 <!-- 	<div class="bouteboute"> -->
-<!-- 	<form id="bouton" method="get" action="./ServletModificationProfil"> -->
-<!-- 	<input class="boute" type="submit" value="Modifier"> -->
+<!-- 	<form id="bouton" method="post" action="./ServletProfilOther"> -->
+<!-- 	<input class="boute" type="submit" value="Retour"> -->
 <!-- 	</form> -->
 <!-- 	</div> -->
 	
