@@ -4,6 +4,7 @@
 <%@page import="fr.eni.ecole.trocenchere.bo.Article" %>
 <%@page import="fr.eni.ecole.trocenchere.bo.Retrait" %>
 <%@page import="fr.eni.ecole.trocenchere.bo.Utilisateur" %>
+<%@page import="fr.eni.ecole.trocenchere.bo.Enchere" %>
 <%@page import="java.util.ArrayList" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -19,6 +20,7 @@
 //Récuperartion de la liste d'erreru et de l'article
 List<String> lstErreur = (List<String>) request.getAttribute("lstErreur"); 
 Article article = (Article) request.getAttribute("article");
+List<Enchere> lstEnchere = (List<Enchere>) request.getAttribute("lstEnchere");
    
    // Verification si il y a des erreurs
    if (lstErreur != null) {
@@ -80,14 +82,21 @@ Article article = (Article) request.getAttribute("article");
 
 	 	<form action="./ServletDetailArticle" method="post">
 	 	<%Integer minPropo = (Integer) request.getAttribute("Proposition") + 1; %>
-			<%if (article.getDateDebutEnchere().isAfter(LocalDate.now()) 
-						|| article.getDateFinEnchere().isBefore(LocalDate.now())){%>
+			<%if (article.getDateDebutEnchere().isAfter(LocalDate.now())) {%>
 						
-						<p>L'enchère ne début que le : <%=article.getDateDebutEnchere() %></p>
+						<p>L'enchère ne débute que le : <%=article.getDateDebutEnchere() %></p>
 <%-- 			 		<input type="hidden" name="PropositionMin" value=<%=minPropo %> disabled> --%>
 <%-- 			 		<label for="input_proposition">Ma proposition : </label><input id="input_proposition" type="number" name="none" min="<%=minPropo%>" value="<%=minPropo%>" required disabled/> --%>
 <!-- 			 		<input type="button" value="Encherir" disabled> -->
-		 		<%} else { %>
+		 		<%} else if (article.getDateFinEnchere().isBefore(LocalDate.now())) {
+		 			if (lstEnchere.size() >= 1){
+		 			%>
+		 			<p>Acquéreur : <%=lstEnchere.get(lstEnchere.size() -  1).getUtilisateur().getPseudo() %> pour <%= lstEnchere.get(lstEnchere.size() -  1).getMontant_enchere()%> pts.</p> <%} %>
+		 			<p>L'enchère a pris fin le : <%=article.getDateFinEnchere() %></p><%
+		 		}
+			
+			
+			else { %>
 		 			<input type="hidden" name="PropositionMin" value=<%=minPropo %>>
 			 		<label for="input_proposition">Ma proposition : </label><input id="input_proposition" type="number" name="proposition" min="<%=minPropo%>" value="<%=minPropo%>" required/>
 			 		<input type="submit" value="Encherir">

@@ -71,7 +71,16 @@ public class UtilisateurManagerImpl implements UtilisateurManager{
 					//Si le pseudo utilisateur a une taille de caractères supérieur à 25, exception.
 				if (utilisateur.getPseudo().length()>25) {
 					exception.ajouterErreur("Pseudo trop long ! Moins de 25 caractères svp");
-				} 
+				}
+				try {
+					for(String mesPseudo : dao.getAllPseudo()) {
+						if(utilisateur.getPseudo().equals(mesPseudo) && utilisateur.getNoUtilisateur() != dao.getUtilisateurByPseudo(mesPseudo).getNoUtilisateur()) {
+							exception.ajouterErreur("Le pseudo existe déjà !");
+						}
+					}
+					} catch (TrocEnchereException e) {
+						e.printStackTrace();
+					}
 		}
 		
 		//Méthode pour valider le nom (on ajoute des conditions pour valider le nom)
@@ -129,6 +138,15 @@ public class UtilisateurManagerImpl implements UtilisateurManager{
 			if(utilisateur.getEmail().length()>75) {
 				exception.ajouterErreur("Condition bll non respectée dans l'insertion de l'email !");
 			}
+			try {
+				for(String mesEmail : dao.getAllEmail()) {
+					if(utilisateur.getEmail().equals(mesEmail) && utilisateur.getNoUtilisateur() != dao.getUtilisateurByMail(mesEmail).getNoUtilisateur()) {
+						exception.ajouterErreur("Le mail existe déjà !");
+					}
+				}
+				} catch (TrocEnchereException e) {
+					e.printStackTrace();
+				}
 		}
 		
 		//Méthode pour vérifier si il a bien uniquement des numéros dans un String.
@@ -194,19 +212,6 @@ public class UtilisateurManagerImpl implements UtilisateurManager{
 					return false;
 				}
 			
-		}
-		
-		private void validerMdp (Utilisateur utilisateur, TrocEnchereException exception) {
-			//On vérifie que le mot de passe n'est pas null
-			if(utilisateur.getMotDePasse()==null) {
-				exception.ajouterErreur("Le mot de passe doit être renseigné !");
-			}
-
-			if(!isValidMdp(utilisateur.getMotDePasse())) {
-				exception.ajouterErreur("Le mot de passe doit correspondre aux critères ! Une majuscule, une minuscule,"
-						+ " un caractère spécial et au moins 8 caractères !");
-			
-			}
 		}
 	
 }

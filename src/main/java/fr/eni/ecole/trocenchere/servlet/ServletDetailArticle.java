@@ -43,8 +43,14 @@ public class ServletDetailArticle extends HttpServlet {
 		Integer idArticle = Integer.parseInt(request.getParameter("idArticle"));
 		request.getSession().setAttribute("idArticleDetailsArticle", idArticle);
 		try {
+			Article article = dao.selectArticleById(idArticle);
+			
 			//On envoie l'article
-			request.setAttribute("article", dao.selectArticleById(idArticle));
+			request.setAttribute("article", article);
+			
+			List<Enchere> lstEnchere = dao.selectEnchereByArticle(article);
+			request.setAttribute("lstEnchere", lstEnchere);
+			
 			List<Enchere> encheres = dao.selectEnchereByArticle(dao.selectArticleById(idArticle));
 			
 			//On verifie si il y a des enchères ou pas

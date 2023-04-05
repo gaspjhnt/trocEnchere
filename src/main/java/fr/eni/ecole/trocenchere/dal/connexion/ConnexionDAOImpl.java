@@ -34,6 +34,14 @@ public class ConnexionDAOImpl implements ConnexionDAO {
 	private static final String SELECT_CATEGORIE_BY_ID = "SELECT noCategorie, libelle FROM categorie "
 			+ "WHERE noCategorie = ?";
 	
+	private static final String SELECT_ENCHERE_BY_ARTICLE = "SELECT noEnchere, date_enchere, montant_enchere,"
+			+ " Utilisateur_noUtilisateur, Article_noArticle"
+			+ " FROM enchere "
+			+ "WHERE Article_noArticle = ?";
+
+	private static final String SELECT_USER_BY_ID = "SELECT noUtilisateur, pseudo, credit FROM utilisateur "
+			+ "where noUtilisateur = ?";
+	
 	
 	@Override
 	public Utilisateur selectMdpAndPseudo(String pseudoOuMail, String mdp) throws TrocEnchereException {
@@ -130,6 +138,47 @@ public class ConnexionDAOImpl implements ConnexionDAO {
 			throw tee;
 		}
 		return user;
+	}
+	
+	
+	@Override
+	public List<Enchere> selectEnchereByArticle(Article article) throws TrocEnchereException {
+		TrocEnchereException tee = new TrocEnchereException();
+		List<Enchere> lstEnchere = new  ArrayList<>();
+		try(Connection con = ConnectionProvider.getConnection()){
+		
+		PreparedStatement stmt = con.prepareStatement(SELECT_ENCHERE_BY_ARTICLE);
+		
+
+		PreparedStatement stmtUser = con.prepareStatement(SELECT_USER_BY_ID);
+		stmt.setInt(1, article.getNoArticle());
+		ResultSet rs = stmt.executeQuery();
+		while(rs.next()) {
+			Enchere enchere = new Enchere();
+			enchere.setNoEnchere(rs.getInt("noEnchere"));
+			enchere.setDateEnchere(rs.getDate("date_enchere").toLocalDate());
+			enchere.setMontantEnchere(rs.getInt("montant_enchere"));
+			enchere.setArticle(article);
+			
+
+			stmtUser.setInt(1, rs.getInt("Utilisateur_noUtilisateur"));
+			ResultSet rsUser = stmtUser.executeQuery();
+			Utilisateur user = new Utilisateur();
+			if (rsUser.next()) {
+				user.setNoUtilisateur(rsUser.getInt("noUtilisateur"));
+				user.setPseudo(rsUser.getString("pseudo"));
+				user.setCredit(rsUser.getInt("credit"));
+			}
+			enchere.setUtilisateur(user);
+			lstEnchere.add(enchere);
+		}
+		
+		}catch (SQLException e){
+			e.printStackTrace();
+			tee.ajouterErreur("Problème à la selection des données (selectEnchereByArticle)");
+			throw tee;
+		}
+		return lstEnchere;
 	}
 	
 
