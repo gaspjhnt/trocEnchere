@@ -53,7 +53,7 @@
 <input type="text" id="ville" name="ville" required>
 </label>
 <label class="moninfo" for="mdp">Mot de passe : 
-<input type="password" id="mdp" name="mdp" minlength="8" required>
+<input pattern="^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$" type="password" id="mdp" name="mdp" minlength="8" required>
 </label>
 <label class="moninfo" for="confirmMdp">Confirmation du mot de passe : 
 <input type="password" id="confirmMdp" name="confirmMdp" minlength="8" required>
