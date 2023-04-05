@@ -79,6 +79,90 @@ else if (succes != null){%>
 	<input type="search" id="name" name="recherche" style="width:200px" placeholder="le nom de l'article contient"> 
 	<input class="bouteFiltre" type="submit" value="Envoyer">
 </form>
+<form>
+  <label for="radio-1">Achat</label>
+  <input type="radio" name="bouton-radio" id="radio-1" value="bouton-radio-1"
+         onclick="disableCheckboxes('bouton-radio-1')">
+  <br>
+  <label for="checkbox-1-1">enchère ouvertes</label>
+  <input type="checkbox" name="checkbox-1" id="checkbox-1-1" value="checkbox-1-1"
+         onclick="checkIfAllChecked('bouton-radio-1'); uncheckOtherCheckboxes(this);">
+  <br>
+  <label for="checkbox-1-2">mes enchères</label>
+  <input type="checkbox" name="checkbox-1" id="checkbox-1-2" value="checkbox-1-2"
+         onclick="checkIfAllChecked('bouton-radio-1'); uncheckOtherCheckboxes(this);">
+  <br>
+  <label for="checkbox-1-3">mes enchères remportées</label>
+  <input type="checkbox" name="checkbox-1" id="checkbox-1-3" value="checkbox-1-3"
+         onclick="checkIfAllChecked('bouton-radio-1'); uncheckOtherCheckboxes(this);">
+  <br>
+
+  <label for="radio-2">Mes ventes</label>
+  <input type="radio" name="bouton-radio" id="radio-2" value="bouton-radio-2"
+         onclick="disableCheckboxes('bouton-radio-2')">
+  <br>
+  <label for="checkbox-2-1">mes ventes en cours</label>
+  <input type="checkbox" name="checkbox-2" id="checkbox-2-1" value="checkbox-2-1"
+         onclick="checkIfAllChecked('bouton-radio-2'); uncheckOtherCheckboxes(this);">
+  <br>
+  <label for="checkbox-2-2">ventes non débutées</label>
+  <input type="checkbox" name="checkbox-2" id="checkbox-2-2" value="checkbox-2-2"
+         onclick="checkIfAllChecked('bouton-radio-2'); uncheckOtherCheckboxes(this);">
+  <br>
+  <label for="checkbox-2-3">ventes terminées</label>
+  <input type="checkbox" name="checkbox-2" id="checkbox-2-3" value="checkbox-2-3"
+         onclick="checkIfAllChecked('bouton-radio-2'); uncheckOtherCheckboxes(this);">
+  <br>
+</form>
+
+<script>
+function disableCheckboxes(boutonRadioValue) {
+    let checkboxes = document.querySelectorAll('input[type="checkbox"]');
+    checkboxes.forEach(function(checkbox) {
+      if (checkbox.name === 'checkbox-1' && boutonRadioValue !== 'bouton-radio-1') {
+        checkbox.disabled = true;
+      } else if (checkbox.name === 'checkbox-2' && boutonRadioValue !== 'bouton-radio-2') {
+        checkbox.disabled = true;
+      } else {
+        checkbox.disabled = false;
+      }
+    });
+    uncheckCheckboxes();
+  }
+  function uncheckCheckboxes() {
+    let checkboxes = document.querySelectorAll('input[type="checkbox"]');
+    checkboxes.forEach(function(checkbox) {
+      checkbox.checked = false;
+    });
+  }
+
+  function checkIfAllChecked(boutonRadioValue) {
+    let checkboxes = document.querySelectorAll('input[type="checkbox"]');
+    let checkedCheckboxes = 0;
+    checkboxes.forEach(function(checkbox) {
+        if (checkbox.checked && checkbox.name === 'checkbox-1' && boutonRadioValue === 'bouton-radio-1') {
+          checkedCheckboxes++;
+        } else if (checkbox.checked && checkbox.name === 'checkbox-2' && boutonRadioValue === 'bouton-radio-2') {
+          checkedCheckboxes++;
+        }
+      });
+      if (checkedCheckboxes > 1) {
+        alert('Vous ne pouvez choisir qu\'une seule option à la fois.');
+        uncheckCheckboxes();
+      }
+  }
+
+  let checkboxes = document.querySelectorAll('input[type="checkbox"]');
+  checkboxes.forEach(function(checkbox) {
+    checkbox.addEventListener('click', function() {
+      let boutonRadioValue = document.querySelector('input[type="radio"]:checked').value;
+      checkIfAllChecked(boutonRadioValue);
+    });
+  });
+</script>
+
+
+
 	<div class="articles">
 	<!-- Boucle foreach de la Liste article qui va imprimer tous les articles dont la date de fin d'enchere est après la date du jour présents dans la base de donnée --> 
 	<% if(choix.equals("")){%>

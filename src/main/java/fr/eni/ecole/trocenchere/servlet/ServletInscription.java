@@ -65,14 +65,15 @@ public class ServletInscription extends HttpServlet {
 			}
 			Utilisateur utilisateur = imp.ajouter(pseudo, nom, prenom, email, telephone, rue, codePostal, ville, mdp);
 			request.setAttribute("user", utilisateur);
+			utilisateur.setMotDePasse(sha256(mdp));
 			
-			HttpSession session = request.getSession();	            
+			HttpSession session = request.getSession();
 			if (session != null) {
 				// on set l'interval d'innactivié a 30min
 				session.setMaxInactiveInterval(300);
 				//On ajoute l'utilisateur a la session
-		    	session.setAttribute("Utilisateur", new Utilisateur(pseudo, nom, prenom, email, telephone, rue, codePostal, ville, sha256(mdp)));
-		    	session.setAttribute("mdp", sha256(mdp));
+		    	session.setAttribute("Utilisateur", utilisateur);
+		    	session.setAttribute("mdp", mdp);
 		    }
 			response.sendRedirect("http://localhost:8080/trocEnchere/ServletListeEnchere");
 		

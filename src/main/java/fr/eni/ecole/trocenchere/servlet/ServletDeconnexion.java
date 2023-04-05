@@ -29,7 +29,12 @@ public class ServletDeconnexion extends HttpServlet {
 	 */
 	   
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        HttpSession session = request.getSession(false);
+    	
+    	 response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+         response.setHeader("Pragma", "no-cache");
+         response.setHeader("Expires", "0");
+    	
+    	HttpSession session = request.getSession(false);
         if(session != null){
             session.invalidate();
         }

@@ -57,26 +57,26 @@ public class ServletModificationProfil extends HttpServlet {
 			String rue = request.getParameter("rue");
 			String codePostal = request.getParameter("codePostal");
 			String ville = request.getParameter("ville");
-			String mdpActuel = sha256(request.getParameter("mdpActuel"));
-			String mdp = sha256(request.getParameter("nouveauMdp"));
-			String mdp1 = sha256(request.getParameter("confirmMdp"));
+			String mdpActuel = request.getParameter("mdpActuel");
+			String mdp = request.getParameter("nouveauMdp");
+			String mdp1 = request.getParameter("confirmMdp");
 			
 			HttpSession session = request.getSession();
 			UtilisateurManagerImpl dao = new UtilisateurManagerImpl();
 			Utilisateur utilisateurSession = (Utilisateur) session.getAttribute("Utilisateur");
-			String mdpSession= (String) session.getAttribute("mdp");
-			if(mdp==null) {
-				mdp=utilisateurSession.getMotDePasse();
+			
+			if(mdp=="") {
+				mdp=mdpActuel;
 			}
-			if(mdp1==null) {
-				mdp1=utilisateurSession.getMotDePasse();
+			if(mdp1=="") {
+				mdp1=mdpActuel;
 			}
 			
 			System.out.println("TEST");
 			System.out.println(mdpActuel);
 			System.out.println(utilisateurSession.getMotDePasse());
 
-			if (!isEgalMdp(utilisateurSession.getMotDePasse(),mdpActuel)) {
+			if (!isEgalMdp(utilisateurSession.getMotDePasse(),sha256(mdpActuel))) {
 				
 				System.out.println(utilisateurSession.getMotDePasse());
 				TrocEnchereException exception1 = new TrocEnchereException();
@@ -87,19 +87,23 @@ public class ServletModificationProfil extends HttpServlet {
 			} else if (!isEgalMdp(mdp, mdp1)) {
 				TrocEnchereException exception = new TrocEnchereException();
 				exception.ajouterErreur("Les mots de passe sont différents");
-
 				throw exception;
 			}
-
-			Utilisateur utilisateur = new Utilisateur(utilisateurSession.getNoUtilisateur(),pseudo, nom, prenom, email, telephone, rue, codePostal, ville,mdp,utilisateurSession.getCredit());
+			
+			Utilisateur utilisateur = new Utilisateur(utilisateurSession.getNoUtilisateur(),pseudo, nom, prenom, email, telephone, rue, codePostal, ville, sha256(mdp),utilisateurSession.getCredit());
+			
 			System.out.println(utilisateur);
+			
 			dao.updateUtilisateur(utilisateur);
+			
 			System.out.println(utilisateur);
+			
 			request.setAttribute("user", utilisateur);
 			session.setAttribute("Utilisateur", utilisateur);
 			
 			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/JspProfil.jsp");
 			rd.forward(request, response);
+			
 			
 		} catch (TrocEnchereException e) {
 			request.setAttribute("lstErreurs", e.getListeCodesErreur());
