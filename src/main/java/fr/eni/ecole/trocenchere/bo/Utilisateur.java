@@ -141,6 +141,7 @@ public class Utilisateur {
 		this.ville = ville;
 		this.motDePasse = motDePasse;
 		this.credit=credit;
+		this.administrateur =false;
 			}
 
 	public Integer getNoUtilisateur() {

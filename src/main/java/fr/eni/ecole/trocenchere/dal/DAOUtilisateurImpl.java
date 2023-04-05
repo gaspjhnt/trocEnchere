@@ -22,8 +22,7 @@ public class DAOUtilisateurImpl implements DAOUtilisateur {
 	private static final String SELECT_USER_BY_ID = "SELECT noUtilisateur, pseudo, nom, prenom, email, telephone, rue, "
 			+ "code_postal, ville, mot_de_passe, credit, " + "administrateur FROM utilisateur "
 			+ "where noUtilisateur = ?";
-	private static final String UPDATE_UTILISATEUR = "UPDATE Utilisateur SET pseudo=?, "
-			+ "nom=?, prenom=?, email=?, telephone=?,  rue=?, code_postal=?, ville=? , mot_de_passe=?, credit=? WHERE noUtilisateur=?";
+	
 	private static final String DELETE_UTILISATEUR = "DELETE FROM Utilisateur where noUtilisateur=?";
 	
 	private static final String SELECT_ARTICLE_BY_USER = "SELECT noArticle, nom, description, date_debut_enchere, "
@@ -122,9 +121,13 @@ public class DAOUtilisateurImpl implements DAOUtilisateur {
 		return user;
 	}
 
-
+	private static final String UPDATE_UTILISATEUR = "UPDATE Utilisateur SET pseudo=?, "
+			+ "nom=?, prenom=?, email=?, telephone=?,  rue=?, code_postal=?, ville=? , mot_de_passe=?, credit=? WHERE noUtilisateur=?";
 	@Override
 	public void updateUtilisateur(Utilisateur utilisateur) throws TrocEnchereException {
+		
+		TrocEnchereException tee = new TrocEnchereException();
+		
 		try (Connection cnx = ConnectionProvider.getConnection()) {
 
 			PreparedStatement pstmt = cnx.prepareStatement(UPDATE_UTILISATEUR);
@@ -139,11 +142,15 @@ public class DAOUtilisateurImpl implements DAOUtilisateur {
 			pstmt.setString(8, utilisateur.getVille());
 			pstmt.setString(9,utilisateur.getMotDePasse());
 			pstmt.setInt(10, utilisateur.getCredit());
+			System.out.println(utilisateur.getNoUtilisateur());
 			pstmt.setInt(11, utilisateur.getNoUtilisateur());
 
 			pstmt.executeUpdate();
 		} catch (Exception e) {
-
+			System.out.println("utilisateur en base de donnée : " + utilisateur);
+			e.printStackTrace();
+			tee.ajouterErreur("Erreur à l'update utilisateur en base de données");
+			throw tee;
 		}
 	}
 
