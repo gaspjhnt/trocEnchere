@@ -122,6 +122,8 @@ public class ServletListeEnchere extends HttpServlet {
 		
 		lstEnchereManager dao = LstEnchereManagerSing.getInstance();
 		
+		
+		
 		try {
 			System.out.println(dao.getAllArticlesByDate(LocalDate.now()));
 			request.setAttribute("article", dao.getAllArticlesByDate(LocalDate.now()));
