@@ -36,7 +36,11 @@ public class LstEnchereDAOImpl implements LstEnchereDAO{
 	
 	private static final String SELECT_CATEGORIE_BY_ID = "SELECT noCategorie, libelle FROM categorie "
 			+ "WHERE noCategorie = ?";
-
+	
+	private static final String SELECT_USER_BY_ID = "SELECT noUtilisateur, pseudo, nom, prenom, email, telephone, rue, "
+			+ "code_postal, ville, mot_de_passe, credit, "
+			+ "administrateur FROM utilisateur "
+			+ "where noUtilisateur = ?";
 	
 // renvoie tous les articles avec une date de fin d'enchère > a la date DATE (donc les articles avec une fin
 	// d'enchères après la date donnée
@@ -60,7 +64,8 @@ public class LstEnchereDAOImpl implements LstEnchereDAO{
 
 		PreparedStatement stmtArt = con.prepareStatement(SELECT_ARTICLE_BY_ID);
 		PreparedStatement stmtCate = con.prepareStatement(SELECT_CATEGORIE_BY_ID );
-		
+		PreparedStatement stmtUser = con.prepareStatement(SELECT_USER_BY_ID);
+
 		stmt.setInt(1, utilisateur.getNoUtilisateur());
 		ResultSet rs = stmt.executeQuery();
 		while(rs.next()) {
@@ -70,7 +75,6 @@ public class LstEnchereDAOImpl implements LstEnchereDAO{
 			enchere.setMontantEnchere(rs.getInt("montant_enchere"));
 			enchere.setUtilisateur(utilisateur);
 			
-
 			stmtArt.setInt(1, rs.getInt("Article_noArticle"));
 			ResultSet rsArt = stmtArt.executeQuery();
 			Article art = new Article();
@@ -91,6 +95,25 @@ public class LstEnchereDAOImpl implements LstEnchereDAO{
 					cate.setNoCategorie(rsCate.getInt("noCategorie"));
 				}
 				art.setCategorie(cate);
+				
+				stmtUser.setInt(1, rsArt.getInt("Utilisateur_noUtilisateur"));
+				ResultSet rs1 = stmtUser.executeQuery();
+				Utilisateur user = new Utilisateur();
+				if (rs1.next()) {
+					user.setNoUtilisateur(rs1.getInt("noUtilisateur"));
+					user.setNom(rs1.getString("nom"));
+					user.setPrenom(rs1.getString("prenom"));
+					user.setPseudo(rs1.getString("pseudo"));
+					user.setEmail(rs1.getString("email"));
+					user.setTelephone(rs1.getString("telephone"));
+					user.setRue(rs1.getString("rue"));
+					user.setCodePostal(rs1.getString("code_postal"));
+					user.setVille(rs1.getString("ville"));
+					user.setMotDePasse(rs1.getString("mot_de_passe"));
+					user.setCredit(rs1.getInt("credit"));
+					user.setAdministrateur(rs1.getBoolean("administrateur"));
+				}
+				art.setUtilisateur(user);
 		}
 			enchere.setArticle(art);
 
