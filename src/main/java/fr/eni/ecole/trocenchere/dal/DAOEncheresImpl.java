@@ -33,6 +33,8 @@ public class DAOEncheresImpl implements DAOEncheres{
 			e.printStackTrace();
 		}
 		
+		
+		
 	}
 
 }

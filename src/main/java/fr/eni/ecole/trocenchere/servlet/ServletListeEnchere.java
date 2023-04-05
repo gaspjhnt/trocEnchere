@@ -11,10 +11,12 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import fr.eni.ecole.trocenchere.TrocEnchereException;
 import fr.eni.ecole.trocenchere.bll.lstEnchere.LstEnchereManagerSing;
 import fr.eni.ecole.trocenchere.bll.lstEnchere.lstEnchereManager;
+import fr.eni.ecole.trocenchere.bo.Utilisateur;
 
 /**
  * Servlet implementation class ServletListeEnchere
@@ -60,19 +62,42 @@ public class ServletListeEnchere extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		//Création d'un cookie "Choix cookie" qui permet de stocker la catégorie choisi par l'utilisateur
+		
+		HttpSession session = request.getSession();
+		Utilisateur utilisateurSession = (Utilisateur) session.getAttribute("Utilisateur");
+
+		
+		//Création d'un cookie "Choix cookie" qui permet de stocker la catégorie choisie par l'utilisateur
 		Cookie unCookie = new Cookie("ChoixCookie", request.getParameter("categorie"));
 		unCookie.setMaxAge(3600);
 		response.addCookie(unCookie);
 		
-		//Création d'un deuxième cookie pour stocker la valeur entré par l'utilisateur
-		Cookie deuxCookie = new Cookie("RechercheCookie", request.getParameter("recherche"));
-		deuxCookie.setMaxAge(3600);
-		response.addCookie(deuxCookie);
+		//Création d'un deuxième cookie pour stocker la valeur entrée par l'utilisateur
+		Cookie deuxiemeCookie = new Cookie("RechercheCookie", request.getParameter("recherche"));
+		deuxiemeCookie.setMaxAge(3600);
+		response.addCookie(deuxiemeCookie);
 		
-		//je Set les attributs clés "ChoixCookie" et "RechercheCookie" avec le paramètre rentré par l'utilisateur
+		//Création d'un troisième cookie pour stocker la valeur du bouton achats
+		Cookie troisiemeCookie = new Cookie("boutonRadioCookie", request.getParameter("bouton-radio"));
+		troisiemeCookie.setMaxAge(3600);
+		response.addCookie(troisiemeCookie);
+		
+		//Création d'un quatrieme cookie pour stocker la valeur du bouton mesVentes
+		Cookie quatriemeCookie = new Cookie("checkboxesCookie1", request.getParameter("checkbox-1"));
+		quatriemeCookie.setMaxAge(3600);
+		response.addCookie(quatriemeCookie);
+		
+		//Création d'un cinquieme cookie pour stocker la valeur du bouton mesVentes
+		Cookie cinquiemeCookie = new Cookie("checkboxesCookie2", request.getParameter("checkbox-2"));
+		cinquiemeCookie.setMaxAge(3600);
+		response.addCookie(cinquiemeCookie);
+		
+		//je Set les attributs clés "ChoixCookie" et "RechercheCookie" avec les paramètres rentrées par l'utilisateur
 		request.setAttribute("ChoixCookie", unCookie);
-		request.setAttribute("RechercheCookie", deuxCookie);
+		request.setAttribute("RechercheCookie", deuxiemeCookie);
+		request.setAttribute("boutonRadioCookie", troisiemeCookie);
+		request.setAttribute("checkboxesCookie1", quatriemeCookie);
+		request.setAttribute("checkboxesCookie2", cinquiemeCookie);
 
 		lstEnchereManager dao = LstEnchereManagerSing.getInstance();
 		

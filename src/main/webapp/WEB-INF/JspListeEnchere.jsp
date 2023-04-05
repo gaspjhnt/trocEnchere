@@ -1,5 +1,6 @@
 <%@page import="org.apache.taglibs.standard.lang.jstl.DivideOperator"%>
 <%@page import="fr.eni.ecole.trocenchere.bo.Categorie" %>
+<%@page import="fr.eni.ecole.trocenchere.bo.Utilisateur" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@page import="java.util.ArrayList"%>
@@ -16,9 +17,13 @@
 <body>
 
 <%
+	Utilisateur user = (Utilisateur) session.getAttribute("Utilisateur");
 	//Initialisation des cookies qui prennent la valeur des clés "ChoixCookies" et "RechercheCookie"
 	Cookie cookie= (Cookie) request.getAttribute("ChoixCookie");
 	Cookie deuxiemeCookie = (Cookie)request.getAttribute("RechercheCookie");
+	Cookie troisiemeCookie= (Cookie) request.getAttribute("achatCookie");
+	Cookie quatriemeCookie= (Cookie) request.getAttribute("mesVentesCookie") ;
+	Cookie cinquiemeCookie= (Cookie) request.getAttribute("encheresOuvertesCookie") ;
 	
 	//Initialisation des String choix et deuxiemeChoix qui prennent la valeur des cookies
 	String choix="";
@@ -29,6 +34,20 @@
 			if(deuxiemeCookie!=null){
 				deuxiemeChoix=deuxiemeCookie.getValue();
 			}
+	String troisiemeChoix= "";
+			if(troisiemeCookie!=null){
+				troisiemeChoix=troisiemeCookie.getValue();
+			}
+	String quatriemeChoix= "";
+			if(quatriemeCookie!=null){
+				quatriemeChoix=quatriemeCookie.getValue();
+			}
+	String cinquiemeChoix= "";
+			if(cinquiemeCookie!=null){
+				cinquiemeChoix=cinquiemeCookie.getValue();
+			}
+			
+			
 	//Je met en place un petit Boolean à insérer dans ma Foreach pour voir si elle imprime quelquechose ou non
 	//Elle va me servir à imprimer "pas d'article trouvé" s'il n'y a pas de résultat à la recherche de l'utilisateur
 	Boolean imprimeChacal=false;
@@ -78,14 +97,14 @@ else if (succes != null){%>
 	<label class="textFiltre" for="name">Filtres :</label>
 	<input type="search" id="name" name="recherche" style="width:200px" placeholder="le nom de l'article contient"> 
 	<input class="bouteFiltre" type="submit" value="Envoyer">
-</form>
-<form>
+
+
   <label for="radio-1">Achat</label>
   <input type="radio" name="bouton-radio" id="radio-1" value="bouton-radio-1"
          onclick="disableCheckboxes('bouton-radio-1')">
   <br>
-  <label for="checkbox-1-1">enchère ouvertes</label>
-  <input type="checkbox" name="checkbox-1" id="checkbox-1-1" value="checkbox-1-1"
+  <label for="checkbox-1-1">enchères ouvertes</label>
+  <input type="checkbox" name="checkbox-1" id="checkbox-1-1" value="encheresOuvertes"
          onclick="checkIfAllChecked('bouton-radio-1'); uncheckOtherCheckboxes(this);">
   <br>
   <label for="checkbox-1-2">mes enchères</label>
@@ -114,7 +133,6 @@ else if (succes != null){%>
          onclick="checkIfAllChecked('bouton-radio-2'); uncheckOtherCheckboxes(this);">
   <br>
 </form>
-
 <script>
 function disableCheckboxes(boutonRadioValue) {
     let checkboxes = document.querySelectorAll('input[type="checkbox"]');
@@ -163,6 +181,7 @@ function disableCheckboxes(boutonRadioValue) {
 
 
 
+
 	<div class="articles">
 	<!-- Boucle foreach de la Liste article qui va imprimer tous les articles dont la date de fin d'enchere est après la date du jour présents dans la base de donnée --> 
 	<% if(choix.equals("")){%>
@@ -187,11 +206,11 @@ function disableCheckboxes(boutonRadioValue) {
 	
 		<!-- Création de deux if selon le choix utilisateur. On passe dans le premier lorsque l'utilisateur a choisi toutes les catégories  -->
 <!-- La foreach va imprimer un article si l'état de l'article est en vente et si l'article contient la valeur dans le champ de recherche de l'utilisateur -->
-	<% if(choix.equals("Toutes")){%>
+	<% if(choix.equals("Toutes") && troisiemeChoix.equals("achat") && cinquiemeChoix.equals("encheresOuvertes")){%>
 		
 		<form method="get" action="./ServletDetailArticle">
 		<div class="flex-container">
-		<%for (Article current : article){if ((current.isEtatVente()==false) && current.getNomArticle().toLowerCase().contains(deuxiemeChoix.toLowerCase())){
+		<%for (Article current : article){if ((current.isEtatVente()==false) && current.getNomArticle().toLowerCase().contains(deuxiemeChoix.toLowerCase()) && user.getNoUtilisateur()!=current.getUtilisateur().getNoUtilisateur()){
 			%>
 			<div class="unArticle">
 			<button class="bouteboute" type="submit" name="idArticle" value="<%= current.getNoArticle()%>">
