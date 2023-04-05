@@ -1,0 +1,87 @@
+@charset "UTF-8";
+
+*{
+	margin:0;
+	padding:0;
+}
+body{
+	background-color: #0E3B43;
+}
+
+.container{
+	width:100vw;
+	height:90vh;
+	display:flex;
+	flex-direction:column;
+	justify-content:center;
+	align-items:center;
+}
+
+.cardArticle{
+	width:40vw;
+	height:70vh;
+	display : flex;
+	flex-direction: column;
+	align-items:center;
+	background-color: #EEE1B3;
+	border-radius: 4%;
+}
+
+.titre{
+	display:flex;
+	align-items:center;
+	justify-content:center;
+	width:100%;
+	height:10%;
+	color:#0E3B43;
+	padding-top:30px;
+}
+.infos{
+	width:100%;
+	height: 90%; 
+	display:flex;
+	flex-direction:column;
+	justify-content:space-around;
+	align-items:center;
+	color:#813405;
+}
+p{
+	font-size:1.25em;
+}
+.babybel{
+	font-size:1.25em;
+}
+.boute{
+	box-shadow:inset 0px 1px 0px 0px #0E3B43; 
+	background:linear-gradient(to bottom, #0E3B43 5%, #0E3B43 100%); 
+	background-color:#0E3B43; border-radius:6px; 
+	border:1px solid #0E3B43; display:inline-block; 
+	cursor:pointer; 
+	color:#EEE1B3; 
+	font-family:Arial; 
+	font-size:13px; 
+	font-weight:bold; 
+	padding:6px 24px; 
+	text-decoration:none; 
+	text-shadow:0px 1px 0px #ffee66; 
+}
+	.inscrireCo:hover { background:linear-gradient(to bottom, #ffab23 5%, #ffec64 100%); 
+	background-color:#ffab23; } 
+	.inscrireCo:active { position:relative; top:1px;
+}
+.monInfo{
+	display:flex;
+	width:100%;
+	justify-content:space-around;
+}
+h3{
+	color: #0E3B43;
+}
+.propo{
+	display:flex;
+	justify-content:center;
+	flex-wrap : wrap;
+}
+#mapropo{
+	padding-bottom:10px;
+}
