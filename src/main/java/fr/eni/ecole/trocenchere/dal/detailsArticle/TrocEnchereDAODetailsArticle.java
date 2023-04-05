@@ -47,4 +47,33 @@ public interface TrocEnchereDAODetailsArticle {
 	 * @throws TrocEnchereException
 	 */
 	public void updateArticle (Article article) throws TrocEnchereException;
+	
+	/**
+	 * Permet de modifier un retrait
+	 * @param retrait
+	 * @throws TrocEnchereException
+	 */
+	public void updateRetrait (Retrait retrait) throws TrocEnchereException;
+
+	/**
+	 * Permet de delete un article
+	 * @param article
+	 * @throws TrocEnchereException 
+	 */
+	public void deleteArticle(int idArticle) throws TrocEnchereException;
+	
+	/**
+	 * Permet de delete un retrait
+	 * @param retrait
+	 * @throws TrocEnchereException 
+	 */
+	public void deleteRetrait(int idRetrait) throws TrocEnchereException;
+	
+
+	/**
+	 * Permet de delete une enchère
+	 * @param enchere
+	 * @throws TrocEnchereException 
+	 */
+	public void deleteEnchere(int idEnchere) throws TrocEnchereException;
 }

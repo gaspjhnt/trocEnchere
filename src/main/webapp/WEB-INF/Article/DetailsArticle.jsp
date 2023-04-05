@@ -1,3 +1,4 @@
+<%@page import="java.time.LocalDate"%>
 <%@page import="java.util.List"%>
 <%@page import="fr.eni.ecole.trocenchere.bo.Categorie" %>
 <%@page import="fr.eni.ecole.trocenchere.bo.Article" %>
@@ -40,7 +41,6 @@ Article article = (Article) request.getAttribute("article");
 
 	<div class="cardArticle">
 		<p><%=article.getNomArticle() %></p>
-		<p><%=article.getNoArticle() %></p>
 		
 		<div class="description">
 			<p>Description : <%=article.getDescription() %></p>
@@ -77,20 +77,30 @@ Article article = (Article) request.getAttribute("article");
 		<%if (session.getAttribute("Utilisateur") != null) {
 			Utilisateur user = (Utilisateur) session.getAttribute("Utilisateur");
 			if (user.getNoUtilisateur() != article.getUtilisateur().getNoUtilisateur()) {%>
+
 	 	<form action="./ServletDetailArticle" method="post">
 	 	<%Integer minPropo = (Integer) request.getAttribute("Proposition") + 1; %>
-	 		<input type="hidden" name="PropositionMin" value=<%=minPropo %>>
-	 		<label for="input_proposition">Ma proposition : </label><input id="input_proposition" type="number" name="proposition" min="<%=minPropo%>" value="<%=minPropo%>" required/>
-	 		<input type="submit" value="Encherir">
+			<%if (article.getDateDebutEnchere().isAfter(LocalDate.now()) 
+						|| article.getDateFinEnchere().isBefore(LocalDate.now())){%>
+						
+						<p>L'enchère ne début que le : <%=article.getDateDebutEnchere() %></p>
+<%-- 			 		<input type="hidden" name="PropositionMin" value=<%=minPropo %> disabled> --%>
+<%-- 			 		<label for="input_proposition">Ma proposition : </label><input id="input_proposition" type="number" name="none" min="<%=minPropo%>" value="<%=minPropo%>" required disabled/> --%>
+<!-- 			 		<input type="button" value="Encherir" disabled> -->
+		 		<%} else { %>
+		 			<input type="hidden" name="PropositionMin" value=<%=minPropo %>>
+			 		<label for="input_proposition">Ma proposition : </label><input id="input_proposition" type="number" name="proposition" min="<%=minPropo%>" value="<%=minPropo%>" required/>
+			 		<input type="submit" value="Encherir">
+		 		<%} %>
 	 	</form>
 	 	<%}else {%>
 	 		<form action="./ServletUdpateArticle" method="get">
-	 			<button type="submit" name="modifSupp" value=<%=article.getNoArticle() %>>
-	 			Modifier - Supprimer
-	 			</button>
+					<button type="submit" name="modifSupp" value=<%=article.getNoArticle() %>>
+		 			Modifier - Supprimer
+		 			</button>
+			<%} %>
 	 		</form>
-	 	<%}
-			} %>
+	 	<%} %>
 		
 	</div>
 	

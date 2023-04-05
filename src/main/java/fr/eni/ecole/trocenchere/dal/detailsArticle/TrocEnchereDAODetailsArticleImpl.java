@@ -43,6 +43,13 @@ class TrocEnchereDAODetailsArticleImpl implements TrocEnchereDAODetailsArticle{
 
 	private static final String UPDATE_ARTICLE = "UPDATE Article SET nom=?, description=?, date_debut_enchere=?, date_fin_enchere=?, prix_depart=?,  prix_vente=?, etat_vente=? WHERE noArticle=?";
 		
+    private static final String UPDATE_RETRAIT = "UPDATE Retrait SET rue=?, code_postal=?, ville=? WHERE noRetrait=?";
+	
+	public static final String DELETE_ARTICLE = "DELETE FROM Article where noArticle=?";
+	
+	public static final String DELETE_RETRAIT = "DELETE FROM Retrait where noRetrait=?";
+	
+	public static final String DELETE_ENCHERE = "DELETE FROM Enchere where noEnchere=?";
 	
 	
 	@Override
@@ -217,6 +224,63 @@ class TrocEnchereDAODetailsArticleImpl implements TrocEnchereDAODetailsArticle{
 			}
 		
 	}
+	
+	@Override
+	public void updateRetrait(Retrait retrait) throws TrocEnchereException {
+		 try (Connection cnx = ConnectionProvider.getConnection()){
+			 
+	            PreparedStatement pstmt = cnx.prepareStatement(UPDATE_RETRAIT);
+	 
+	            pstmt.setString(1, retrait.getRue());
+	            pstmt.setString(2, retrait.getCodePostal());
+	            pstmt.setString(3, retrait.getVille());
+	            pstmt.setInt(4, retrait.getNoRetrait());
+	             
+	            pstmt.executeUpdate();
+	            
+		 } catch (Exception e) {
+
+			}		
+	}
+	
+
+	@Override
+	public void deleteArticle(int idArticle) throws TrocEnchereException {
+		try (Connection cnx = ConnectionProvider.getConnection()) {
+			PreparedStatement pstmt = cnx.prepareStatement(DELETE_ARTICLE);
+			pstmt.setInt(1, idArticle);
+			pstmt.executeUpdate();
+		} catch (Exception e) {
+
+		}
+	}
+
+	
+	@Override
+	public void deleteRetrait(int idRetrait) throws TrocEnchereException  {
+		try (Connection cnx = ConnectionProvider.getConnection()) {
+			PreparedStatement pstmt = cnx.prepareStatement(DELETE_RETRAIT);
+			pstmt.setInt(1, idRetrait);
+			pstmt.executeUpdate();
+		} catch (Exception e) {
+
+		}
+
+	}
+	
+
+
+	@Override
+	public void deleteEnchere(int idEnchere) throws TrocEnchereException  {
+		try (Connection cnx = ConnectionProvider.getConnection()) {
+			PreparedStatement pstmt = cnx.prepareStatement(DELETE_ENCHERE);
+			pstmt.setInt(1, idEnchere);
+			pstmt.executeUpdate();
+		} catch (Exception e) {
+
+		}
+	}
+
 	
 
 }

@@ -69,27 +69,50 @@ public class ServletUdpateArticle extends HttpServlet {
 		
 		//Création de l'article
 		Article article;
+		Retrait retrait;
 		try {
-			article = daoDetails.selectArticleById(Integer.parseInt(request.getParameter("idArticle")));
+			article = daoDetails.selectArticleById(Integer.parseInt(request.getParameter("idArticle")));				
+			retrait = daoDetails.selectRetraitByArticle(article);
 		
-			article.setNomArticle(request.getParameter("nomArticle"));
-			article.setDescription(request.getParameter("description"));
-			article.setPrixDepart(Integer.parseInt(request.getParameter("prixArticle")));
-			article.setDateDebutEnchere(LocalDate.parse(request.getParameter("dateDebutEnchere")));
-			article.setDateFinEnchere(LocalDate.parse(request.getParameter("dateFinEnchere")));
-			article.setCategorie(dao.selectCategorieById(Integer.parseInt(request.getParameter("categorie"))));
-			Retrait retrait = article.getRetrait();
-			retrait.setRue(request.getParameter("rueRetrait"));
-			retrait.setCodePostal(request.getParameter("codePostalRetrait"));
-			retrait.setVille(request.getParameter("villeRetrait"));
-			
-			//FAIRE LES UDPATES DU RETRAIT ET DE l'ARTICLE
+			if (request.getParameter("supprArticle") == null) {
+				article.setNomArticle(request.getParameter("nomArticle"));
+				article.setDescription(request.getParameter("description"));
+				article.setPrixDepart(Integer.parseInt(request.getParameter("prixArticle")));
+				article.setDateDebutEnchere(LocalDate.parse(request.getParameter("dateDebutEnchere")));
+				article.setDateFinEnchere(LocalDate.parse(request.getParameter("dateFinEnchere")));
+				article.setCategorie(dao.selectCategorieById(Integer.parseInt(request.getParameter("categorie"))));
+				
+				
+
+					System.out.println(retrait);
+					retrait.setRue(request.getParameter("rueRetrait"));
+					retrait.setCodePostal(request.getParameter("codePostalRetrait"));
+					retrait.setVille(request.getParameter("villeRetrait"));
+					
+				daoDetails.updateRetrait(retrait);
+				article.setRetrait(retrait);
+				
+				daoDetails.updateArticle(article);
+				
+				request.setAttribute("valide", "Article modifié !");
+
+				//Lance la jsp vendre un article.
+				response.sendRedirect("./ServletListeEnchere");
+					
+			} else {
+				System.out.println("tu veux supprimer?");
+				daoDetails.deleteRetrait(retrait.getNoRetrait());
+				daoDetails.deleteArticle(article.getNoArticle());
+				response.sendRedirect("./ServletListeEnchere");
+			}
+
 		} catch (NumberFormatException e1) {
 			e1.printStackTrace();
 		} catch (TrocEnchereException e1) {
 			
 			//Envoie à la JSP la liste des erreurs.
 			request.setAttribute("lstErreur", e1.getListeCodesErreur());
+			request.setAttribute("valide", null);
 		}
 		
 		
@@ -97,8 +120,6 @@ public class ServletUdpateArticle extends HttpServlet {
 		
 		
 		
-		
-		doGet(request, response);
 	}
 
 }
