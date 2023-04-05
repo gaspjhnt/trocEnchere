@@ -9,7 +9,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Mon profil</title>
+<title>Profil</title>
  <link rel="stylesheet" type="text/css" href="Profil.css">
 </head>
 <body>
@@ -39,7 +39,7 @@
 	<div class="container">
 	<div class="card">
 	<div class="titre">
-	<h1>Mon Profil</h1>
+	<h1>Profil</h1>
 	</div>
 	<div class="infos">
 	<div class="moninfo">

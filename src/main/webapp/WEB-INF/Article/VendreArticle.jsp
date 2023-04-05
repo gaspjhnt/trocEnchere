@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>ENI-Enchères</title>
+<title>Vendre un article</title>
 <link rel="stylesheet" type="text/css" href="ArticleVente.css">
 </head>
 <body>
