@@ -285,8 +285,7 @@ function disableCheckboxes(boutonRadioValue) {
 		
 		<%List<Integer>lstTmp=new ArrayList<>();%>
 		<form method="get" action="./ServletDetailArticle">
-				<div class="flex-container2">
-		
+		<div class="flex-container2">
 		<% for(Enchere current: enchere) {%>
 		<%if(!lstTmp.contains(current.getArticle().getNoArticle())){ %>
 		<div class="unArticle">
@@ -300,9 +299,33 @@ function disableCheckboxes(boutonRadioValue) {
 			<%lstTmp.add(current.getArticle().getNoArticle()); %>
 			</div>
 	<% }}}}%>
+	
 	</div>
 	</form>
+	<% 
+	if(choix.equals("Informatique")||choix.equals("Ameublement")||choix.equals("Vetement")||choix.equals("Sport")){%>
+		<% if (troisiemeChoix.equals("achat") && quatriemeChoix.equals("mesEncheres")) {%>
+		
+		<%List<Integer>lstTmp=new ArrayList<>();%>
+		<form method="get" action="./ServletDetailArticle">
+				<div class="flex-container2">
+		
+		<% for(Enchere current: enchere) {%>
+		<%if((!lstTmp.contains(current.getArticle().getNoArticle())&&(current.getArticle().getCategorie().getLibelle().equals(choix)&&(current.getArticle().isEtatVente()==false)&& (current.getArticle().getNomArticle().toLowerCase().contains(deuxiemeChoix.toLowerCase()))))){ %>
+		<div class="unArticle">
+		<button class="bouteboute"  type="submit" name="idArticle" value="<%= current.getArticle().getNoArticle()%>">
+        <%= current.getArticle().getNomArticle() %>
+   		 </button>
+			<p> <%="Mon enchere: "+ current.getMontant_enchere() %></p>
+			<p>	<%="Prix: " + current.getArticle().getPrixDepart() + " " + "points"%> </p>
+			<p>	<%="Fin de l'enchere: " + current.getArticle().getDateFinEnchere()%> </p>
+			<p>	<%="Vendeur: " + current.getArticle().getUtilisateur().getPseudo()%> </p>
+			<%lstTmp.add(current.getArticle().getNoArticle()); %>
+			</div>
+	<% }}}}%>
 	
+	</div>
+	</form>
 	
 	</div>
 	</div>
