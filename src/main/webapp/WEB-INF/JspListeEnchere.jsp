@@ -98,41 +98,41 @@ else if (succes != null){%>
 	<input type="search" id="name" name="recherche" style="width:200px" placeholder="le nom de l'article contient"> 
 	<input class="bouteFiltre" type="submit" value="Envoyer">
 
-
+<%if(session.getAttribute("Utilisateur")!=null){%>
   <label for="radio-1">Achat</label>
   <input type="radio" name="bouton-radio" id="radio-1" value="achat"
          onclick="disableCheckboxes('bouton-radio-1')">
-  <br>
+
   <label for="checkbox-1-1">enchères ouvertes</label>
   <input type="checkbox" name="checkbox-1" id="checkbox-1-1" value="encheresOuvertes"
          onclick="checkIfAllChecked('bouton-radio-1'); uncheckOtherCheckboxes(this);">
-  <br>
+
   <label for="checkbox-1-2">mes enchères</label>
   <input type="checkbox" name="checkbox-1" id="checkbox-1-2" value="checkbox-1-2"
          onclick="checkIfAllChecked('bouton-radio-1'); uncheckOtherCheckboxes(this);">
-  <br>
+
   <label for="checkbox-1-3">mes enchères remportées</label>
   <input type="checkbox" name="checkbox-1" id="checkbox-1-3" value="checkbox-1-3"
          onclick="checkIfAllChecked('bouton-radio-1'); uncheckOtherCheckboxes(this);">
-  <br>
+
 
   <label for="radio-2">Mes ventes</label>
   <input type="radio" name="bouton-radio" id="radio-2" value="mesVentes"
          onclick="disableCheckboxes('bouton-radio-2')">
-  <br>
+
   <label for="checkbox-2-1">mes ventes en cours</label>
   <input type="checkbox" name="checkbox-2" id="checkbox-2-1" value="checkbox-2-1"
          onclick="checkIfAllChecked('bouton-radio-2'); uncheckOtherCheckboxes(this);">
-  <br>
+
   <label for="checkbox-2-2">ventes non débutées</label>
   <input type="checkbox" name="checkbox-2" id="checkbox-2-2" value="checkbox-2-2"
          onclick="checkIfAllChecked('bouton-radio-2'); uncheckOtherCheckboxes(this);">
-  <br>
+
   <label for="checkbox-2-3">ventes terminées</label>
   <input type="checkbox" name="checkbox-2" id="checkbox-2-3" value="checkbox-2-3"
          onclick="checkIfAllChecked('bouton-radio-2'); uncheckOtherCheckboxes(this);">
-  <br>
-</form>
+
+
 
 <script>
 function disableCheckboxes(boutonRadioValue) {
@@ -179,10 +179,8 @@ function disableCheckboxes(boutonRadioValue) {
     });
   });
 </script>
-
-
-
-
+<%}%>
+</form>
 	<div class="articles">
 	<!-- Boucle foreach de la Liste article qui va imprimer tous les articles dont la date de fin d'enchere est après la date du jour présents dans la base de donnée --> 
 	<% if(choix.equals("")){%>
