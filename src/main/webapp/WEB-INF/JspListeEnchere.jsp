@@ -280,3 +280,7 @@ function disableCheckboxes(boutonRadioValue) {
 	</div>
 </body>
 </html>
+
+
+
+
