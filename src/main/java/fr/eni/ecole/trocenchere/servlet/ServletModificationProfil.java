@@ -106,9 +106,9 @@ public class ServletModificationProfil extends HttpServlet {
 			
 			
 		} catch (TrocEnchereException e) {
-			request.setAttribute("lstErreurs", e.getListeCodesErreur());
+			request.setAttribute("lstErreur", e.getListeCodesErreur());
 
-			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/JspProfil.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/JspModifProfil.jsp");
 			rd.forward(request, response);
 		}
 		

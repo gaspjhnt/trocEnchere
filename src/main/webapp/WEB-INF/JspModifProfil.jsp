@@ -50,13 +50,13 @@
 <input type="text" id="ville" name="ville" value="<%=user.getVille()%>" required>
 </label>
 <label for="mdp">Mot de passe actuel : 
-<input type="password" id="mdpActuel" name="mdpActuel" minlength="8" required>
+<input pattern="^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$" type="password" id="mdpActuel" name="mdpActuel" minlength="8" required>
 </label>
 <label for="mdp">Nouveau mot de passe : 
-<input type="password" id="nouveauMdp" name="nouveauMdp" minlength="8">
+<input pattern="^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$" type="password" id="nouveauMdp" name="nouveauMdp" minlength="8">
 </label>
 <label for="confirmMdp">Confirmation : 
-<input type="password" id="confirmMdp" name="confirmMdp" minlength="8">
+<input pattern="^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$" type="password" id="confirmMdp" name="confirmMdp" minlength="8">
 </label>
 <p><%="Crédit : "+user.getCredit()%></p>
 </form>
@@ -69,6 +69,13 @@
 </form>
 </div>
 </div>
+<%List<String> lstErreurs = (List<String>)request.getAttribute("lstErreur");
+	if(lstErreurs != null) {
+		for(String message : lstErreurs){
+			%> <p class="erreur"><%=message%></p>
+			<%
+		}
+	}%>
 </div>
 </body>
 </html>
