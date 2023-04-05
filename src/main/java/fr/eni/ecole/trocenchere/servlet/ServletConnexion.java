@@ -70,7 +70,7 @@ public class ServletConnexion extends HttpServlet {
 				    			element.setEtatVente(true);
 				    			dao.updateAticle(element);
 			    			}
-			    			
+
 			    		}
 			    	}
 			    	dao.updateUtilisateur(user);

@@ -68,11 +68,11 @@
 	</div>
 	</div>
 	
-	<div class="bouteboute">
-	<form id="bouton" method="get" action="./ServletModificationProfil">
-	<input class="boute" type="submit" value="Modifier">
-	</form>
-	</div>
+<!-- 	<div class="bouteboute"> -->
+<!-- 	<form id="bouton" method="get" action="./ServletModificationProfil"> -->
+<!-- 	<input class="boute" type="submit" value="Modifier"> -->
+<!-- 	</form> -->
+<!-- 	</div> -->
 	
 	</div>
 	</div>
