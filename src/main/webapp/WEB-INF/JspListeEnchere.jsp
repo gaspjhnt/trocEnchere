@@ -182,10 +182,10 @@ function disableCheckboxes(boutonRadioValue) {
 </script>
 <%}%>
 </form>
-	<div class="articles">
+<!-- 	<div class="articles"> -->
 	<!-- Boucle foreach de la Liste article qui va imprimer tous les articles dont la date de fin d'enchere est après la date du jour présents dans la base de donnée --> 
 	<% if(choix.equals("")){%>
-	<form method="get" action="./ServletDetailArticle"> 
+	<form class="articles" method="get" action="./ServletDetailArticle"> 
 	<div class="flex-container">
 	<% for (Article current : article) {if (current.isEtatVente()==false){ %> 
 	<div class="unArticle">
@@ -206,7 +206,7 @@ function disableCheckboxes(boutonRadioValue) {
 	
 	<% if(choix.equals("Toutes")){%>
 		<% if (troisiemeChoix.equals("") && quatriemeChoix.equals("") && cinquiemeChoix.equals("")) {%>
-		<form method="get" action="./ServletDetailArticle">
+		<form class="articles" method="get" action="./ServletDetailArticle">
 		<div class="flex-container">
 		<%for (Article current : article){if ((current.isEtatVente()==false) && current.getNomArticle().toLowerCase().contains(deuxiemeChoix.toLowerCase())){
 			%>
@@ -228,7 +228,7 @@ function disableCheckboxes(boutonRadioValue) {
 <!-- La foreach va imprimer un article si l'état de l'article est en vente et si l'article contient la valeur dans le champ de recherche de l'utilisateur -->
 	<% if(choix.equals("Toutes")){%>
 		<% if (troisiemeChoix.equals("achat") && quatriemeChoix.equals("encheresOuvertes")) {%>
-		<form method="get" action="./ServletDetailArticle">
+		<form class="articles" method="get" action="./ServletDetailArticle">
 		<div class="flex-container">
 		<%for (Article current : article){if ((current.isEtatVente()==false) && current.getNomArticle().toLowerCase().contains(deuxiemeChoix.toLowerCase()) && user.getNoUtilisateur()!=current.getUtilisateur().getNoUtilisateur()){
 			%>
@@ -254,8 +254,8 @@ function disableCheckboxes(boutonRadioValue) {
 	 if(choix.equals("Informatique")||choix.equals("Ameublement")||choix.equals("Vetement")||choix.equals("Sport")){%>
 			<% if (troisiemeChoix.equals("achat") && quatriemeChoix.equals("encheresOuvertes")) {%>
 			
-		<form method="get" action="./ServletDetailArticle">
-		<div class="flex-container2">
+		<form class="articles" method="get" action="./ServletDetailArticle">
+		<div class="flex-container">
 		<%for (Article current : article) { if (current.getCategorie().getLibelle().equals(choix)&&(current.isEtatVente()==false)&& current.getNomArticle().toLowerCase().contains(deuxiemeChoix.toLowerCase())&& user.getNoUtilisateur()!=current.getUtilisateur().getNoUtilisateur()){
 			%>
 			<div class="UnArticle">
@@ -284,8 +284,8 @@ function disableCheckboxes(boutonRadioValue) {
 		<% if (troisiemeChoix.equals("achat") && quatriemeChoix.equals("mesEncheres")) {%>
 		
 		<%List<Integer>lstTmp=new ArrayList<>();%>
-		<form method="get" action="./ServletDetailArticle">
-		<div class="flex-container2">
+		<form class="articles" method="get" action="./ServletDetailArticle">
+		<div class="flex-container">
 		<% for(Enchere current: enchere) {%>
 		<%if(!lstTmp.contains(current.getArticle().getNoArticle())){ %>
 		<div class="unArticle">
@@ -307,8 +307,8 @@ function disableCheckboxes(boutonRadioValue) {
 		<% if (troisiemeChoix.equals("achat") && quatriemeChoix.equals("mesEncheres")) {%>
 		
 		<%List<Integer>lstTmp=new ArrayList<>();%>
-		<form method="get" action="./ServletDetailArticle">
-				<div class="flex-container2">
+		<form class="articles" method="get" action="./ServletDetailArticle">
+				<div class="flex-container">
 		
 		<% for(Enchere current: enchere) {%>
 		<%if((!lstTmp.contains(current.getArticle().getNoArticle())&&(current.getArticle().getCategorie().getLibelle().equals(choix)&&(current.getArticle().isEtatVente()==false)&& (current.getArticle().getNomArticle().toLowerCase().contains(deuxiemeChoix.toLowerCase()))))){ %>
@@ -327,7 +327,7 @@ function disableCheckboxes(boutonRadioValue) {
 	</div>
 	</form>
 	
-	</div>
+<!-- 	</div> -->
 	</div>
 </body>
 </html>
