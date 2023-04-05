@@ -21,9 +21,9 @@
 	//Initialisation des cookies qui prennent la valeur des clés "ChoixCookies" et "RechercheCookie"
 	Cookie cookie= (Cookie) request.getAttribute("ChoixCookie");
 	Cookie deuxiemeCookie = (Cookie)request.getAttribute("RechercheCookie");
-	Cookie troisiemeCookie= (Cookie) request.getAttribute("achatCookie");
-	Cookie quatriemeCookie= (Cookie) request.getAttribute("mesVentesCookie") ;
-	Cookie cinquiemeCookie= (Cookie) request.getAttribute("encheresOuvertesCookie") ;
+	Cookie troisiemeCookie= (Cookie) request.getAttribute("boutonRadioCookie");
+	Cookie quatriemeCookie= (Cookie) request.getAttribute("checkboxesCookie1") ;
+	Cookie cinquiemeCookie= (Cookie) request.getAttribute("checkboxesCookie2") ;
 	
 	//Initialisation des String choix et deuxiemeChoix qui prennent la valeur des cookies
 	String choix="";
@@ -100,7 +100,7 @@ else if (succes != null){%>
 
 
   <label for="radio-1">Achat</label>
-  <input type="radio" name="bouton-radio" id="radio-1" value="bouton-radio-1"
+  <input type="radio" name="bouton-radio" id="radio-1" value="achat"
          onclick="disableCheckboxes('bouton-radio-1')">
   <br>
   <label for="checkbox-1-1">enchères ouvertes</label>
@@ -117,7 +117,7 @@ else if (succes != null){%>
   <br>
 
   <label for="radio-2">Mes ventes</label>
-  <input type="radio" name="bouton-radio" id="radio-2" value="bouton-radio-2"
+  <input type="radio" name="bouton-radio" id="radio-2" value="mesVentes"
          onclick="disableCheckboxes('bouton-radio-2')">
   <br>
   <label for="checkbox-2-1">mes ventes en cours</label>
@@ -133,6 +133,7 @@ else if (succes != null){%>
          onclick="checkIfAllChecked('bouton-radio-2'); uncheckOtherCheckboxes(this);">
   <br>
 </form>
+
 <script>
 function disableCheckboxes(boutonRadioValue) {
     let checkboxes = document.querySelectorAll('input[type="checkbox"]');
@@ -204,10 +205,30 @@ function disableCheckboxes(boutonRadioValue) {
 		}
 	%>
 	
+	<% if(choix.equals("Toutes")){%>
+		<% if (troisiemeChoix.equals("") && quatriemeChoix.equals("")) {%>
+		<form method="get" action="./ServletDetailArticle">
+		<div class="flex-container">
+		<%for (Article current : article){if ((current.isEtatVente()==false) && current.getNomArticle().toLowerCase().contains(deuxiemeChoix.toLowerCase())){
+			%>
+			<div class="unArticle">
+			<button class="bouteboute" type="submit" name="idArticle" value="<%= current.getNoArticle()%>">
+       		 <%= current.getNomArticle() %>
+   		 	</button>
+			<p>	<%="Prix: " + current.getPrixDepart() + " " + "points"%> </p>
+			<p>	<%="Fin de l'enchere: " + current.getDateFinEnchere()%> </p>
+			<p>	<%="Vendeur: " + current.getUtilisateur().getPseudo()%> </p>
+			</div>
+		<%
+		imprimeChacal=true; 
+		}}}}
+	%>
+	</div>
+		</form>
 		<!-- Création de deux if selon le choix utilisateur. On passe dans le premier lorsque l'utilisateur a choisi toutes les catégories  -->
 <!-- La foreach va imprimer un article si l'état de l'article est en vente et si l'article contient la valeur dans le champ de recherche de l'utilisateur -->
-	<% if(choix.equals("Toutes") && troisiemeChoix.equals("achat") && cinquiemeChoix.equals("encheresOuvertes")){%>
-		
+	<% if(choix.equals("Toutes")){%>
+		<% if (troisiemeChoix.equals("achat") && quatriemeChoix.equals("encheresOuvertes")) {%>
 		<form method="get" action="./ServletDetailArticle">
 		<div class="flex-container">
 		<%for (Article current : article){if ((current.isEtatVente()==false) && current.getNomArticle().toLowerCase().contains(deuxiemeChoix.toLowerCase()) && user.getNoUtilisateur()!=current.getUtilisateur().getNoUtilisateur()){
@@ -222,13 +243,11 @@ function disableCheckboxes(boutonRadioValue) {
 			</div>
 		<%
 		imprimeChacal=true; 
-		}}
+		}}}
 	%>
 	</div>
 		</form>
 			
-		
-		
 		<!-- Création du deuxième if. On passe dans le deuxième lorsque l'utilisateur a choisi une catégorie  -->
 <!-- La foreach va imprimer un article si sa catégorie correspond à celle de l'utilisateur et si l'état de l'article est en vente et si l'article contient la valeur dans le champ de recherche de l'utilisateur -->
 	

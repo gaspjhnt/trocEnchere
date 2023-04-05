@@ -78,17 +78,30 @@ public class ServletListeEnchere extends HttpServlet {
 		response.addCookie(deuxiemeCookie);
 		
 		//Création d'un troisième cookie pour stocker la valeur du bouton achats
-		Cookie troisiemeCookie = new Cookie("boutonRadioCookie", request.getParameter("bouton-radio"));
+		String buttonValue = request.getParameter("bouton-radio");
+		if (buttonValue == null) {
+		    buttonValue = ""; 
+		}
+		Cookie troisiemeCookie = new Cookie("boutonRadioCookie", buttonValue);
 		troisiemeCookie.setMaxAge(3600);
 		response.addCookie(troisiemeCookie);
 		
 		//Création d'un quatrieme cookie pour stocker la valeur du bouton mesVentes
-		Cookie quatriemeCookie = new Cookie("checkboxesCookie1", request.getParameter("checkbox-1"));
+		String checkboxValue = request.getParameter("checkbox-1");
+		if (checkboxValue == null) {
+		    checkboxValue = ""; 
+		}
+
+		Cookie quatriemeCookie = new Cookie("checkboxesCookie1", checkboxValue);
 		quatriemeCookie.setMaxAge(3600);
 		response.addCookie(quatriemeCookie);
 		
 		//Création d'un cinquieme cookie pour stocker la valeur du bouton mesVentes
-		Cookie cinquiemeCookie = new Cookie("checkboxesCookie2", request.getParameter("checkbox-2"));
+		String checkboxValue2 = request.getParameter("checkbox-2");
+		if (checkboxValue2 == null) {
+		    checkboxValue2 = "";
+		}
+		Cookie cinquiemeCookie = new Cookie("checkboxesCookie2", checkboxValue2);
 		cinquiemeCookie.setMaxAge(3600);
 		response.addCookie(cinquiemeCookie);
 		
@@ -99,6 +112,14 @@ public class ServletListeEnchere extends HttpServlet {
 		request.setAttribute("checkboxesCookie1", quatriemeCookie);
 		request.setAttribute("checkboxesCookie2", cinquiemeCookie);
 
+		
+		
+		System.out.println(unCookie.getValue());
+		System.out.println(deuxiemeCookie.getValue());
+		System.out.println(troisiemeCookie.getValue());
+		System.out.println(quatriemeCookie.getValue());
+		System.out.println(cinquiemeCookie.getValue());
+		
 		lstEnchereManager dao = LstEnchereManagerSing.getInstance();
 		
 		try {
