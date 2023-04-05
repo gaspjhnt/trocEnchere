@@ -101,11 +101,11 @@ else if (succes != null){%>
 <%if(session.getAttribute("Utilisateur")!=null){%>
   <label for="radio-1">Achat</label>
   <input type="radio" name="bouton-radio" id="radio-1" value="achat"
-         onclick="disableCheckboxes('bouton-radio-1')">
+         onclick="disableCheckboxes('bouton-radio-1')" checked>
 
   <label for="checkbox-1-1">enchères ouvertes</label>
   <input type="checkbox" name="checkbox-1" id="checkbox-1-1" value="encheresOuvertes"
-         onclick="checkIfAllChecked('bouton-radio-1'); uncheckOtherCheckboxes(this);">
+         onclick="checkIfAllChecked('bouton-radio-1'); uncheckOtherCheckboxes(this);" checked>
 
   <label for="checkbox-1-2">mes enchères</label>
   <input type="checkbox" name="checkbox-1" id="checkbox-1-2" value="checkbox-1-2"
@@ -204,7 +204,7 @@ function disableCheckboxes(boutonRadioValue) {
 	%>
 	
 	<% if(choix.equals("Toutes")){%>
-		<% if (troisiemeChoix.equals("") && quatriemeChoix.equals("")) {%>
+		<% if (troisiemeChoix.equals("") && quatriemeChoix.equals("") && cinquiemeChoix.equals("")) {%>
 		<form method="get" action="./ServletDetailArticle">
 		<div class="flex-container">
 		<%for (Article current : article){if ((current.isEtatVente()==false) && current.getNomArticle().toLowerCase().contains(deuxiemeChoix.toLowerCase())){
@@ -241,7 +241,7 @@ function disableCheckboxes(boutonRadioValue) {
 			</div>
 		<%
 		imprimeChacal=true; 
-		}}}
+		}}}}
 	%>
 	</div>
 		</form>
@@ -250,11 +250,12 @@ function disableCheckboxes(boutonRadioValue) {
 <!-- La foreach va imprimer un article si sa catégorie correspond à celle de l'utilisateur et si l'état de l'article est en vente et si l'article contient la valeur dans le champ de recherche de l'utilisateur -->
 	
 <% 
-	} else //if(choix.equals("Informatique")||choix.equals("Ameublement")||choix.equals("Vetement")||choix.equals("Sport")){
-		%>
+	 if(choix.equals("Informatique")||choix.equals("Ameublement")||choix.equals("Vetement")||choix.equals("Sport")){%>
+			<% if (troisiemeChoix.equals("achat") && quatriemeChoix.equals("encheresOuvertes")) {%>
+			
 		<form method="get" action="./ServletDetailArticle">
 		<div class="flex-container2">
-		<%{for (Article current : article) { if (current.getCategorie().getLibelle().equals(choix)&&(current.isEtatVente()==false)&& current.getNomArticle().toLowerCase().contains(deuxiemeChoix.toLowerCase())){
+		<%{for (Article current : article) { if (current.getCategorie().getLibelle().equals(choix)&&(current.isEtatVente()==false)&& current.getNomArticle().toLowerCase().contains(deuxiemeChoix.toLowerCase())&& user.getNoUtilisateur()!=current.getUtilisateur().getNoUtilisateur()){
 			%>
 			<div class="UnArticle">
     	<button class="bouteboute"  type="submit" name="idArticle" value="<%= current.getNoArticle() %>">
@@ -276,7 +277,7 @@ function disableCheckboxes(boutonRadioValue) {
 <!-- 	S'il n'y a aucune réponse à la recherche utilisateur, on imprime un message  -->
 	<%if(imprimeChacal==false) {%>
 	<h1><%="Aucun article trouvé pour ta recherche... Essaye autre chose"%></h1>
-	<%} %>
+	<%}}} %>
 	</div>
 </body>
 </html>
