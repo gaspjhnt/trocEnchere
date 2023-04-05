@@ -89,7 +89,7 @@ public class ServletModificationProfil extends HttpServlet {
 				exception.ajouterErreur("Les mots de passe sont différents");
 				throw exception;
 			}
-			
+			System.out.println(utilisateurSession.getNoUtilisateur());
 			Utilisateur utilisateur = new Utilisateur(utilisateurSession.getNoUtilisateur(),pseudo, nom, prenom, email, telephone, rue, codePostal, ville, sha256(mdp),utilisateurSession.getCredit());
 			
 			System.out.println(utilisateur);
