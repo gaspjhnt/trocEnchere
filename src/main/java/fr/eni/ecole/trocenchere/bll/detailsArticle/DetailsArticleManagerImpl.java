@@ -71,12 +71,18 @@ public class DetailsArticleManagerImpl implements DetailsArticleManager{
 		
 		if (!tee.hasErreurs()) {
 			Utilisateur user = enchere.getUtilisateur();
-			if (enchere.getArticle().getLstEnchere() != null) {
-				Enchere lastEnchere = enchere.getArticle().getLstEnchere().get(enchere.getArticle().getLstEnchere().size() - 1);
-				user.setCredit(user.getCredit() - lastEnchere.getMontant_enchere());
-			} else {
-				user.setCredit(user.getCredit() - enchere.getArticle().getPrixDepart());
+			List<Enchere> lstEnchere = dao.selectEnchereByArticle(enchere.getArticle());
+			System.out.println(lstEnchere);
+			if (lstEnchere.size() >= 1) {
+				Utilisateur dernierEnchere= lstEnchere.get(lstEnchere.size() - 1).getUtilisateur();
+				dernierEnchere = daoUser.selectById(dernierEnchere.getNoUtilisateur());
+				System.out.println("AVANT : " + dernierEnchere.getCredit());
+				dernierEnchere.setCredit(dernierEnchere.getCredit() + lstEnchere.get(lstEnchere.size() - 1).getMontant_enchere());
+				System.out.println(" APRES : " + dernierEnchere.getCredit());
+				daoUser.updateUtilisateur(dernierEnchere);
 			}
+
+			user.setCredit(user.getCredit() - enchere.getMontant_enchere());
 			daoUser.updateUtilisateur(user);
 			daoEnchere.insertEnchere(enchere);
 		} else {
@@ -86,8 +92,56 @@ public class DetailsArticleManagerImpl implements DetailsArticleManager{
 	}
 
 
+	@Override
+	public void updateRetrait(Retrait retrait) throws TrocEnchereException {
+		dao.updateRetrait(retrait);
+		
+	}
 
-	
+	@Override
+	public void updateArticle(Article article) throws TrocEnchereException {
+		TrocEnchereException tee = new TrocEnchereException();
+		
+		if (dao.selectArticleById(article.getNoArticle()) == null) {
+			tee.ajouterErreur("Article inconnu");
+		}
+		if (!tee.hasErreurs()) {
+			dao.updateArticle(article);
+		} else {
+			throw tee;
+		}
+	}
+
+
+	@Override
+	public void deleteArticle(int idArticle) throws TrocEnchereException {
+		TrocEnchereException tee = new TrocEnchereException();
+		
+		if (dao.selectArticleById(idArticle) == null) {
+			tee.ajouterErreur("Article inconnu");
+		}
+		if (!tee.hasErreurs()) {
+			List<Enchere> lstEnchere = dao.selectEnchereByArticle(dao.selectArticleById(idArticle));
+			if (lstEnchere.size() >= 1) {
+				for (Enchere element : lstEnchere) {
+					Utilisateur user = daoUser.selectById(element.getUtilisateur().getNoUtilisateur());
+					user.setCredit(user.getCredit() + element.getMontant_enchere());
+					dao.deleteEnchere(element.getNoEnchere());
+					daoUser.updateUtilisateur(user);
+				}
+			}
+
+			dao.deleteArticle(idArticle);
+		} else {
+			throw tee;
+		}
+	}
+
+	@Override
+	public void deleteRetrait(int idRetrait) throws TrocEnchereException {
+		dao.deleteRetrait(idRetrait);
+		
+	}
 	
 	
 	// VERIFICATIONS 
@@ -168,5 +222,7 @@ public class DetailsArticleManagerImpl implements DetailsArticleManager{
 			return false;
 		}
 	}
+
+
 	
 }

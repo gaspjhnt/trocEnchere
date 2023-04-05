@@ -105,6 +105,10 @@
 			<div class="boutons">
 			<input class="boute" type="submit" value="Valider" form="vendreArticle"> 
 			
+			<button class="boute" name="supprArticle" form="vendreArticle">
+				Supprimer
+			</button>
+			
 			<a href="http://localhost:8080/trocEnchere/ServletListeEnchere">
 				<button class="boute">Annuler</button>
 			</a>
