@@ -73,7 +73,12 @@ List<Enchere> lstEnchere = (List<Enchere>) request.getAttribute("lstEnchere");
 		
 		
 		<div class="vendeur">
-			<p>Vendeur : <%=article.getUtilisateur().getPseudo() %></p>
+			<form action="./ServletProfilOther" method="get">
+				<label>Vendeur : </label>
+				<button type="submit" name="seller" value="<%=article.getUtilisateur().getNoUtilisateur()%>">
+					<%=article.getUtilisateur().getPseudo() %>
+				</button>
+			</form>
 		</div><br>
 		
 		<%if (session.getAttribute("Utilisateur") != null) {
