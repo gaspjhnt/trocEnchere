@@ -144,8 +144,6 @@ public class LstEnchereDAOImpl implements LstEnchereDAO{
 		stmtArticle.setInt(1, utilisateur.getNoUtilisateur());
 		ResultSet rsArt = stmtArticle.executeQuery();
 		PreparedStatement stmtUser = con.prepareStatement(SELECT_USER_BY_ID);
-
-
 		PreparedStatement stmtCate = con.prepareStatement(SELECT_CATEGORIE_BY_ID );
 		
 		

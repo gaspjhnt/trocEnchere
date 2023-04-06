@@ -21,5 +21,40 @@
 </form>
 </div>
 </nav>
+<script>
+    var timeoutInMinutes = 5; // Durée d'inactivité autorisée en minutes
+    var timeoutInMilliseconds = timeoutInMinutes * 60 * 1000; // Convertir en millisecondes
+    var timeoutId;
+
+    function startTimeout() {
+        // Arrêter le timeout en cours (s'il existe)
+        stopTimeout();
+
+        // Démarrer un nouveau timeout
+        timeoutId = setTimeout(redirectHome, timeoutInMilliseconds);
+    }
+
+    function stopTimeout() {
+        // Arrêter le timeout en cours (s'il existe)
+        if (timeoutId) {
+            clearTimeout(timeoutId);
+            timeoutId = null;
+        }
+    }
+
+    function redirectHome() {
+        // Rediriger l'utilisateur vers la page d'accueil
+        window.location.href = "/home.jsp";
+    }
+
+    // Démarrer le timeout au chargement de la page
+    window.onload = startTimeout;
+
+    // Redémarrer le timeout à chaque action de l'utilisateur
+    document.addEventListener("click", startTimeout);
+    document.addEventListener("mousemove", startTimeout);
+    document.addEventListener("keypress", startTimeout);
+</script>
+
 </body>
 </html>
