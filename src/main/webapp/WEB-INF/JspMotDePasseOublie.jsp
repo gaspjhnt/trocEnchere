@@ -7,6 +7,7 @@
 <title>Mot de passe oublié</title>
 </head>
 <body>
-
+	<p>Nom d'utilisateur:</p> <input class="champ" type="text" name="name">
+  
 </body>
 </html>
