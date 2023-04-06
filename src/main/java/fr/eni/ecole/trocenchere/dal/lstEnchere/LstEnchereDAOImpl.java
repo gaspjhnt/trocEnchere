@@ -143,7 +143,8 @@ public class LstEnchereDAOImpl implements LstEnchereDAO{
 		PreparedStatement stmtArticle = con.prepareStatement(SELECT_ARTICLE_BY_USER);
 		stmtArticle.setInt(1, utilisateur.getNoUtilisateur());
 		ResultSet rsArt = stmtArticle.executeQuery();
-		
+		PreparedStatement stmtUser = con.prepareStatement(SELECT_USER_BY_ID);
+
 
 		PreparedStatement stmtCate = con.prepareStatement(SELECT_CATEGORIE_BY_ID );
 		
@@ -168,7 +169,24 @@ public class LstEnchereDAOImpl implements LstEnchereDAO{
 			
 			art.setCategorie(cate);
 			
-			art.setUtilisateur(utilisateur);
+			stmtUser.setInt(1, rsArt.getInt("Utilisateur_noUtilisateur"));
+			ResultSet rs1 = stmtUser.executeQuery();
+			Utilisateur user = new Utilisateur();
+			if (rs1.next()) {
+				user.setNoUtilisateur(rs1.getInt("noUtilisateur"));
+				user.setNom(rs1.getString("nom"));
+				user.setPrenom(rs1.getString("prenom"));
+				user.setPseudo(rs1.getString("pseudo"));
+				user.setEmail(rs1.getString("email"));
+				user.setTelephone(rs1.getString("telephone"));
+				user.setRue(rs1.getString("rue"));
+				user.setCodePostal(rs1.getString("code_postal"));
+				user.setVille(rs1.getString("ville"));
+				user.setMotDePasse(rs1.getString("mot_de_passe"));
+				user.setCredit(rs1.getInt("credit"));
+				user.setAdministrateur(rs1.getBoolean("administrateur"));
+			}
+			art.setUtilisateur(user);
 			lstArticle.add(art);
 		}
 	}catch (SQLException e){
