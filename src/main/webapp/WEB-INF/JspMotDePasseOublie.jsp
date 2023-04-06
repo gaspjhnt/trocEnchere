@@ -7,7 +7,8 @@
 <title>Mot de passe oublié</title>
 </head>
 <body>
-	<p>Nom d'utilisateur:</p> <input class="champ" type="text" name="name">
-  
+	<label class="moninfo" for="email">Email : 
+	<input type="email" id="email" name="email" minlength="10" maxlength="75" required>
+	</label>
 </body>
 </html>
