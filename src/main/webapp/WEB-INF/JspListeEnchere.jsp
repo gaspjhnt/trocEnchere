@@ -218,8 +218,30 @@ function disableCheckboxes(boutonRadioValue) {
 		}
 	%>
 	
+	<% 
+	 if(choix.equals("Informatique")||choix.equals("Ameublement")||choix.equals("Vetement")||choix.equals("Sport")){%>
+		<form class="articles" method="get" action="./ServletDetailArticle">
+		<div class="flex-container">
+		<%for (Article current : article) { if (current.getCategorie().getLibelle().equals(choix)&&(current.isEtatVente()==false)&& current.getNomArticle().toLowerCase().contains(deuxiemeChoix.toLowerCase())){
+			%>
+			<div class="unArticle">
+    	<button class="bouteboute"  type="submit" name="idArticle" value="<%= current.getNoArticle() %>">
+        <%= current.getNomArticle() %>
+   		 </button>
+				<p>	<%="Prix: " + current.getPrixDepart() + " " + "points"%> </p>
+				<p>	<%="Fin de l'enchere: " + current.getDateFinEnchere()%> </p>
+				<p>	<%="Vendeur: " + current.getUtilisateur().getPseudo()%> </p>
+			</div>
+			<%
+			imprimeChacal=true;
+			}}}%>
+		</div>
+		</form>
+	
+	
+	
+	
 	<% if(choix.equals("Toutes")){%>
-		<% if (troisiemeChoix.equals("") && quatriemeChoix.equals("") && cinquiemeChoix.equals("")) {%>
 		<form class="articles" method="get" action="./ServletDetailArticle">
 		<div class="flex-container">
 		<%for (Article current : article){if ((current.isEtatVente()==false) && current.getNomArticle().toLowerCase().contains(deuxiemeChoix.toLowerCase())){
@@ -234,10 +256,11 @@ function disableCheckboxes(boutonRadioValue) {
 			</div>
 		<%
 		imprimeChacal=true; 
-		}}}}
+		}}}
 	%>
 	</div>
 		</form>
+		
 		<!-- Création de deux if selon le choix utilisateur. On passe dans le premier lorsque l'utilisateur a choisi toutes les catégories  -->
 <!-- La foreach va imprimer un article si l'état de l'article est en vente et si l'article contient la valeur dans le champ de recherche de l'utilisateur -->
 	<% if(choix.equals("Toutes")){%>

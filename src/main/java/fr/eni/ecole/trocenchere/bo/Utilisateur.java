@@ -262,8 +262,7 @@ public class Utilisateur {
 		return "Utilisateur [noUtilisateur=" + noUtilisateur + ", pseudo=" + pseudo + ", nom=" + nom + ", prenom="
 				+ prenom + ", email=" + email + ", telephone=" + telephone + ", rue=" + rue + ", codePostale="
 				+ codePostal + ", Ville=" + ville + ", motDePasse=" + motDePasse + ", credit=" + credit
-				+ ", administrateur=" + administrateur + ", lstArticle=" + lstArticle
-				+ "]";
+				+ ", administrateur=" + administrateur +"]";
 	}
 
 }
