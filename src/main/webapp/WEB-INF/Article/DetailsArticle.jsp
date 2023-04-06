@@ -107,10 +107,7 @@ List<Enchere> lstEnchere = (List<Enchere>) request.getAttribute("lstEnchere");
 		 			%>
 		 			<p>Acquéreur : <%=lstEnchere.get(lstEnchere.size() -  1).getUtilisateur().getPseudo() %> pour <%= lstEnchere.get(lstEnchere.size() -  1).getMontant_enchere()%> pts.</p> <%} %>
 		 			<p>L'enchère a pris fin le : <%=article.getDateFinEnchere() %></p><%
-		 		}
-			
-			
-			else { %>
+		 		}else { %>
 					<div class="propo">
 		 			<input type="hidden" name="PropositionMin" value=<%=minPropo %>>
 			 		<label class="babybel" id="mapropo" for="input_proposition">Ma proposition : </label><input id="input_proposition" type="number" name="proposition" min="<%=minPropo%>" value="<%=minPropo%>" required/>
@@ -118,14 +115,20 @@ List<Enchere> lstEnchere = (List<Enchere>) request.getAttribute("lstEnchere");
 		 			</div>
 		 		<%} %>
 	 	</form>
-	 	<%}else {%>
+	 	<%}else if (article.getDateDebutEnchere().isAfter(LocalDate.now())){%>
 	 		<form action="./ServletUdpateArticle" method="get">
 					<button class="boute" type="submit" name="modifSupp" value=<%=article.getNoArticle() %>>
 		 			Modifier - Supprimer
 		 			</button>
-			<%} %>
 	 		</form>
-	 	<%} %>
+			<%} else if (article.getDateFinEnchere().isAfter(LocalDate.now()) && article.getDateDebutEnchere().isBefore(LocalDate.now())) { %>
+		 		<form action="./ServletUdpateArticle" method="post">
+					<button class="boute" type="submit" name="supp" value=<%=article.getNoArticle() %>>
+		 			Supprimer
+		 			</button>
+	 			</form>
+				
+	 	<%}} %>
 	 	</div>
 	 	</div>
 		

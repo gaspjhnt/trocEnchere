@@ -70,10 +70,15 @@ public class ServletUdpateArticle extends HttpServlet {
 		//Création de l'article
 		Article article;
 		Retrait retrait;
-		try {
-			article = daoDetails.selectArticleById(Integer.parseInt(request.getParameter("idArticle")));				
-			retrait = daoDetails.selectRetraitByArticle(article);
-		
+		try {	
+
+			if (request.getParameter("supp") !=null) {
+				daoDetails.deleteArticle(Integer.parseInt(request.getParameter("supp")));
+				response.sendRedirect("./ServletListeEnchere");
+			} else {
+
+				article = daoDetails.selectArticleById(Integer.parseInt(request.getParameter("idArticle")));	
+				retrait = daoDetails.selectRetraitByArticle(article);
 			if (request.getParameter("supprArticle") == null) {
 				article.setNomArticle(request.getParameter("nomArticle"));
 				article.setDescription(request.getParameter("description"));
@@ -84,7 +89,6 @@ public class ServletUdpateArticle extends HttpServlet {
 				
 				
 
-					System.out.println(retrait);
 					retrait.setRue(request.getParameter("rueRetrait"));
 					retrait.setCodePostal(request.getParameter("codePostalRetrait"));
 					retrait.setVille(request.getParameter("villeRetrait"));
@@ -105,7 +109,7 @@ public class ServletUdpateArticle extends HttpServlet {
 				daoDetails.deleteArticle(article.getNoArticle());
 				response.sendRedirect("./ServletListeEnchere");
 			}
-
+			}
 		} catch (NumberFormatException e1) {
 			e1.printStackTrace();
 		} catch (TrocEnchereException e1) {
