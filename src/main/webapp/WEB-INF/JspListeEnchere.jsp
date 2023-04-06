@@ -328,7 +328,8 @@ function disableCheckboxes(boutonRadioValue) {
 		
 		<% for(Enchere current: enchere) {%>
 		<%if((!lstTmp.contains(current.getArticle().getNoArticle())&&(current.getArticle().getCategorie().getLibelle().equals(choix)&&(current.getArticle().isEtatVente()==false)&& (current.getArticle().getNomArticle().toLowerCase().contains(deuxiemeChoix.toLowerCase()))))){ %>
-		<div class="unArticle">
+		
+			<div class="unArticle">
 		<button class="bouteboute"  type="submit" name="idArticle" value="<%= current.getArticle().getNoArticle()%>">
         <%= current.getArticle().getNomArticle() %>
    		 </button>
