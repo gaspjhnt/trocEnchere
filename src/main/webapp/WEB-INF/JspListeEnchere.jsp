@@ -1,3 +1,4 @@
+<%@page import="java.lang.ProcessHandle.Info"%>
 <%@page import="java.time.LocalDate"%>
 <%@page import="org.apache.taglibs.standard.lang.jstl.DivideOperator"%>
 <%@page import="fr.eni.ecole.trocenchere.bo.Categorie" %>
@@ -70,7 +71,14 @@
 	//Affichage erreur
 	List<String> lstErreur = (List<String>) request.getSession().getAttribute("lstErreurEnchere");
 	String succes = (String) request.getSession().getAttribute("SuccesDetailsArticle");
-
+	
+	//On initialise les constantes qui vont servir à choisir une catégorie pour l'utilisateur
+	final String Toutes = "Toutes";
+	final String Informatique= "Informatique";
+	final String Ameublement= "Ameublement";
+	final String Vetement="Vetement";
+	final String Sport="Sport";
+	
 	%>
 
 <%if(session.getAttribute("Utilisateur")==null){
@@ -88,20 +96,21 @@
 <%}
 	}
 else if (succes != null){%>
-<p>Succès : </p> <%= succes%>
+<p>Succès :</p> <%=succes%>
 <%  }
 	} %>
 
 <div class="container">
 <!-- 	Création du champ de recherche et de la liste déroulante de catégorie -->
+
 <form class="filtre" method="post" action="./ServletListeEnchere" id="filtreform">
 	<label for="choixCategorie">Catégorie:</label>
 	<select name="categorie" id="choixCategorie">
-		<option value="Toutes">Toutes</option>
-		<option value="Informatique">Informatique</option>
-		<option value="Ameublement">Ameublement</option>
-		<option value="Vetement">Vêtement</option>
-		<option value="Sport">Sport&Loisirs</option>
+		<option value=<%=Toutes%>>Toutes</option>
+		<option value=<%=Informatique %>>Informatique</option>
+		<option value=<%=Ameublement %>>Ameublement</option>
+		<option value=<%=Vetement %>>Vêtement</option>
+		<option value=<%=Sport %>>Sport&Loisirs</option>
 	</select>
 	<label class="textFiltre" for="name">Filtres:</label>
 	<input class="bar" type="search" id="name" name="recherche" placeholder="le nom de l'article contient"> 
@@ -219,7 +228,7 @@ function disableCheckboxes(boutonRadioValue) {
 	%>
 	
 	<% 
-	 if(choix.equals("Informatique")||choix.equals("Ameublement")||choix.equals("Vetement")||choix.equals("Sport")){%>
+	 if(choix.equals(Informatique)||choix.equals(Ameublement)||choix.equals(Vetement)||choix.equals(Sport)){%>
 		<form class="articles" method="get" action="./ServletDetailArticle">
 		<div class="flex-container">
 		<%for (Article current : article) { if (current.getCategorie().getLibelle().equals(choix)&&(current.isEtatVente()==false)&& current.getNomArticle().toLowerCase().contains(deuxiemeChoix.toLowerCase())){
@@ -241,7 +250,9 @@ function disableCheckboxes(boutonRadioValue) {
 	
 	
 	
-	<% if(choix.equals("Toutes")){%>
+	<% if(choix.equals(Toutes)){%>
+			<% if (troisiemeChoix.equals("") && quatriemeChoix.equals("") && cinquiemeChoix.equals("")){%>
+	
 		<form class="articles" method="get" action="./ServletDetailArticle">
 		<div class="flex-container">
 		<%for (Article current : article){if ((current.isEtatVente()==false) && current.getNomArticle().toLowerCase().contains(deuxiemeChoix.toLowerCase())){
@@ -256,14 +267,14 @@ function disableCheckboxes(boutonRadioValue) {
 			</div>
 		<%
 		imprimeChacal=true; 
-		}}}
+		}}}}
 	%>
 	</div>
 		</form>
 		
 		<!-- Création de deux if selon le choix utilisateur. On passe dans le premier lorsque l'utilisateur a choisi toutes les catégories  -->
 <!-- La foreach va imprimer un article si l'état de l'article est en vente et si l'article contient la valeur dans le champ de recherche de l'utilisateur -->
-	<% if(choix.equals("Toutes")){%>
+	<% if(choix.equals(Toutes)){%>
 		<% if (troisiemeChoix.equals("achat") && quatriemeChoix.equals("encheresOuvertes")) {%>
 		<form class="articles" method="get" action="./ServletDetailArticle">
 		<div class="flex-container">
@@ -288,7 +299,7 @@ function disableCheckboxes(boutonRadioValue) {
 <!-- La foreach va imprimer un article si sa catégorie correspond à celle de l'utilisateur et si l'état de l'article est en vente et si l'article contient la valeur dans le champ de recherche de l'utilisateur -->
 	
 <% 
-	 if(choix.equals("Informatique")||choix.equals("Ameublement")||choix.equals("Vetement")||choix.equals("Sport")){%>
+	 if(choix.equals(Informatique)||choix.equals(Ameublement)||choix.equals(Vetement)||choix.equals(Sport)){%>
 			<% if (troisiemeChoix.equals("achat") && quatriemeChoix.equals("encheresOuvertes")) {%>
 			
 		<form class="articles" method="get" action="./ServletDetailArticle">
@@ -314,7 +325,7 @@ function disableCheckboxes(boutonRadioValue) {
 	
 		<!-- 	Double if qui gèrent la condition "mes encheres" selon la catégorie -->
 	<% 
-	if(choix.equals("Toutes")){%>
+	if(choix.equals(Toutes)){%>
 		<% if (troisiemeChoix.equals("achat") && quatriemeChoix.equals("mesEncheres")) {%>
 		
 		
@@ -339,7 +350,7 @@ function disableCheckboxes(boutonRadioValue) {
 	</div>
 	</form>
 	<% 
-	if(choix.equals("Informatique")||choix.equals("Ameublement")||choix.equals("Vetement")||choix.equals("Sport")){%>
+	if(choix.equals(Informatique)||choix.equals(Ameublement)||choix.equals(Vetement)||choix.equals(Sport)){%>
 		<% if (troisiemeChoix.equals("achat") && quatriemeChoix.equals("mesEncheres")) {%>
 		
 		<%List<Integer>lstTmp=new ArrayList<>();%>
@@ -367,7 +378,7 @@ function disableCheckboxes(boutonRadioValue) {
 	
 <!-- 	Double if qui gèrent la condition "mes encheres remportees" selon la catégorie -->
 	<% 
-	if(choix.equals("Toutes")){%>
+	if(choix.equals(Toutes)){%>
 		<% if (troisiemeChoix.equals("achat") && quatriemeChoix.equals("mesEnchereRemportees")) {%>
 		
 		<%List<Integer>lstTmp=new ArrayList<>();%>
@@ -393,7 +404,7 @@ function disableCheckboxes(boutonRadioValue) {
 	</form>
 	
 	<% 
-	if(choix.equals("Informatique")||choix.equals("Ameublement")||choix.equals("Vetement")||choix.equals("Sport")){%>
+	if(choix.equals(Informatique)||choix.equals(Ameublement)||choix.equals(Vetement)||choix.equals(Sport)){%>
 		<% if (troisiemeChoix.equals("achat") && quatriemeChoix.equals("mesEncheresRemportees")) {%>
 		
 		<%List<Integer>lstTmp=new ArrayList<>();%>
@@ -420,7 +431,7 @@ function disableCheckboxes(boutonRadioValue) {
 	
 <!-- 	double if pour gérer "mes ventes en cours" selon la catégorie -->
 	
-	<% if(choix.equals("Toutes")){%>
+	<% if(choix.equals(Toutes)){%>
 		<% if (troisiemeChoix.equals("mesVentes") && cinquiemeChoix.equals("mesVentesEnCours")) {%>
 		<form class="articles" method="get" action="./ServletDetailArticle">
 		<div class="flex-container">
@@ -441,7 +452,7 @@ function disableCheckboxes(boutonRadioValue) {
 	</div>
 		</form>
 <% 
-	 if(choix.equals("Informatique")||choix.equals("Ameublement")||choix.equals("Vetement")||choix.equals("Sport")){%>
+	 if(choix.equals(Informatique)||choix.equals(Ameublement)||choix.equals(Vetement)||choix.equals(Sport)){%>
 			<% if (troisiemeChoix.equals("mesVentes") && cinquiemeChoix.equals("mesVentesEnCours")) {%>
 			
 		<form class="articles" method="get" action="./ServletDetailArticle">
@@ -465,7 +476,7 @@ function disableCheckboxes(boutonRadioValue) {
 	
 	<!-- 	double if pour gérer "mes ventes non débutées" selon la catégorie -->
 	
-	<% if(choix.equals("Toutes")){%>
+	<% if(choix.equals(Toutes)){%>
 		<% if (troisiemeChoix.equals("mesVentes") && cinquiemeChoix.equals("mesVentesNonDebutees")) {%>
 		<form class="articles" method="get" action="./ServletDetailArticle">
 		<div class="flex-container">
@@ -486,7 +497,7 @@ function disableCheckboxes(boutonRadioValue) {
 	</div>
 		</form>
 <% 
-	 if(choix.equals("Informatique")||choix.equals("Ameublement")||choix.equals("Vetement")||choix.equals("Sport")){%>
+	 if(choix.equals(Informatique)||choix.equals(Ameublement)||choix.equals(Vetement)||choix.equals(Sport)){%>
 			<% if (troisiemeChoix.equals("mesVentes") && cinquiemeChoix.equals("mesVentesNonDebutees")) {%>
 			
 		<form class="articles" method="get" action="./ServletDetailArticle">
@@ -512,7 +523,7 @@ function disableCheckboxes(boutonRadioValue) {
 	
 	<!-- 	double if pour gérer "mes ventes terminées" selon la catégorie -->
 	
-	<% if(choix.equals("Toutes")){%>
+	<% if(choix.equals(Toutes)){%>
 		<% if (troisiemeChoix.equals("mesVentes") && cinquiemeChoix.equals("mesVentesTerminees")) {%>
 		<form class="articles" method="get" action="./ServletDetailArticle">
 		<div class="flex-container">
@@ -533,7 +544,7 @@ function disableCheckboxes(boutonRadioValue) {
 	</div>
 		</form>
 <% 
-	 if(choix.equals("Informatique")||choix.equals("Ameublement")||choix.equals("Vetement")||choix.equals("Sport")){%>
+	 if(choix.equals(Informatique)||choix.equals(Ameublement)||choix.equals(Vetement)||choix.equals(Sport)){%>
 			<% if (troisiemeChoix.equals("mesVentes") && cinquiemeChoix.equals("mesVentesTerminees")) {%>
 			
 		<form class="articles" method="get" action="./ServletDetailArticle">
@@ -553,12 +564,10 @@ function disableCheckboxes(boutonRadioValue) {
 			}}}} %>
 			<!-- 	S'il n'y a aucune réponse à la recherche utilisateur, on imprime un message  -->
 	<%if(imprimeChacal==false) {%>
-	<h1><%="Aucun article trouvé pour ta recherche... Essaye autre chose"%></h1>
+	<h1 id="ErreurMessage"><%="Aucun résultat trouvé pour ta recherche... Essaye autre chose"%></h1>
 	<%}%>
 		</div>
 		</form>
-	
-	
 <!-- 	</div> -->
 	</div>
 </body>

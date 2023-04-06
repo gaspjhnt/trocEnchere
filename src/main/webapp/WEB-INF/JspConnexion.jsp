@@ -36,9 +36,16 @@ if (lstErreur != null) {
     <p>Mot de passe:</p> <input pattern="^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$" class="champ" type="password" name="password">
 </form>
 <div class="bouteboute">
+
 <input class="bout" type="submit" value="Connexion" form="connexion">
+
+
+<input class="bout" type="submit" value="Mot de passe oublié" form="MotDePasseOublie">
+
 <a class="bout" href="./ServletInscription">Inscription</a>
 </div>
+<form action="./ServletMotDePasseOublie" method="post" id="MotDePasseOublie">
+</form>
 </div>
 </div>
 </body>

@@ -23,7 +23,6 @@ import fr.eni.ecole.trocenchere.bo.Utilisateur;
 @WebServlet("/ServletListeEnchere")
 public class ServletListeEnchere extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
@@ -35,7 +34,6 @@ public class ServletListeEnchere extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
-
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
@@ -111,27 +109,14 @@ public class ServletListeEnchere extends HttpServlet {
 		request.setAttribute("checkboxesCookie1", quatriemeCookie);
 		request.setAttribute("checkboxesCookie2", cinquiemeCookie);
 
-		
-		
-		System.out.println(unCookie.getValue());
-		System.out.println(deuxiemeCookie.getValue());
-		System.out.println(troisiemeCookie.getValue());
-		System.out.println(quatriemeCookie.getValue());
-		System.out.println(cinquiemeCookie.getValue());
-		
+
 		lstEnchereManager dao = LstEnchereManagerSing.getInstance();
 		
-		
-		
 		try {
-			System.out.println("%%%");
-			System.out.println(dao.getAllArticlesByDate(LocalDate.now()));
-			System.out.println("%%%");
 			request.setAttribute("article", dao.getAllArticlesByDate(LocalDate.now()));
 			if(utilisateurSession!=null) {
 			request.setAttribute("selectallbyuser", dao.selectArticleByUser(utilisateurSession));
 			request.setAttribute("encherebyuser", dao.selectEnchereByUser(utilisateurSession));
-			dao.getAllArticlesByDate(LocalDate.now());
 		}
 		} catch (TrocEnchereException e) {
 			e.printStackTrace();

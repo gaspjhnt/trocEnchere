@@ -78,12 +78,14 @@ label {
 	height: 25vh;
 	display:flex;
 	flex-direction:column;
- 	justify-content:space-around;
+	justify-content:space-around;
 	align-items:center;
 	border-radius:3%;
 	font-size:1.3em;
 	margin-bottom:10px;
+	box-shadow: 10px 20px 20px rgba(0, 0, 0,0.8);
 }
+
 .bouteboute{ 
 	box-shadow:inset 0px 1px 0px 0px #0E3B43; 
 	background:linear-gradient(to bottom, #0E3B43 5%, #0E3B43 100%); 
@@ -155,3 +157,14 @@ input[type="checkbox"]{
 		width:100px;
 	}
 }
+
+#ErreurMessage {
+  font-family: Arial, sans-serif;
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
+  color: red;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
