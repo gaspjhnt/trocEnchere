@@ -20,4 +20,5 @@ public interface lstEnchereManager {
 	 * @throws TrocEnchereException 
 	 */
 	public List<Enchere> selectEnchereByUser(Utilisateur utilisateur) throws TrocEnchereException;
+	public List<Article> selectArticleByUser(Utilisateur utilisateur) throws TrocEnchereException;
 }

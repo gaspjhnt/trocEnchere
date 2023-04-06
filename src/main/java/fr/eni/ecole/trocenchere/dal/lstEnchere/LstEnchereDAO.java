@@ -23,4 +23,8 @@ public interface LstEnchereDAO {
 	 */
 	public List<Enchere> selectEnchereByUser(Utilisateur utilisateur) throws TrocEnchereException;
 
+
+
+	List<Article> selectArticleByUser(Utilisateur utilisateur) throws TrocEnchereException;
+
 }

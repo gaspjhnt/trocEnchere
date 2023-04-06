@@ -2,7 +2,6 @@ package fr.eni.ecole.trocenchere.servlet;
 
 import java.io.IOException;
 import java.time.LocalDate;
-import java.time.Month;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -125,7 +124,11 @@ public class ServletListeEnchere extends HttpServlet {
 		
 		
 		try {
-			System.out.println(dao.selectEnchereByUser(utilisateurSession));
+			System.out.println("%%%");
+			System.out.println(dao.selectArticleByUser(utilisateurSession));
+			System.out.println("%%%");
+
+			request.setAttribute("selectallbyuser", dao.selectArticleByUser(utilisateurSession));
 			request.setAttribute("encherebyuser", dao.selectEnchereByUser(utilisateurSession));
 			dao.getAllArticlesByDate(LocalDate.now());
 			request.setAttribute("article", dao.getAllArticlesByDate(LocalDate.now()));

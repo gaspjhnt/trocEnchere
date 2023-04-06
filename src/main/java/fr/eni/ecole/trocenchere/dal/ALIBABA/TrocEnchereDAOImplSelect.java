@@ -148,9 +148,6 @@ public class TrocEnchereDAOImplSelect implements TrocEnchereDAOSelect{
 				user.setLstArticle(lstArticle);
 				user.setLstEnchere(lstEnchere);
 			}
-			
-			
-			
 		}catch (SQLException e){
 			e.printStackTrace();
 			tee.ajouterErreur("Problème à la selection des données (SelectUserById)");

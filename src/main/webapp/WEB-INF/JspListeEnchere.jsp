@@ -1,3 +1,4 @@
+<%@page import="java.time.LocalDate"%>
 <%@page import="org.apache.taglibs.standard.lang.jstl.DivideOperator"%>
 <%@page import="fr.eni.ecole.trocenchere.bo.Categorie" %>
 <%@page import="fr.eni.ecole.trocenchere.bo.Utilisateur" %>
@@ -7,6 +8,7 @@
 <%@page import="java.util.ArrayList"%>
 <%@page import="fr.eni.ecole.trocenchere.bo.Article"%>
 <%@page import="java.util.List"%>
+<%@page import="java.time.LocalDate"%>
 
 <!DOCTYPE html>
 <html>
@@ -58,7 +60,13 @@
 	List<Article> article = (List<Article>)request.getAttribute("article");
 	List<Categorie> lstCategorie = (List<Categorie>) request.getAttribute("lstCategorie");
 	
+	//Initialisation d'une Liste d'enchères qui prend en valeur la clé "encherebyuser" qui contient notre méthode getEnchereByUser
 	List<Enchere>enchere = (List<Enchere>)request.getAttribute("encherebyuser");
+	
+	//Initialisation d'une Liste d'articles qui prend en valeur la clé "selectallbyuser" qui contient notre méthode getAllArticlesByUser
+	List<Article> allArticleByUser = (List<Article>)request.getAttribute("selectallbyuser");
+
+	
 	//Affichage erreur
 	List<String> lstErreur = (List<String>) request.getSession().getAttribute("lstErreurEnchere");
 	String succes = (String) request.getSession().getAttribute("SuccesDetailsArticle");
@@ -113,7 +121,7 @@ else if (succes != null){%>
          onclick="checkIfAllChecked('bouton-radio-1'); uncheckOtherCheckboxes(this);">
 
   <label for="checkbox-1-3">mes enchères remportées</label>
-  <input type="checkbox" name="checkbox-1" id="checkbox-1-3" value="checkbox-1-3"
+  <input type="checkbox" name="checkbox-1" id="checkbox-1-3" value="mesEnchereRemportees"
          onclick="checkIfAllChecked('bouton-radio-1'); uncheckOtherCheckboxes(this);">
 
 
@@ -122,15 +130,15 @@ else if (succes != null){%>
          onclick="disableCheckboxes('bouton-radio-2')">
 
   <label for="checkbox-2-1">mes ventes en cours</label>
-  <input type="checkbox" name="checkbox-2" id="checkbox-2-1" value="checkbox-2-1"
+  <input type="checkbox" name="checkbox-2" id="checkbox-2-1" value="mesVentesEnCours"
          onclick="checkIfAllChecked('bouton-radio-2'); uncheckOtherCheckboxes(this);">
 
   <label for="checkbox-2-2">ventes non débutées</label>
-  <input type="checkbox" name="checkbox-2" id="checkbox-2-2" value="checkbox-2-2"
+  <input type="checkbox" name="checkbox-2" id="checkbox-2-2" value="mesVentesNonDebutees"
          onclick="checkIfAllChecked('bouton-radio-2'); uncheckOtherCheckboxes(this);">
 
   <label for="checkbox-2-3">ventes terminées</label>
-  <input type="checkbox" name="checkbox-2" id="checkbox-2-3" value="checkbox-2-3"
+  <input type="checkbox" name="checkbox-2" id="checkbox-2-3" value="mesVentesTerminees"
          onclick="checkIfAllChecked('bouton-radio-2'); uncheckOtherCheckboxes(this);">
 
 
@@ -279,15 +287,17 @@ function disableCheckboxes(boutonRadioValue) {
 	<h1><%="Aucun article trouvé pour ta recherche... Essaye autre chose"%></h1>
 	<%}}} %>
 	
+		<!-- 	Double if qui gèrent la condition "mes encheres" selon la catégorie -->
 	<% 
 	if(choix.equals("Toutes")){%>
 		<% if (troisiemeChoix.equals("achat") && quatriemeChoix.equals("mesEncheres")) {%>
+		
 		
 		<%List<Integer>lstTmp=new ArrayList<>();%>
 		<form class="articles" method="get" action="./ServletDetailArticle">
 		<div class="flex-container">
 		<% for(Enchere current: enchere) {%>
-		<%if(!lstTmp.contains(current.getArticle().getNoArticle())){ %>
+		<%if(!lstTmp.contains(current.getArticle().getNoArticle())&&(current.getArticle().isEtatVente()==false) && (current.getArticle().getNomArticle().toLowerCase().contains(deuxiemeChoix.toLowerCase()))){ %>
 		<div class="unArticle">
 		<button class="bouteboute"  type="submit" name="idArticle" value="<%= current.getArticle().getNoArticle()%>">
         <%= current.getArticle().getNomArticle() %>
@@ -326,6 +336,206 @@ function disableCheckboxes(boutonRadioValue) {
 	
 	</div>
 	</form>
+	
+<!-- 	Double if qui gèrent la condition "mes encheres remportees" selon la catégorie -->
+	<% 
+	if(choix.equals("Toutes")){%>
+		<% if (troisiemeChoix.equals("achat") && quatriemeChoix.equals("mesEnchereRemportees")) {%>
+		
+		<%List<Integer>lstTmp=new ArrayList<>();%>
+		<form class="articles" method="get" action="./ServletDetailArticle">
+		<div class="flex-container">
+		<% for(Enchere current: enchere) {%>
+		<%if(!lstTmp.contains(current.getArticle().getNoArticle())&&(current.getArticle().isEtatVente()==true) && 
+				(current.getArticle().getNomArticle().toLowerCase().contains(deuxiemeChoix.toLowerCase()))){ %>
+		<div class="unArticle">
+		<button class="bouteboute"  type="submit" name="idArticle" value="<%= current.getArticle().getNoArticle()%>">
+        <%= current.getArticle().getNomArticle() %>
+   		 </button>
+			<p> <%="Mon enchere: "+ current.getMontant_enchere() %></p>
+			<p>	<%="Prix: " + current.getArticle().getPrixDepart() + " " + "points"%> </p>
+			<p>	<%="Fin de l'enchere: " + current.getArticle().getDateFinEnchere()%> </p>
+			<p>	<%="Vendeur: " + current.getArticle().getUtilisateur().getPseudo()%> </p>
+			<%lstTmp.add(current.getArticle().getNoArticle()); %>
+			</div>
+	<% }}}}%>
+	
+	</div>
+	</form>
+	
+	<% 
+	if(choix.equals("Informatique")||choix.equals("Ameublement")||choix.equals("Vetement")||choix.equals("Sport")){%>
+		<% if (troisiemeChoix.equals("achat") && quatriemeChoix.equals("mesEncheresRemportees")) {%>
+		
+		<%List<Integer>lstTmp=new ArrayList<>();%>
+		<form class="articles" method="get" action="./ServletDetailArticle">
+				<div class="flex-container">
+		
+		<% for(Enchere current: enchere) {%>
+		<%if((!lstTmp.contains(current.getArticle().getNoArticle())&&(current.getArticle().getCategorie().getLibelle().equals(choix)&&(current.getArticle().isEtatVente()==true)&& (current.getArticle().getNomArticle().toLowerCase().contains(deuxiemeChoix.toLowerCase()))))){ %>
+		<div class="unArticle">
+		<button class="bouteboute"  type="submit" name="idArticle" value="<%= current.getArticle().getNoArticle()%>">
+        <%= current.getArticle().getNomArticle() %>
+   		 </button>
+			<p> <%="Mon enchere: "+ current.getMontant_enchere() %></p>
+			<p>	<%="Prix: " + current.getArticle().getPrixDepart() + " " + "points"%> </p>
+			<p>	<%="Fin de l'enchere: " + current.getArticle().getDateFinEnchere()%> </p>
+			<p>	<%="Vendeur: " + current.getArticle().getUtilisateur().getPseudo()%> </p>
+			<%lstTmp.add(current.getArticle().getNoArticle()); %>
+			</div>
+	<% }}}}%>
+	
+	</div>
+	</form>
+	
+<!-- 	double if pour gérer "mes ventes en cours" selon la catégorie -->
+	
+	<% if(choix.equals("Toutes")){%>
+		<% if (troisiemeChoix.equals("mesVentes") && cinquiemeChoix.equals("mesVentesEnCours")) {%>
+		<form class="articles" method="get" action="./ServletDetailArticle">
+		<div class="flex-container">
+		<%for (Article current : article){if ((current.getDateDebutEnchere().isBefore(LocalDate.now())||current.getDateDebutEnchere().isEqual(LocalDate.now()))&&(current.isEtatVente()==false) && current.getNomArticle().toLowerCase().contains(deuxiemeChoix.toLowerCase()) && user.getNoUtilisateur()==current.getUtilisateur().getNoUtilisateur()){
+			%>
+			<div class="unArticle">
+			<button class="bouteboute" type="submit" name="idArticle" value="<%= current.getNoArticle()%>">
+       		 <%= current.getNomArticle() %>
+   		 	</button>
+			<p>	<%="Prix: " + current.getPrixDepart() + " " + "points"%> </p>
+			<p>	<%="Fin de l'enchere: " + current.getDateFinEnchere()%> </p>
+			<p>	<%="Vendeur: " + current.getUtilisateur().getPseudo()%> </p>
+			</div>
+		<%
+		imprimeChacal=true; 
+		}}}}
+	%>
+	</div>
+		</form>
+<% 
+	 if(choix.equals("Informatique")||choix.equals("Ameublement")||choix.equals("Vetement")||choix.equals("Sport")){%>
+			<% if (troisiemeChoix.equals("mesVentes") && cinquiemeChoix.equals("mesVentesEnCours")) {%>
+			
+		<form class="articles" method="get" action="./ServletDetailArticle">
+		<div class="flex-container">
+		<%for (Article current : article) { if ((current.getDateDebutEnchere().isBefore(LocalDate.now())||current.getDateDebutEnchere().isEqual(LocalDate.now())) && current.getCategorie().getLibelle().equals(choix)&&(current.isEtatVente()==false)&& current.getNomArticle().toLowerCase().contains(deuxiemeChoix.toLowerCase())&& user.getNoUtilisateur()==current.getUtilisateur().getNoUtilisateur()){
+			%>
+			<div class="UnArticle">
+    	<button class="bouteboute"  type="submit" name="idArticle" value="<%= current.getNoArticle() %>">
+        <%= current.getNomArticle() %>
+   		 </button>
+				<p>	<%="Prix: " + current.getPrixDepart() + " " + "points"%> </p>
+				<p>	<%="Fin de l'enchere: " + current.getDateFinEnchere()%> </p>
+				<p>	<%="Vendeur: " + current.getUtilisateur().getPseudo()%> </p>
+			</div>
+			<%
+			imprimeChacal=true;
+			}
+		}%>
+		</div>
+		</form>
+<!-- 	S'il n'y a aucune réponse à la recherche utilisateur, on imprime un message  -->
+	<%if(imprimeChacal==false) {%>
+	<h1><%="Aucun article trouvé pour ta recherche... Essaye autre chose"%></h1>
+	<%}}} %>
+	
+	<!-- 	double if pour gérer "mes ventes non débutées" selon la catégorie -->
+	
+	<% if(choix.equals("Toutes")){%>
+		<% if (troisiemeChoix.equals("mesVentes") && cinquiemeChoix.equals("mesVentesNonDebutees")) {%>
+		<form class="articles" method="get" action="./ServletDetailArticle">
+		<div class="flex-container">
+		<%for (Article current : article){if (current.getDateDebutEnchere().isAfter(LocalDate.now()) && (current.isEtatVente()==false) && current.getNomArticle().toLowerCase().contains(deuxiemeChoix.toLowerCase()) && user.getNoUtilisateur()==current.getUtilisateur().getNoUtilisateur()){
+			%>
+			<div class="unArticle">
+			<button class="bouteboute" type="submit" name="idArticle" value="<%= current.getNoArticle()%>">
+       		 <%= current.getNomArticle() %>
+   		 	</button>
+			<p>	<%="Prix: " + current.getPrixDepart() + " " + "points"%> </p>
+			<p>	<%="Fin de l'enchere: " + current.getDateFinEnchere()%> </p>
+			<p>	<%="Vendeur: " + current.getUtilisateur().getPseudo()%> </p>
+			</div>
+		<%
+		imprimeChacal=true; 
+		}}}}
+	%>
+	</div>
+		</form>
+<% 
+	 if(choix.equals("Informatique")||choix.equals("Ameublement")||choix.equals("Vetement")||choix.equals("Sport")){%>
+			<% if (troisiemeChoix.equals("mesVentes") && cinquiemeChoix.equals("mesVentesNonDebutees")) {%>
+			
+		<form class="articles" method="get" action="./ServletDetailArticle">
+		<div class="flex-container">
+		<%for (Article current : article) { if (current.getDateDebutEnchere().isAfter(LocalDate.now())&& current.getCategorie().getLibelle().equals(choix)&&(current.isEtatVente()==false)&& current.getNomArticle().toLowerCase().contains(deuxiemeChoix.toLowerCase())&& user.getNoUtilisateur()==current.getUtilisateur().getNoUtilisateur()){
+			%>
+			<div class="UnArticle">
+    	<button class="bouteboute"  type="submit" name="idArticle" value="<%= current.getNoArticle() %>">
+        <%= current.getNomArticle() %>
+   		 </button>
+				<p>	<%="Prix: " + current.getPrixDepart() + " " + "points"%> </p>
+				<p>	<%="Fin de l'enchere: " + current.getDateFinEnchere()%> </p>
+				<p>	<%="Vendeur: " + current.getUtilisateur().getPseudo()%> </p>
+			</div>
+			<%
+			imprimeChacal=true;
+			}
+		}%>
+		</div>
+		</form>
+<!-- 	S'il n'y a aucune réponse à la recherche utilisateur, on imprime un message  -->
+	<%if(imprimeChacal==false) {%>
+	<h1><%="Aucun article trouvé pour ta recherche... Essaye autre chose"%></h1>
+	<%}}} %>
+	
+	
+	<!-- 	double if pour gérer "mes ventes terminées" selon la catégorie -->
+	
+	<% if(choix.equals("Toutes")){%>
+		<% if (troisiemeChoix.equals("mesVentes") && cinquiemeChoix.equals("mesVentesTerminees")) {%>
+		<form class="articles" method="get" action="./ServletDetailArticle">
+		<div class="flex-container">
+		<%for (Article current : allArticleByUser){if ((current.isEtatVente()==true) && current.getNomArticle().toLowerCase().contains(deuxiemeChoix.toLowerCase()) && user.getNoUtilisateur()==current.getUtilisateur().getNoUtilisateur()){
+			%>
+			<div class="unArticle">
+			<button class="bouteboute" type="submit" name="idArticle" value="<%= current.getNoArticle()%>">
+       		 <%= current.getNomArticle() %>
+   		 	</button>
+			<p>	<%="Prix: " + current.getPrixDepart() + " " + "points"%> </p>
+			<p>	<%="Fin de l'enchere: " + current.getDateFinEnchere()%> </p>
+			<p>	<%="Vendeur: " + current.getUtilisateur().getPseudo()%> </p>
+			</div>
+		<%
+		imprimeChacal=true; 
+		}}}}
+	%>
+	</div>
+		</form>
+<% 
+	 if(choix.equals("Informatique")||choix.equals("Ameublement")||choix.equals("Vetement")||choix.equals("Sport")){%>
+			<% if (troisiemeChoix.equals("mesVentes") && cinquiemeChoix.equals("mesVentesTerminees")) {%>
+			
+		<form class="articles" method="get" action="./ServletDetailArticle">
+		<div class="flex-container">
+		<%for (Article current : allArticleByUser) { if (current.getCategorie().getLibelle().equals(choix)&&(current.isEtatVente()==true)&& current.getNomArticle().toLowerCase().contains(deuxiemeChoix.toLowerCase())&& user.getNoUtilisateur()==current.getUtilisateur().getNoUtilisateur()){
+			%>
+			<div class="UnArticle">
+    	<button class="bouteboute"  type="submit" name="idArticle" value="<%= current.getNoArticle() %>">
+        <%= current.getNomArticle() %>
+   		 </button>
+				<p>	<%="Prix: " + current.getPrixDepart() + " " + "points"%> </p>
+				<p>	<%="Fin de l'enchere: " + current.getDateFinEnchere()%> </p>
+				<p>	<%="Vendeur: " + current.getUtilisateur().getPseudo()%> </p>
+			</div>
+			<%
+			imprimeChacal=true;
+			}
+		}%>
+		</div>
+		</form>
+<!-- 	S'il n'y a aucune réponse à la recherche utilisateur, on imprime un message  -->
+	<%if(imprimeChacal==false) {%>
+	<h1><%="Aucun article trouvé pour ta recherche... Essaye autre chose"%></h1>
+	<%}}} %>
+	
 	
 <!-- 	</div> -->
 	</div>

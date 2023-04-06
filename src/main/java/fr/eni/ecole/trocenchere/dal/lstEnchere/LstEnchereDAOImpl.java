@@ -42,6 +42,11 @@ public class LstEnchereDAOImpl implements LstEnchereDAO{
 			+ "administrateur FROM utilisateur "
 			+ "where noUtilisateur = ?";
 	
+	private static final String SELECT_ARTICLE_BY_USER = "SELECT noArticle, nom, description, date_debut_enchere, "
+			+ "date_fin_enchere, prix_depart, prix_vente, "
+			+ "etat_vente, Utilisateur_noUtilisateur, Categorie_noCategorie "
+			+ "FROM article "
+			+ "WHERE Utilisateur_noUtilisateur = ?";
 // renvoie tous les articles avec une date de fin d'enchère > a la date DATE (donc les articles avec une fin
 	// d'enchères après la date donnée
 	@Override
@@ -128,4 +133,69 @@ public class LstEnchereDAOImpl implements LstEnchereDAO{
 		return lstEnchere;
 	}
 
+
+	@Override
+	public List<Article> selectArticleByUser(Utilisateur utilisateur) throws TrocEnchereException {
+		TrocEnchereException tee = new TrocEnchereException();
+		List<Article> lstArticle = new  ArrayList<>();
+		try(Connection con = ConnectionProvider.getConnection()){
+		
+		PreparedStatement stmtArticle = con.prepareStatement(SELECT_ARTICLE_BY_USER);
+		stmtArticle.setInt(1, utilisateur.getNoUtilisateur());
+		ResultSet rsArt = stmtArticle.executeQuery();
+		
+
+		PreparedStatement stmtCate = con.prepareStatement(SELECT_CATEGORIE_BY_ID );
+		PreparedStatement stmtUser = con.prepareStatement(SELECT_USER_BY_ID);
+
+		
+		while (rsArt.next()) {
+			Article art = new Article();
+			art.setNoArticle(rsArt.getInt("noArticle"));
+			art.setNomArticle(rsArt.getString("nom"));
+			art.setDescription(rsArt.getString("description"));
+			art.setDateDebutEnchere(rsArt.getDate("date_debut_enchere").toLocalDate()); 
+			art.setDateFinEnchere(rsArt.getDate("date_fin_enchere").toLocalDate()); 
+			art.setPrixDepart(rsArt.getInt("prix_depart"));
+			art.setPrixVente(rsArt.getInt("prix_vente"));
+			art.setEtatVente(rsArt.getBoolean("etat_vente"));
+			stmtCate.setInt(1, rsArt.getInt("Categorie_noCategorie"));
+			ResultSet rsCate = stmtCate.executeQuery();
+			Categorie cate = new Categorie();
+			if (rsCate.next()) {
+				cate.setLibelle(rsCate.getString("libelle"));
+				cate.setNoCategorie(rsCate.getInt("noCategorie"));
+			}
+			
+			stmtUser.setInt(1, rsArt.getInt("Utilisateur_noUtilisateur"));
+			ResultSet rs1 = stmtUser.executeQuery();
+			Utilisateur user = new Utilisateur();
+			if (rs1.next()) {
+				user.setNoUtilisateur(rs1.getInt("noUtilisateur"));
+				user.setNom(rs1.getString("nom"));
+				user.setPrenom(rs1.getString("prenom"));
+				user.setPseudo(rs1.getString("pseudo"));
+				user.setEmail(rs1.getString("email"));
+				user.setTelephone(rs1.getString("telephone"));
+				user.setRue(rs1.getString("rue"));
+				user.setCodePostal(rs1.getString("code_postal"));
+				user.setVille(rs1.getString("ville"));
+				user.setMotDePasse(rs1.getString("mot_de_passe"));
+				user.setCredit(rs1.getInt("credit"));
+				user.setAdministrateur(rs1.getBoolean("administrateur"));
+			}
+			art.setUtilisateur(user);
+			art.setCategorie(cate);
+			
+			art.setUtilisateur(utilisateur);
+			lstArticle.add(art);
+		}
+	}catch (SQLException e){
+		e.printStackTrace();
+		tee.ajouterErreur("Problème à la selection des données (selectArticleByUser)");
+		throw tee;
+	}
+	return lstArticle;
+}
+	
 }
