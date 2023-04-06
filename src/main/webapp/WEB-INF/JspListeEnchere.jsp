@@ -287,11 +287,7 @@ function disableCheckboxes(boutonRadioValue) {
 		</div>
 		</form>
 	
-	
-<!-- 	S'il n'y a aucune réponse à la recherche utilisateur, on imprime un message  -->
-	<%if(imprimeChacal==false) {%>
-	<h1><%="Aucun article trouvé pour ta recherche... Essaye autre chose"%></h1>
-	<%}}} %>
+	<%}} %>
 	
 		<!-- 	Double if qui gèrent la condition "mes encheres" selon la catégorie -->
 	<% 
@@ -440,11 +436,7 @@ function disableCheckboxes(boutonRadioValue) {
 			<%
 			imprimeChacal=true;
 			}
-		}%>
-<!-- 	S'il n'y a aucune réponse à la recherche utilisateur, on imprime un message  -->
-	<%if(imprimeChacal==false) {%>
-	<h1><%="Aucun article trouvé pour ta recherche... Essaye autre chose"%></h1>
-	<%}}} %>
+		}}} %>
 		</div>
 		</form>
 	
@@ -536,6 +528,10 @@ function disableCheckboxes(boutonRadioValue) {
 			<%
 			imprimeChacal=true;
 			}}}} %>
+			<!-- 	S'il n'y a aucune réponse à la recherche utilisateur, on imprime un message  -->
+	<%if(imprimeChacal==false) {%>
+	<h1><%="Aucun article trouvé pour ta recherche... Essaye autre chose"%></h1>
+	<%}%>
 		</div>
 		</form>
 	
