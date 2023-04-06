@@ -13,7 +13,7 @@
 <div class="container">
 	<h1>Veuillez saisir votre email : </h1>
 	<div class="saisir">
-	<form method="get" action="/ServletMotDePasseOublie" >
+	<form method="get" action="./ServletMotDePasseOublie" >
 	<p style="margin-top:50px;">Email:</p>
 	<input type="email" id="email" name="email" minlength="10" maxlength="75" required>
 	<input style="margin-top:10px" class="bout" class="bouteFiltre" type="submit" value="Envoyer">
