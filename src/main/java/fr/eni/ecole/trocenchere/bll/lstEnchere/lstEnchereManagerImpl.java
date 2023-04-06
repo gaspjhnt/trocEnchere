@@ -27,7 +27,7 @@ public class lstEnchereManagerImpl implements lstEnchereManager{
 	@Override
 	public List<Article> selectArticleByUser(Utilisateur utilisateur) throws TrocEnchereException {
 		// TODO Auto-generated method stub
-		return null;
+		return dao.selectArticleByUser(utilisateur);
 	}
 
 }

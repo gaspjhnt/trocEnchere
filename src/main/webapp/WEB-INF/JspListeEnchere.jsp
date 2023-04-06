@@ -104,7 +104,7 @@ else if (succes != null){%>
 		<option value="Sport">Sport&Loisirs</option>
 	</select>
 	<label class="textFiltre" for="name">Filtres:</label>
-	<input type="search" id="name" name="recherche" placeholder="le nom de l'article contient"> 
+	<input class="bar" type="search" id="name" name="recherche" placeholder="le nom de l'article contient"> 
 	<input class="bouteFiltre" type="submit" value="Envoyer">
 </form>
 
@@ -272,7 +272,7 @@ function disableCheckboxes(boutonRadioValue) {
 		<div class="flex-container">
 		<%for (Article current : article) { if (current.getCategorie().getLibelle().equals(choix)&&(current.isEtatVente()==false)&& current.getNomArticle().toLowerCase().contains(deuxiemeChoix.toLowerCase())&& user.getNoUtilisateur()!=current.getUtilisateur().getNoUtilisateur()){
 			%>
-			<div class="UnArticle">
+			<div class="unArticle">
     	<button class="bouteboute"  type="submit" name="idArticle" value="<%= current.getNoArticle() %>">
         <%= current.getNomArticle() %>
    		 </button>
@@ -314,7 +314,8 @@ function disableCheckboxes(boutonRadioValue) {
 			<p>	<%="Vendeur: " + current.getArticle().getUtilisateur().getPseudo()%> </p>
 			<%lstTmp.add(current.getArticle().getNoArticle()); %>
 			</div>
-	<% }}}}%>
+	<%imprimeChacal=true;  
+	}}}}%>
 	
 	</div>
 	</form>
@@ -339,7 +340,8 @@ function disableCheckboxes(boutonRadioValue) {
 			<p>	<%="Vendeur: " + current.getArticle().getUtilisateur().getPseudo()%> </p>
 			<%lstTmp.add(current.getArticle().getNoArticle()); %>
 			</div>
-	<% }}}}%>
+	<%imprimeChacal=true;  
+	}}}}%>
 	
 	</div>
 	</form>
@@ -365,7 +367,8 @@ function disableCheckboxes(boutonRadioValue) {
 			<p>	<%="Vendeur: " + current.getArticle().getUtilisateur().getPseudo()%> </p>
 			<%lstTmp.add(current.getArticle().getNoArticle()); %>
 			</div>
-	<% }}}}%>
+	<%imprimeChacal=true;  
+	}}}}%>
 	
 	</div>
 	</form>
@@ -390,7 +393,8 @@ function disableCheckboxes(boutonRadioValue) {
 			<p>	<%="Vendeur: " + current.getArticle().getUtilisateur().getPseudo()%> </p>
 			<%lstTmp.add(current.getArticle().getNoArticle()); %>
 			</div>
-	<% }}}}%>
+	<%imprimeChacal=true;  
+	}}}}%>
 	
 	</div>
 	</form>
@@ -425,7 +429,7 @@ function disableCheckboxes(boutonRadioValue) {
 		<div class="flex-container">
 		<%for (Article current : article) { if ((current.getDateDebutEnchere().isBefore(LocalDate.now())||current.getDateDebutEnchere().isEqual(LocalDate.now())) && current.getCategorie().getLibelle().equals(choix)&&(current.isEtatVente()==false)&& current.getNomArticle().toLowerCase().contains(deuxiemeChoix.toLowerCase())&& user.getNoUtilisateur()==current.getUtilisateur().getNoUtilisateur()){
 			%>
-			<div class="UnArticle">
+			<div class="unArticle">
     	<button class="bouteboute"  type="submit" name="idArticle" value="<%= current.getNoArticle() %>">
         <%= current.getNomArticle() %>
    		 </button>
@@ -437,12 +441,12 @@ function disableCheckboxes(boutonRadioValue) {
 			imprimeChacal=true;
 			}
 		}%>
-		</div>
-		</form>
 <!-- 	S'il n'y a aucune réponse à la recherche utilisateur, on imprime un message  -->
 	<%if(imprimeChacal==false) {%>
 	<h1><%="Aucun article trouvé pour ta recherche... Essaye autre chose"%></h1>
 	<%}}} %>
+		</div>
+		</form>
 	
 	<!-- 	double if pour gérer "mes ventes non débutées" selon la catégorie -->
 	
@@ -472,9 +476,12 @@ function disableCheckboxes(boutonRadioValue) {
 			
 		<form class="articles" method="get" action="./ServletDetailArticle">
 		<div class="flex-container">
-		<%for (Article current : article) { if (current.getDateDebutEnchere().isAfter(LocalDate.now())&& current.getCategorie().getLibelle().equals(choix)&&(current.isEtatVente()==false)&& current.getNomArticle().toLowerCase().contains(deuxiemeChoix.toLowerCase())&& user.getNoUtilisateur()==current.getUtilisateur().getNoUtilisateur()){
-			%>
-			<div class="UnArticle">
+		
+		<%for (Article current : article) {%> 
+		<%if (current.getDateDebutEnchere().isAfter(LocalDate.now())&& current.getCategorie().getLibelle().equals(choix)&&(current.isEtatVente()==false)
+				&& current.getNomArticle().toLowerCase().contains(deuxiemeChoix.toLowerCase())&& user.getNoUtilisateur()==current.getUtilisateur().getNoUtilisateur()){%>
+			
+			<div class="unArticle">
     	<button class="bouteboute"  type="submit" name="idArticle" value="<%= current.getNoArticle() %>">
         <%= current.getNomArticle() %>
    		 </button>
@@ -482,16 +489,10 @@ function disableCheckboxes(boutonRadioValue) {
 				<p>	<%="Fin de l'enchere: " + current.getDateFinEnchere()%> </p>
 				<p>	<%="Vendeur: " + current.getUtilisateur().getPseudo()%> </p>
 			</div>
-			<%
-			imprimeChacal=true;
-			}
-		}%>
+			<%imprimeChacal=true;
+			}}}} %>
 		</div>
 		</form>
-<!-- 	S'il n'y a aucune réponse à la recherche utilisateur, on imprime un message  -->
-	<%if(imprimeChacal==false) {%>
-	<h1><%="Aucun article trouvé pour ta recherche... Essaye autre chose"%></h1>
-	<%}}} %>
 	
 	
 	<!-- 	double if pour gérer "mes ventes terminées" selon la catégorie -->
@@ -524,7 +525,7 @@ function disableCheckboxes(boutonRadioValue) {
 		<div class="flex-container">
 		<%for (Article current : allArticleByUser) { if (current.getCategorie().getLibelle().equals(choix)&&(current.isEtatVente()==true)&& current.getNomArticle().toLowerCase().contains(deuxiemeChoix.toLowerCase())&& user.getNoUtilisateur()==current.getUtilisateur().getNoUtilisateur()){
 			%>
-			<div class="UnArticle">
+			<div class="unArticle">
     	<button class="bouteboute"  type="submit" name="idArticle" value="<%= current.getNoArticle() %>">
         <%= current.getNomArticle() %>
    		 </button>
@@ -534,14 +535,9 @@ function disableCheckboxes(boutonRadioValue) {
 			</div>
 			<%
 			imprimeChacal=true;
-			}
-		}%>
+			}}}} %>
 		</div>
 		</form>
-<!-- 	S'il n'y a aucune réponse à la recherche utilisateur, on imprime un message  -->
-	<%if(imprimeChacal==false) {%>
-	<h1><%="Aucun article trouvé pour ta recherche... Essaye autre chose"%></h1>
-	<%}}} %>
 	
 	
 <!-- 	</div> -->
