@@ -22,7 +22,12 @@
 		}
 	}%>
 	
-<jsp:include page="NavBarConnecte.html"></jsp:include>	
+<%if(session.getAttribute("Utilisateur")==null){
+	 %>
+	<jsp:include page="NavBarDeconnecte.html"></jsp:include>
+<% } else {%>
+	<jsp:include page="NavBarConnecte.html"></jsp:include>
+	<%} %>	
 
 	<%
 	Utilisateur user = (Utilisateur) request.getAttribute("user");
