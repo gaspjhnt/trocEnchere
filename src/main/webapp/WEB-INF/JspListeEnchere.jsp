@@ -278,7 +278,7 @@ function disableCheckboxes(boutonRadioValue) {
 		<% if (troisiemeChoix.equals("achat") && quatriemeChoix.equals("encheresOuvertes")) {%>
 		<form class="articles" method="get" action="./ServletDetailArticle">
 		<div class="flex-container">
-		<%for (Article current : article){if (current.getDateDebutEnchere().isBefore(LocalDate.now()) &&(current.isEtatVente()==false) && current.getNomArticle().toLowerCase().contains(deuxiemeChoix.toLowerCase()) && user.getNoUtilisateur()!=current.getUtilisateur().getNoUtilisateur()){
+		<%for (Article current : article){if ((current.getDateDebutEnchere().isEqual(LocalDate.now())||current.getDateDebutEnchere().isBefore(LocalDate.now())) &&(current.isEtatVente()==false) && current.getNomArticle().toLowerCase().contains(deuxiemeChoix.toLowerCase()) && user.getNoUtilisateur()!=current.getUtilisateur().getNoUtilisateur()){
 			%>
 			<div class="unArticle">
 			<button class="bouteboute" type="submit" name="idArticle" value="<%= current.getNoArticle()%>">
@@ -304,7 +304,7 @@ function disableCheckboxes(boutonRadioValue) {
 			
 		<form class="articles" method="get" action="./ServletDetailArticle">
 		<div class="flex-container">
-		<%for (Article current : article) { if (current.getDateDebutEnchere().isBefore(LocalDate.now())&& current.getCategorie().getLibelle().equals(choix)&&(current.isEtatVente()==false)&& current.getNomArticle().toLowerCase().contains(deuxiemeChoix.toLowerCase())&& user.getNoUtilisateur()!=current.getUtilisateur().getNoUtilisateur()){
+		<%for (Article current : article) { if (( current.getDateDebutEnchere().isEqual(LocalDate.now())||current.getDateDebutEnchere().isBefore(LocalDate.now()))&& current.getCategorie().getLibelle().equals(choix)&&(current.isEtatVente()==false)&& current.getNomArticle().toLowerCase().contains(deuxiemeChoix.toLowerCase())&& user.getNoUtilisateur()!=current.getUtilisateur().getNoUtilisateur()){
 			%>
 			<div class="unArticle">
     	<button class="bouteboute"  type="submit" name="idArticle" value="<%= current.getNoArticle() %>">
