@@ -87,3 +87,9 @@ p{
 	color : red;
 	margin-left:20px;
 }
+
+@media (max-width: 800px){
+	.card{
+	width:85vw;
+	}
+}

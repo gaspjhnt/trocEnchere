@@ -50,7 +50,7 @@ List<Enchere> lstEnchere = (List<Enchere>) request.getAttribute("lstEnchere");
 <h1>Détail vente</h1>
 </div>
 	<div class="infos">
-		<p><%=article.getNomArticle() %></p>
+		<p id="nomArticle"><%=article.getNomArticle() %></p>
 		
 		<div class="monInfo">
 			<h3>Description :</h3> <p><%=article.getDescription() %></p>
@@ -120,7 +120,7 @@ List<Enchere> lstEnchere = (List<Enchere>) request.getAttribute("lstEnchere");
 	 	</form>
 	 	<%}else {%>
 	 		<form action="./ServletUdpateArticle" method="get">
-					<button type="submit" name="modifSupp" value=<%=article.getNoArticle() %>>
+					<button class="boute" type="submit" name="modifSupp" value=<%=article.getNoArticle() %>>
 		 			Modifier - Supprimer
 		 			</button>
 			<%} %>

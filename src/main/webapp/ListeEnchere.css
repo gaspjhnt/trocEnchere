@@ -33,7 +33,6 @@ label {
 }
 
 .bouteFiltre {
-	margin-left: 30px;
 	box-shadow: inset 0px 1px 0px 0px #EEE1B3;
 	background: linear-gradient(to bottom, #EEE1B3 5%, #EEE1B3 100%);
 	background-color: #EEE1B3;
@@ -63,7 +62,6 @@ label {
 .articles {
 	width: 100vw;
 	display: flex;
-	border: 1px solid red;
 }
 
 .flex-container {
@@ -72,17 +70,16 @@ label {
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: space-around;
-	border: 1px solid red;
 }
 
 .unArticle {
 	background-color:#EEE1B3;
 	color:#813405;
-	width:30vw;
+	width:22vw;
 	height: 25vh;
 	display:flex;
 	flex-direction:column;
-	justify-content:space-around;
+ 	justify-content:space-around;
 	align-items:center;
 	border-radius:3%;
 	font-size:1.3em;
@@ -105,5 +102,56 @@ label {
 	.inscrireCo:hover { background:linear-gradient(to bottom, #ffab23 5%, #ffec64 100%); 
 	background-color:#ffab23; } 
 	.inscrireCo:active { position:relative; top:1px; }
-	
 
+.rechercheSpe{
+	display:flex;
+	color:#EEE1B3;
+	font-size:1.3em;
+	width:40vw;
+	height:15vh;
+}
+.mesachats{
+	display:flex;
+	flex-direction:column;
+	align-items:flex-start;
+	width:50%;
+	height:100%;
+}
+.mesventes{
+	display:flex;
+	flex-direction:column;
+	align-items:flex-start;
+	width:50%;
+	height:100%;
+}
+label{
+	display:flex;
+	flex-direction:row-reverse;
+}
+input[type="radio"], input[type="checkbox"]{
+	margin-right:10px;
+}
+input[type="checkbox"]{
+	margin-left:20px;
+}
+	
+@media (max-width: 800px){
+	.unArticle{
+		width:90vw;
+	}
+	.rechercheSpe{
+		height:23vh;
+		width:70vw;
+		font-size:1.2em;
+	}
+	.filtre {
+	max-width: 100vw;
+	height: 10vh;
+	font-size: 1.2em;
+	border:1px solid red;
+}
+	.bouteFiltre{
+	font-size:8px;
+  	padding:3px 5px;
+	}
+}

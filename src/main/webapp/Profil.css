@@ -84,3 +84,9 @@ p{
 #bouton{
 	padding-bottom:30px;
 }
+
+@media (max-width: 800px){
+	.card{
+	width:85vw;
+	}
+}

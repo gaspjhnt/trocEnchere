@@ -85,3 +85,13 @@ h3{
 #mapropo{
 	padding-bottom:10px;
 }
+#nomArticle{
+	font-size:1.4em;
+	text-decoration: underline;
+}
+
+@media (max-width: 800px){
+	.cardArticle{
+	width:85vw;
+	}
+}

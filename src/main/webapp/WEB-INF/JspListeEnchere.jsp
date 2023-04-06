@@ -94,8 +94,8 @@ else if (succes != null){%>
 
 <div class="container">
 <!-- 	Création du champ de recherche et de la liste déroulante de catégorie -->
-<form class="filtre" method="post" action="./ServletListeEnchere">
-	<label for="choixCategorie">Catégorie :</label>
+<form class="filtre" method="post" action="./ServletListeEnchere" id="filtreform">
+	<label for="choixCategorie">Catégorie:</label>
 	<select name="categorie" id="choixCategorie">
 		<option value="Toutes">Toutes</option>
 		<option value="Informatique">Informatique</option>
@@ -103,44 +103,50 @@ else if (succes != null){%>
 		<option value="Vetement">Vêtement</option>
 		<option value="Sport">Sport&Loisirs</option>
 	</select>
-	<label class="textFiltre" for="name">Filtres :</label>
-	<input type="search" id="name" name="recherche" style="width:200px" placeholder="le nom de l'article contient"> 
+	<label class="textFiltre" for="name">Filtres:</label>
+	<input type="search" id="name" name="recherche" placeholder="le nom de l'article contient"> 
 	<input class="bouteFiltre" type="submit" value="Envoyer">
+</form>
 
 <%if(session.getAttribute("Utilisateur")!=null){%>
-  <label for="radio-1">Achat</label>
-  <input type="radio" name="bouton-radio" id="radio-1" value="achat"
+<div class="rechercheSpe">
+<div class="mesachats">
+  <label for="radio-1">Achat
+  <input type="radio" name="bouton-radio" id="radio-1" value="achat" form="filtreform"
          onclick="disableCheckboxes('bouton-radio-1')" checked>
-
-  <label for="checkbox-1-1">enchères ouvertes</label>
-  <input type="checkbox" name="checkbox-1" id="checkbox-1-1" value="encheresOuvertes"
+</label>
+  <label for="checkbox-1-1">enchères ouvertes
+  <input type="checkbox" name="checkbox-1" id="checkbox-1-1" value="encheresOuvertes" form="filtreform"
          onclick="checkIfAllChecked('bouton-radio-1'); uncheckOtherCheckboxes(this);" checked>
-
-  <label for="checkbox-1-2">mes enchères</label>
-  <input type="checkbox" name="checkbox-1" id="checkbox-1-2" value="mesEncheres"
+</label>
+  <label for="checkbox-1-2">mes enchères
+  <input type="checkbox" name="checkbox-1" id="checkbox-1-2" value="mesEncheres" form="filtreform"
          onclick="checkIfAllChecked('bouton-radio-1'); uncheckOtherCheckboxes(this);">
-
-  <label for="checkbox-1-3">mes enchères remportées</label>
-  <input type="checkbox" name="checkbox-1" id="checkbox-1-3" value="mesEnchereRemportees"
+</label>
+  <label for="checkbox-1-3">mes enchères remportées
+  <input type="checkbox" name="checkbox-1" id="checkbox-1-3" value="mesEnchereRemportees" form="filtreform"
          onclick="checkIfAllChecked('bouton-radio-1'); uncheckOtherCheckboxes(this);">
-
-
-  <label for="radio-2">Mes ventes</label>
-  <input type="radio" name="bouton-radio" id="radio-2" value="mesVentes"
+         </label>
+</div>
+<div class="mesventes">
+  <label for="radio-2">Mes ventes
+  <input type="radio" name="bouton-radio" id="radio-2" value="mesVentes" form="filtreform"
          onclick="disableCheckboxes('bouton-radio-2')">
-
-  <label for="checkbox-2-1">mes ventes en cours</label>
-  <input type="checkbox" name="checkbox-2" id="checkbox-2-1" value="mesVentesEnCours"
+</label>
+  <label for="checkbox-2-1">mes ventes en cours
+  <input type="checkbox" name="checkbox-2" id="checkbox-2-1" value="mesVentesEnCours" form="filtreform"
          onclick="checkIfAllChecked('bouton-radio-2'); uncheckOtherCheckboxes(this);">
-
-  <label for="checkbox-2-2">ventes non débutées</label>
-  <input type="checkbox" name="checkbox-2" id="checkbox-2-2" value="mesVentesNonDebutees"
+</label>
+  <label for="checkbox-2-2">ventes non débutées
+  <input type="checkbox" name="checkbox-2" id="checkbox-2-2" value="mesVentesNonDebutees" form="filtreform"
          onclick="checkIfAllChecked('bouton-radio-2'); uncheckOtherCheckboxes(this);">
-
-  <label for="checkbox-2-3">ventes terminées</label>
-  <input type="checkbox" name="checkbox-2" id="checkbox-2-3" value="mesVentesTerminees"
+</label>
+  <label for="checkbox-2-3">ventes terminées
+  <input type="checkbox" name="checkbox-2" id="checkbox-2-3" value="mesVentesTerminees" form="filtreform"
          onclick="checkIfAllChecked('bouton-radio-2'); uncheckOtherCheckboxes(this);">
-
+         </label>
+         </div>
+</div>
 
 
 <script>
@@ -189,7 +195,7 @@ function disableCheckboxes(boutonRadioValue) {
   });
 </script>
 <%}%>
-</form>
+
 <!-- 	<div class="articles"> -->
 	<!-- Boucle foreach de la Liste article qui va imprimer tous les articles dont la date de fin d'enchere est après la date du jour présents dans la base de donnée --> 
 	<% if(choix.equals("")){%>
